@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ownCommentSqlMap">
+	<resultMap type="com.ownliked.pojo.OwnComment" id="ownCommentMap">
+		<id property="id" column="ID" />
+		<result property="clipId" column="CLIPID" />
+		<result property="userId" column="USERID" />
+		<result property="byUserId" column="BYUSERID" />
+		<result property="commentText" column="COMMENTTEXT" />
+		<result property="createTime" column="CREATETIME" />
+		<result property="deleted" column="DELETED" />
+		<association property="ownUser" resultMap="ownUserSqlMap.ownUserMap"></association>
+	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnComment" id="ownCommentMapByClip">
+		<id property="id" column="tid" />
+		<result property="clipId" column="tclipId" />
+		<result property="userId" column="tuserId" />
+		<result property="commentText" column="tcommentText" />
+		<association property="ownUser" resultMap="ownUserSqlMap.ownUserMapByComment"></association>
+	</resultMap>
+	<sql id="sqlOwnComment">
+		SELECT * FROM own_comment t
+	</sql>
+	<select id="countOwnComment" resultType="int" parameterType="ownComment">
+		SELECT COUNT(t.id) FROM own_comment t
+	</select>
+	<select id="queryOwnComment" parameterType="ownComment" resultMap="ownCommentMap">
+		SELECT * FROM own_comment ORDER BY id DESC 
+		<trim prefix="LIMIT">
+			0, 4
+		</trim>
+	</select>
+	<select id="findOwnComment" parameterType="ownComment" resultType="ownComment">
+		SELECT * FROM own_comment t WHERE t.id = #{id}
+	</select>
+	<insert id="insertOwnComment" parameterType="ownComment" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO own_comment(clipId, userId, byUserId, commentText, createTime, deleted) VALUES
+			(#{clipId}, #{userId}, #{byUserId}, #{commentText}, NOW(), #{deleted})
+	</insert>
+	<update id="updateOwnComment" parameterType="ownComment">
+		UPDATE own_comment t 
+		<set>
+			<if test="email != null and email != ''">
+				t.email = #{email},
+			</if>
+			<if test="clipId != 0">
+				t.clipId = #{clipId},
+			</if>
+			<if test="userId != 0">
+				t.userId = #{userId},
+			</if>
+			<if test="byUserId != 0">
+				t.byUserId = #{byUserId},
+			</if>
+			<if test="commentText != null and commentText != ''">
+				t.commentText = #{commentText},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				t.createTime = #{createTime},
+			</if>
+			<if test="deleted != 0">
+				t.deleted = #{deleted},
+			</if>
+		</set>
+		WHERE t.id = #{id}
+	</update>
+	<delete id="deleteOwnComment" parameterType="ownComment">
+		DELETE FROM own_comment WHERE id = #{id}
+	</delete>
+</mapper>

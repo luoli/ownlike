@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ownUserSqlMap">
+	<resultMap type="com.ownliked.pojo.OwnUser" id="ownUserMap">
+		<id property="id" column="ID" />
+		<result property="email" column="EMAIL" />
+		<result property="password" column="PASSWORD" />
+		<result property="firstName" column="FIRSTNAME" />
+		<result property="lastName" column="LASTNAME" />
+		<result property="gender" column="GENDER" />
+		<result property="about" column="ABOUT" />
+		<result property="location" column="LOCATION" />
+		<result property="webSite" column="WEBSITE" />
+		<result property="image" column="IMAGE" />
+		<result property="language" column="LANGUAGE" />
+		<result property="activate" column="ACTIVATE" />
+		<result property="hideProfile" column="HIDEPROFILE" />
+		<result property="deactivate" column="DEACTIVATE" />
+		<result property="createTime" column="CREATETIME" />
+		<result property="follow" column="FOLLOW" />
+	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnUser" id="ownUserMapByComment">
+		<id property="id" column="uid" />
+		<result property="firstName" column="ufirstName" />
+		<result property="lastName" column="ulastName" />
+		<result property="image" column="uimage" />
+	</resultMap>
+	<sql id="sqlOwnUser">
+		SELECT * FROM own_user t
+	</sql>
+	<select id="countOwnUser" resultType="int" parameterType="ownUser">
+		SELECT COUNT(t.id) FROM own_user t
+	</select>
+	<select id="queryOwnUser" parameterType="ownUser" resultMap="ownUserMap">
+		SELECT * FROM own_user ORDER BY id DESC 
+		<trim prefix="LIMIT">
+			0, 4
+		</trim>
+	</select>
+	<select id="findOwnUser" parameterType="ownUser" resultType="ownUser">
+		SELECT * FROM own_user t 
+		<where>
+			<if test="id != 0">
+				t.id = #{id}
+			</if>
+			<if test="email != null and email != ''">
+				AND t.email = #{email}
+			</if>
+			<if test="password != null and password != ''">
+				AND t.password = #{password}
+			</if>
+		 </where>
+	</select>
+	<insert id="insertOwnUser" parameterType="ownUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO own_user(email, password, firstName, lastName, gender, about, location,
+			webSite, image, language, activate, hideProfile, deactivate, createTime, follow) VALUES
+			(#{email}, #{password}, #{firstName}, #{lastName}, #{gender}, #{about},
+		 	#{location}, #{webSite}, #{image}, #{language}, #{activate}, #{hideProfile}, #{deactivate}, NOW(), #{follow})
+	</insert>
+	<update id="updateOwnUser" parameterType="ownUser">
+		UPDATE own_user t 
+		<set>
+			<if test="email != null and email != ''">
+				t.email = #{email},
+			</if>
+			<if test="password != null and password != ''">
+				t.password = #{password},
+			</if>
+			<if test="firstName != null and firstName != ''">
+				t.firstName = #{firstName},
+			</if>
+			<if test="lastName != null and lastName != ''">
+				t.lastName = #{lastName},
+			</if>
+			<if test="gender != 0">
+				t.gender = #{gender},
+			</if>
+			<if test="about != null and about != ''">
+				t.about = #{about},
+			</if>
+			<if test="location != null and location != ''">
+				t.location = #{location},
+			</if>
+			<if test="webSite != null and webSite != ''">
+				t.webSite = #{webSite},
+			</if>
+			<if test="image != null and image != ''">
+				t.image = #{image},
+			</if>
+			<if test="language != 0">
+				t.language = #{language},
+			</if>
+			<if test="activate != 0">
+				t.activate = #{activate},
+			</if>
+			<if test="hideProfile != 0">
+				t.hideProfile = #{hideProfile},
+			</if>
+			<if test="deactivate != 0">
+				t.deactivate = #{deactivate},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				t.createTime = #{createTime},
+			</if>
+			<if test="follow != 0">
+				t.follow = #{follow},
+			</if>
+			<if test="boardNum != 0">
+				t.boardNum = t.boardNum + #{boardNum},
+			</if>
+			<if test="clipNum != 0">
+				t.clipNum = t.clipNum + #{clipNum},
+			</if>
+			<if test="likeNum != 0">
+				t.likeNum = t.likeNum + #{likeNum},
+			</if>
+			<if test="followerNum != 0">
+				t.followerNum = t.followerNum + #{followerNum},
+			</if>
+			<if test="followingNum != 0">
+				t.followingNum = t.followingNum + #{followingNum}
+			</if>
+		</set>
+		WHERE t.id = #{id}
+	</update>
+	<delete id="deleteOwnUser" parameterType="ownUser">
+		DELETE FROM own_user WHERE id = #{id}
+	</delete>
+</mapper>

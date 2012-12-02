@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ownActivityHistorySqlMap">
+	<resultMap type="com.ownliked.pojo.OwnActivityHistory" id="ownActivityHistoryMap">
+		<id property="id" column="ID" />
+		<result property="clipId" column="clipId" />
+		<result property="aUserId" column="a_userId" />
+		<result property="bUserId" column="b_userId" />
+		<result property="flag" column="flag" />
+		<result property="createTime" column="createTime" />
+	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnActivityHistory" id="ownActivityHistoryMapByClip">
+		<result property="bUserId" column="b_userId" />
+		<result property="flag" column="flag" />
+		<result property="createTime" column="createTime" />
+		<association property="clip" resultMap="ownClipSqlMap.activeByOwnClip"></association>
+	</resultMap>
+	<sql id="sqlownActivityHistory">
+		SELECT * FROM own_activity_history t
+	</sql>
+	<select id="queryActiveAndClip" parameterType="ownActivityHistory" resultMap="ownActivityHistoryMapByClip">
+		SELECT c.id, c.userId, c.`boardId`, c.`userName`, c.`boardName`, c.`userImage`, c.`clipType`, c.image, c.description, 
+			c.`commentNum`, c.`likeNum`, c.`reclipNum`, c.`link`, c.`previousId`, c.`viaUrl`, c.`reclipDescription`,
+			a.`createTime`, a.`flag`, a.`b_userId`,
+			cc.`userName` ccuserName,
+			l.`userId` luserId
+		FROM own_activity_history a 
+		LEFT JOIN own_clip c ON a.`clipId` = c.`id` 
+		LEFT JOIN own_clip cc ON cc.`id` = c.`previousId` 
+		LEFT JOIN own_liked l ON c.`id` = l.`clipId`
+		WHERE a.`a_userId` = #{aUserId}
+	</select>
+	<select id="countOwnActivityHistory" resultType="int" parameterType="ownActivityHistory">
+		SELECT COUNT(t.id) FROM own_activity_history t
+		<where>
+			<if test="aUserId != 0">AND t.a_userId = #{aUserId}</if>
+			<if test="bUserId != 0">AND t.b_userId = #{bUserId}</if>
+			<if test="clipId != 0">AND t.clipId = #{clipId}</if>
+		</where>
+	</select>
+	<select id="queryOwnActivityHistory" parameterType="ownActivityHistory" resultMap="ownActivityHistoryMap">
+		SELECT 
+			* 
+		FROM own_activity_history  
+			
+		ORDER BY id DESC 
+		<trim prefix="LIMIT">
+			0, 4
+		</trim>
+	</select>
+	<select id="findOwnActivityHistory" parameterType="ownActivityHistory" resultType="ownActivityHistory">
+		SELECT * FROM own_activity_history t WHERE t.id = #{id}
+	</select>
+	<insert id="insertOwnActivityHistory" parameterType="ownActivityHistory" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO own_activity_history(a_userId, b_userId, clipId, flag, createTime) VALUES
+			(#{aUserId}, #{bUserId}, #{clipId}, #{flag}, NOW())
+	</insert>
+	<update id="updateOwnActivityHistory" parameterType="ownActivityHistory">
+		UPDATE own_activity_history t 
+		<set>
+			<if test="aUserId != 0">
+				t.aUserId = #{aUserId}
+			</if>
+			<if test="bUserId != 0">
+				t.bUserId = #{bUserId}
+			</if>
+			<if test="clipId != 0">
+				t.clipId = #{clipId}
+			</if>
+			<if test="flag != 0">
+				t.flag = #{flag}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				t.createTime = #{createTime},
+			</if>
+		</set>
+		WHERE t.id = #{id}
+	</update>
+	<delete id="deleteOwnActivityHistory" parameterType="ownActivityHistory">
+		DELETE FROM own_activity_history 
+		<where>
+			<choose>
+				<when test="id != 0">id = #{id}</when>
+				<otherwise>
+					<if test="aUserId != 0">
+						AND a_userId = #{aUserId}
+					</if>
+					<if test="bUserId != 0">
+						AND b_userId = #{bUserId}
+					</if>
+					<if test="clipId != 0">
+						AND clipId = #{clipId}
+					</if>
+					<if test="flag != 0">
+						AND flag = #{flag}
+					</if>
+				</otherwise>
+			</choose>
+		</where>
+	</delete>
+</mapper>

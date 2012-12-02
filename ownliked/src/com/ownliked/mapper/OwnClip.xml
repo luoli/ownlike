@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ownClipSqlMap">
+	<resultMap type="com.ownliked.pojo.OwnClip" id="ownClipMap">
+		<id property="id" column="ID" />
+		<result property="userId" column="userId" />
+		<result property="description" column="description" />
+		<result property="boardId" column="boardId" />
+		<result property="image" column="image" />
+		<result property="link" column="link" />
+		<result property="cover" column="cover" />
+		<result property="commentNum" column="commentNum" />
+		<result property="likeNum" column="likeNum" />
+		<result property="reclipNum" column="reclipNum" />
+		<result property="createTime" column="createTime" />
+		<result property="deleted" column="deleted" />
+		<result property="viaUrl" column="viaUrl" />
+		<result property="reclipDescription" column="reclipDescription" />
+		<result property="boardName" column="boardName" />
+		<result property="userName" column="userName" />
+		<result property="userImage" column="userImage" />
+		<result property="uuid" column="uuid" />
+		<result property="clipType" column="clipType" />
+		<result property="previousId" column="previousId" />
+		<collection property="ownCommentList" resultMap="ownCommentSqlMap.ownCommentMapByClip"></collection>
+	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnClip" id="commentByOwnClipMap">
+		<id property="id" column="ID" />
+		<result property="userId" column="userId" />
+		<result property="description" column="description" />
+		<result property="boardId" column="boardId" />
+		<result property="image" column="image" />
+		<result property="link" column="link" />
+		<result property="cover" column="cover" />
+		<result property="commentNum" column="commentNum" />
+		<result property="likeNum" column="likeNum" />
+		<result property="reclipNum" column="reclipNum" />
+		<result property="createTime" column="createTime" />
+		<result property="deleted" column="deleted" />
+		<result property="viaUrl" column="viaUrl" />
+		<result property="reclipDescription" column="reclipDescription" />
+		<result property="boardName" column="boardName" />
+		<result property="userName" column="userName" />
+		<result property="userImage" column="userImage" />
+		<result property="uuid" column="uuid" />
+		<result property="clipType" column="clipType" />
+		<result property="previousId" column="previousId" />
+		<collection property="ownCommentList" resultMap="ownCommentSqlMap.ownCommentMapByClip"></collection>
+		<collection property="ownLikeds" resultMap="ownLikedSqlMap.byClipOwnLikedMap"></collection>
+	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnClip" id="boardByOwnClipMap">
+		<id property="id" column="cid" />
+		<result property="image" column="cimage" />
+	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnClip" id="activeByOwnClip">
+		<id property="id" column="ID" />
+		<result property="userId" column="userId" />
+		<result property="description" column="description" />
+		<result property="boardId" column="boardId" />
+		<result property="image" column="image" />
+		<result property="link" column="link" />
+		<result property="commentNum" column="commentNum" />
+		<result property="likeNum" column="likeNum" />
+		<result property="reclipNum" column="reclipNum" />
+		<result property="viaUrl" column="viaUrl" />
+		<result property="reclipDescription" column="reclipDescription" />
+		<result property="boardName" column="boardName" />
+		<result property="userName" column="userName" />
+		<result property="userImage" column="userImage" />
+		<result property="clipType" column="clipType" />
+		<result property="previousId" column="previousId" />
+		<result property="previousUserName" column="ccuserName" />
+		<collection property="ownLikeds" resultMap="ownLikedSqlMap.byClipOwnLikedMap"></collection>
+	</resultMap>
+	<sql id="sqlOwnClip">
+		SELECT * FROM own_clip t
+	</sql>
+	<select id="countOwnClip" resultType="int" parameterType="ownClip">
+		SELECT COUNT(t.id) FROM own_clip t
+	</select>
+	<select id="queryOwnClipByUserAndLiked" parameterType="ownClip" resultMap="ownClipMap">
+		SELECT c.id,c.userId,c.description,c.boardId,c.image,c.link,c.cover,c.commentNum,c.likeNum,c.reclipNum,c.createTime,
+		c.deleted,c.viaUrl,c.reclipDescription,c.boardName,c.userName,c.userImage,c.uuid,clipType,previousId,
+		l.id lid, l.clipId lclipId, l.userId luserId, l.byUserId lByUserId,
+		t.id tid,t.clipId tclipId,t.userId tuserId,t.commentText tcommentText,
+		u.id uid,u.image uimage,u.firstName ufirstName,u.lastName ulastName FROM own_clip c 
+		LEFT JOIN own_liked l ON c.id = l.clipId
+		LEFT JOIN own_comment t ON c.id = t.clipId 
+		LEFT JOIN own_user u ON t.userId = u.id 
+		WHERE l.userId = #{userId}
+	</select>
+	<select id="queryOwnClipByUser" parameterType="ownClip" resultMap="commentByOwnClipMap">
+		SELECT c.id,c.userId,c.description,c.boardId,c.image,c.link,c.cover,c.commentNum,c.likeNum,c.reclipNum,c.createTime,
+		c.deleted,c.viaUrl,c.reclipDescription,c.boardName,c.userName,c.userImage,c.uuid,clipType,previousId,
+		l.id lid, l.clipId lclipId, l.userId luserId, l.byUserId lByUserId,
+		t.id tid,t.clipId tclipId,t.userId tuserId,t.commentText tcommentText,
+		u.id uid,u.image uimage,u.firstName ufirstName,u.lastName ulastName FROM own_clip c 
+		LEFT JOIN own_liked l ON c.id = l.clipId
+		LEFT JOIN own_comment t ON c.id = t.clipId 
+		LEFT JOIN own_user u ON t.userId = u.id 
+			<where>
+				<if test="userId != 0">
+					c.userId = #{userId}
+				</if>
+			</where>
+		ORDER BY t.id DESC 
+		<trim prefix="LIMIT">
+			0, 100
+		</trim>
+	</select>
+	<select id="queryOwnClipByComment" parameterType="ownClip" resultMap="commentByOwnClipMap">
+		SELECT c.id,c.userId,c.description,c.boardId,c.image,c.link,c.cover,c.commentNum,c.likeNum,c.reclipNum,c.createTime,
+		c.deleted,c.viaUrl,c.reclipDescription,c.boardName,c.userName,c.userImage,c.uuid,clipType,previousId,
+		l.id lid, l.clipId lclipId, l.userId luserId, l.byUserId lByUserId,
+		t.id tid,t.clipId tclipId,t.userId tuserId,t.commentText tcommentText,
+		u.id uid,u.image uimage,u.firstName ufirstName,u.lastName ulastName FROM own_clip c 
+		LEFT JOIN own_liked l ON c.id = l.clipId
+		LEFT JOIN own_comment t ON c.id = t.clipId 
+		LEFT JOIN own_user u ON t.userId = u.id 
+		<where>
+			<if test="boardId != 0">
+				c.boardName IN (SELECT b.boardName FROM own_board b WHERE b.parentId = #{boardId})
+			</if>
+		</where>
+		ORDER BY id DESC 
+		<trim prefix="LIMIT">
+			0, 100
+		</trim>
+	</select>
+	<select id="queryOwnClip" parameterType="ownClip" resultMap="commentByOwnClipMap">
+		SELECT * FROM own_clip t 
+			<where>
+				<if test="boardId != 0">
+					t.boardId = #{boardId}
+				</if>
+			</where>
+		ORDER BY t.id DESC 
+		<trim prefix="LIMIT">
+			0, 100
+		</trim>
+	</select>
+	<select id="findOwnClip" parameterType="ownClip" resultType="ownClip">
+		SELECT * FROM own_clip t WHERE t.id = #{id}
+	</select>
+	
+	<insert id="insertOwnClip" parameterType="ownClip" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO own_clip (userId, description, boardId, image, link, cover, commentNum, 
+			likeNum, reclipNum, createTime, deleted, viaUrl, reclipDescription, boardName, userName, userImage, uuid, clipType, previousId) 
+		VALUES
+			(#{userId}, #{description}, #{boardId}, #{image}, #{link}, #{cover}, #{commentNum}, 
+				#{likeNum}, #{reclipNum}, NOW(), #{deleted}, #{viaUrl}, #{reclipDescription}, #{boardName}, #{userName}, #{userImage}, #{uuid}, #{clipType}, #{previousId})
+	</insert>
+	<update id="updateOwnClip" parameterType="ownClip">
+		UPDATE own_clip t 
+		<set>
+			<if test="userId != 0">
+				userId = #{userId},
+			</if>
+			<if test="description != null and description != ''">
+				description = #{description},
+			</if>
+			<if test="boardId != 0">
+				boardId = #{boardId},
+			</if>
+			<if test="image != null and image != ''">
+				image = #{image},
+			</if>
+			<if test="link != null and link != ''">
+				link = #{link},
+			</if>
+			<if test="cover != 0">
+				cover = #{cover},
+			</if>
+			<if test="commentNum != 0">
+				commentNum = commentNum + #{commentNum},
+			</if>
+			<if test="likeNum != 0">
+				likeNum = likeNum + #{likeNum},
+			</if>
+			<if test="reclipNum != 0">
+				reclipNum = reclipNum + #{reclipNum},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				t.createTime = #{createTime},
+			</if>
+			<if test="deleted != 0">
+				t.deleted = #{deleted},
+			</if>
+			<if test="viaUrl != null and viaUrl != ''">
+				t.viaUrl = #{viaUrl},
+			</if>
+			<if test="reclipDescription != null and reclipDescription != ''">
+				t.reclipDescription = #{reclipDescription},
+			</if>
+			<if test="boardName != null and boardName != ''">
+				t.boardName = #{boardName},
+			</if>
+			<if test="userName != null and userName != ''">
+				t.userName = #{userName},
+			</if>
+			<if test="userImage != null and userImage != ''">
+				t.userImage = #{userImage},
+			</if>
+			<if test="uuid != 0">
+				t.uuid = #{uuid},
+			</if>
+			<if test="clipType != null and clipType != ''">
+				t.clipType = #{clipType},
+			</if>
+			<if test="previousId != 0">
+				t.previousId = #{previousId},
+			</if>
+		</set>
+		WHERE t.id = #{id}
+	</update>
+	<delete id="deleteOwnClip" parameterType="ownClip">
+		DELETE FROM own_clip WHERE id = #{id}
+	</delete>
+</mapper>

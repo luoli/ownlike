@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ownLikedSqlMap">
+	<resultMap type="com.ownliked.pojo.OwnLiked" id="ownLikedMap">
+		<id property="id" column="ID" />
+		<result property="clipId" column="CLIPID" />
+		<result property="userId" column="USERID" />
+		<result property="byUserId" column="BYUSERID" />
+		<result property="createTime" column="CREATETIME" />
+	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnLiked" id="byClipOwnLikedMap">
+		<id property="id" column="LID" />
+		<result property="clipId" column="LCLIPID" />
+		<result property="userId" column="LUSERID" />
+		<result property="byUserId" column="LBYUSERID" />
+		<result property="createTime" column="LCREATETIME" />
+	</resultMap>
+	<sql id="sqlOwnLiked">
+		SELECT * FROM own_liked t
+	</sql>
+	<select id="countOwnLiked" resultType="int" parameterType="ownLiked">
+		SELECT COUNT(t.id) FROM own_liked t
+	</select>
+	<select id="queryOwnLiked" parameterType="ownLiked" resultMap="ownLikedMap">
+		SELECT * FROM own_liked ORDER BY id DESC 
+		<trim prefix="LIMIT">
+			0, 4
+		</trim>
+	</select>
+	<select id="findOwnLiked" parameterType="ownLiked" resultType="ownLiked">
+		SELECT * FROM own_liked t WHERE t.id = #{id}
+	</select>
+	<insert id="insertOwnLiked" parameterType="ownLiked" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO own_liked(clipId, userId, byUserId, createTime) VALUES
+			(#{clipId}, #{userId}, #{byUserId}, NOW())
+	</insert>
+	<update id="updateOwnLiked" parameterType="ownLiked">
+		UPDATE own_liked t 
+		<set>
+			<if test="clipId != 0">
+				t.clipId = #{clipId},
+			</if>
+			<if test="userId != 0">
+				t.userId = #{userId},
+			</if>
+			<if test="byUserId != 0">
+				t.byUserId = #{byUserId},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				t.createTime = #{createTime},
+			</if>
+		</set>
+		WHERE t.id = #{id}
+	</update>
+	<delete id="deleteOwnLiked" parameterType="ownLiked">
+		DELETE FROM own_liked 
+			<where>
+				<choose>
+					<when test="id == 0">
+						clipId = #{clipId} AND userId = #{userId}
+					</when>
+					<otherwise>id = #{id}</otherwise>
+				</choose>
+			</where>
+	</delete>
+</mapper>

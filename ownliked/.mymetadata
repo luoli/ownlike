@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ownliked"
+  id="myeclipse.1342232505823"
+  context-root="/ownliked"
+  j2ee-spec="5.0"
+  archive="ownliked.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

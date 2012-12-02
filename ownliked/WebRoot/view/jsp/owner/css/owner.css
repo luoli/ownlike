@@ -1,0 +1,61 @@
+@CHARSET "UTF-8";
+
+/* PROFILE PAGE
+--------------------------------------------------------------------------------------- */
+#profile #Header { position: relative; }
+#profile .FixedContainer { width: 934px; }
+#profile #ProfileHeader { background: rgba(34,25,25,0.05); padding: 10px 0 8px; font-size: 13px; color: #534f4f; overflow: hidden; }
+#profile #UnauthCallout { background: rgba(34,25,25,0.05); }
+#profile #UnauthCallout .Nag { position: absolute; }
+#profile .row { margin: 10px auto; }
+#profile .row > div { float: left; background: #fff; box-shadow: 0 1px 3px rgba(34,25,25,0.5); -moz-box-shadow: 0 1px 3px rgba(34,25,25,0.5); -webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.5); }
+#profile .row > div h3 { font-size:13px; font-weight: bold; padding: 12px 10px 7px; color: #534f4f; }
+
+/* Main header */
+#profile #ProfileHeader .info { height: 165px; width: 698px; position: relative; }
+#profile #ProfileHeader .info .ProfileImage { height: 165px; float: left; max-width: 160px; overflow: hidden; }
+#profile #ProfileHeader .info .ProfileImage img { height: 100%; }
+#profile #ProfileHeader .info .content { margin-left: 180px; padding-right: 15px; }
+#profile #ProfileHeader .info h1 { color: #534f4f; margin: 15px 0 10px 0; font-size: 30px; }
+#profile #ProfileHeader .info p { line-height: 18px; }
+
+#profile #ProfileHeader .info p.noDescription:hover { padding: 3px; margin: -4px 0 0 -4px; border: 1px solid #c9b5b5; cursor: text; margin-bottom: 6px; }
+#profile #ProfileHeader .info p.noDescription img {margin-left: 8px; vertical-align: middle; margin-top: -4px;}
+#profile #ProfileHeader .info #editDescription { display: none; }
+#profile #ProfileHeader .info #editDescription textarea { width: 100%; min-height: 50px; height: 50px; font-size: 13px; margin-bottom: 5px; }
+#profile #ProfileHeader .info #editDescription .Button { float: right; }
+#profile #ProfileHeader .info #editDescription .CharacterCount { float: right; margin-right: 10px; margin-top: 4px; }
+#profile #ProfileHeader .info #editDescription .CharacterCount.error { font-size: 13px; margin-top: 3px; }
+
+/* Repin column */
+#profile #ProfileHeader .row .repins { width: 224px; float: right; min-height: 165px; overflow: hidden; }
+#profile #ProfileHeader .row .repins a { display: block; padding: 5px 10px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+#profile #ProfileHeader .row .repins img { width: 32px; height: 32px; float: left; margin-right: 10px; }
+#profile #ProfileHeader .row .repins strong { line-height: 30px; }
+
+/* Profile tabs */
+#profile #ContextBar { margin: 0px; padding: 0; background: #faf7f7; overflow: hidden; border-bottom: none; line-height: 48px; box-shadow: inset 0 1px #fff, 0 1px 3px rgba(34,25,25,0.4); -moz-box-shadow: inset 0 1px #fff, 0 1px 3px rgba(34,25,25,0.4); -webkit-box-shadow: inset 0 1px #fff, 0 1px 3px rgba(34,25,25,0.4); z-index:100; }
+#profile #ContextBar.fixed { left: 0; right: 0; top: -1px; }
+#profile #ContextBar .FixedContainer { overflow: hidden; margin: 0px auto -1px; }
+#profile #ContextBar a { text-decoration: none; }
+#profile #ContextBar ul { float: left; }
+#profile #ContextBar ul li { float: left; }
+#profile #ContextBar ul li a { display: block; padding: 0px 15px; font-size: 13px; color: #554747; border-top: 1px solid #fff; height: 48px; }
+#profile #ContextBar ul li a:hover { background-color: #E1DFDF; color: #554747; border-top-color: #E1DFDF; }
+#profile #ContextBar ul li a:active { background-color: #cb2027; color: #fff; border-top-color: #cb2027; text-shadow: none; }
+#profile #ContextBar ul li a.selected { position: relative; overflow: hidden; border-left: 1px solid #cdc5c5; border-right: 1px solid #cdc5c5; border-top: 1px solid #f3f3f2; background: #f1eeed; text-shadow: #fff 0 1px 0; background: #e0dcdb; background: -moz-linear-gradient(top,  #e0dcdb 0%, #f4f1f1 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0dcdb), color-stop(100%,#f4f1f1)); background: -ms-linear-gradient(top,  #e0dcdb 0%,#f4f1f1 100%); background: linear-gradient(top,  #e0dcdb 0%,#f4f1f1 100%); }
+#profile #ContextBar ul li a.selected:active { color: #554747; }
+#profile #ContextBar ul li a.selected:before { position: absolute; left: 0; top: -10px; bottom: -10px; right: 0; content: ""; box-shadow: inset 0 0px 10px rgba(34,25,25,0.1); -moz-box-shadow: inset 0 0px 10px rgba(34,25,25,0.1); -webkit-box-shadow: inset 0 0px 10px rgba(34,25,25,0.1);  }
+#profile #ContextBar .action { letter-spacing: -.31em; word-spacing: -.43em; margin: 1px auto; width: 160px; text-align: center; }
+#profile #ContextBar .action a {  letter-spacing: normal; word-spacing: normal; }
+#profile #ContextBar .action .Tab, #profile #ContextBar .action #RearrangeCancel { display: inline-block; height: 24px; line-height: 24px; margin-top: -4px; vertical-align: middle; }
+#profile #ContextBar .action .Tab { margin-right: -1px; padding: 0 8px; }
+#profile #ContextBar .action .Tab.Left { border-radius: 4px 0 0 4px; -moz-border-radius: 4px 0 0 4px; -webkit-border-radius: 4px 0 0 4px; }
+#profile #ContextBar .action .Tab.Right { border-radius: 0 4px 4px 0; -moz-border-radius: 0 4px 4px 0; -webkit-border-radius: 0 4px 4px 0; }
+#profile #ContextBar .action #RearrangeButton { padding: 0 5px; }
+#profile #ContextBar .action #RearrangeButton em { background: url(../images/RearrangeIcon.png) no-repeat center; display: block; height: 24px; width: 25px; }
+#profile #ContextBar .action #RearrangeButton.redButton em { background-image: url(../images/Rearrange-Confirm.png) }
+#profile #ContextBar .action #RearrangeCancel { background: url(../images/Rearrange-Cancel.png) no-repeat center center; width: 25px; margin-right: -25px; text-indent:-999px; overflow: hidden; }
+#profile #ContextBar .follow { float: right; }
+#profile #ContextBar .button { font-weight: bold; }
+#profile #columnContainer {margin-top: 15px; }

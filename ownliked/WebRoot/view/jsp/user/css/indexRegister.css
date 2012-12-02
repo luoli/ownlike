@@ -1,0 +1,38 @@
+#login_logo{
+	margin:96px 0 0 ;
+}
+#login_logo a{
+	display:block;
+	width:259px;
+	height:66px;
+	margin: 0 auto 50px;
+}
+form.registerForm{
+	width:260px;
+	margin:0 auto;
+}
+form.registerForm li{
+	border:none !important
+}
+.not_inputs{
+	overflow:hidden;
+}
+.not_inputs .button{
+	float:left;
+}
+#forgetPassword, #backToLogin{
+	float:right;
+	font-size:13px;
+	font-weight:normal;
+	margin:11px 0 0 12px;
+}
+.colorless, .colorless a{
+	color:#8c7e7e;
+}
+.error{
+	text-align:center;
+	font-size: 18px;
+	font-weight: 300;
+	color:red; !important
+}
+  

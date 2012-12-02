@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ownBoardSqlMap">
+	<resultMap type="com.ownliked.pojo.OwnBoard" id="ownBoardMap">
+		<id property="id" column="ID" />
+		<result property="parentId" column="parentId" />
+		<result property="userId" column="userId" />
+		<result property="boardName" column="boardName" />
+		<result property="flag" column="flag" />
+		<result property="xPixel" column="xPixel" />
+		<result property="yPixel" column="yPixel" />
+		<result property="ordering" column="ordering" />
+		<result property="createTime" column="createTime" />
+		<result property="deleted" column="deleted" />
+	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnBoard" id="ownBoardMapBy4Clip">
+		<id property="id" column="ID" />
+		<result property="parentId" column="parentId" />
+		<result property="userId" column="userId" />
+		<result property="boardName" column="boardName" />
+		<result property="flag" column="flag" />
+		<result property="xPixel" column="xPixel" />
+		<result property="yPixel" column="yPixel" />
+		<result property="ordering" column="ordering" />
+		<result property="createTime" column="createTime" />
+		<result property="deleted" column="deleted" />
+		<result property="clipNum" column="clipNum" />
+		<result property="isFollow" column="isFollow" />
+		<result property="a_userId" column="a_userId" />
+		<result property="boardId" column="boardId" />
+		<collection property="clipList" resultMap="ownClipSqlMap.boardByOwnClipMap"></collection>
+<!--		<collection property="followList" resultMap="ownUserFollowSqlMap.ownUserFollowMap"></collection>-->
+	</resultMap>
+	<sql id="sqlOwnBoard">
+		SELECT * FROM own_board t
+	</sql>
+	<select id="queryOwnUserBoardAndIsFollow" parameterType="ownBoard" resultMap="ownBoardMap">
+		SELECT * FROM own_board b WHERE b.`id` IN 
+			(SELECT f.`boardId` FROM own_user_follow f WHERE f.`b_userId` = #{userId} AND f.`a_userId` = #{a_userId})
+			AND b.`parentId` != 0 AND b.`deleted` = 0 AND b.`userId` = #{userId}
+	</select>
+	<select id="queryOwnUserBoardAndNotFollow" parameterType="ownBoard" resultMap="ownBoardMap">
+		SELECT * FROM own_board b WHERE b.`id` NOT IN 
+			(SELECT f.`boardId` FROM own_user_follow f WHERE f.`b_userId` = #{userId} AND f.`a_userId` = #{a_userId})
+			AND b.`parentId` != 0 AND b.`deleted` = 0 AND b.`userId` = #{userId}
+	</select>
+	<select id="queryOwnUserBoardBy4Clip" resultMap="ownBoardMapBy4Clip" parameterType="ownBoard">
+		SELECT 
+			b.id, b.boardName, b.parentId, b.userId, b.flag, b.xPixel, b.yPixel, b.ordering, b.createTime, b.deleted, b.clipNum, 
+			c.id cid, c.image cimage,
+			f.a_userId, f.boardId
+		FROM own_board b 
+		LEFT JOIN own_clip c ON b.id = c.boardId 
+		LEFT JOIN own_user_follow f ON b.userId = f.b_userId AND b.id = f.boardId
+		WHERE b.userId = #{userId}
+	</select>
+	<select id="countOwnBoard" resultType="int" parameterType="ownBoard">
+		SELECT COUNT(t.id) FROM own_board t
+	</select>
+	<select id="queryOwnBoard" parameterType="ownBoard" resultMap="ownBoardMap">
+		SELECT * FROM own_board t 
+			<where>
+				<if test="boardName != null and boardName != ''">
+					t.boardName = #{boardName}
+				</if>
+				<if test="userId != 0">
+					AND t.userId = #{userId}
+				</if>
+				<if test="parentId == -1">
+					AND t.parentId IS NULL
+				</if>
+				<if test="flag != 0">
+					AND t.flag = #{flag}
+				</if>
+				<if test="deleted != 2">
+					AND t.deleted = #{deleted}
+				</if>
+			</where>
+		ORDER BY id DESC 
+	</select>
+	<select id="findOwnBoard" parameterType="ownBoard" resultType="ownBoard">
+		SELECT * FROM own_board t WHERE t.id = #{id}
+	</select>
+	<insert id="insertOwnBoard" parameterType="ownBoard" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO own_board (parentId, boardName, flag, userId, xPixel, yPixel, ordering, createTime, deleted) 
+		VALUES
+			(#{parentId}, #{boardName}, #{flag}, #{userId}, #{xPixel}, #{yPixel}, #{ordering}, NOW(), #{deleted})
+	</insert>
+	<update id="updateOwnBoard" parameterType="ownBoard">
+		UPDATE own_board t 
+		<set>
+			<if test="parentId != 0">
+				t.parentId = #{parentId}
+			</if>
+			<if test="boardName != null and boardName != ''">
+				t.boardName = #{boardName}
+			</if>
+			<if test="flag != 0">
+				t.flag = #{flag}
+			</if>
+			<if test="userId != 0">
+				t.userId = #{userId}
+			</if>
+			<if test="xPixel != 0">
+				t.xPixel = #{xPixel}
+			</if>
+			<if test="yPixel != 0">
+				t.yPixel = #{yPixel}
+			</if>
+			<if test="ordering != 0">
+				t.ordering = #{ordering}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				t.createTime = #{createTime},
+			</if>
+			<if test="deleted != 0">
+				t.deleted = #{deleted}
+			</if>
+		</set>
+		WHERE t.id = #{id}
+	</update>
+	<delete id="deleteOwnBoard" parameterType="ownBoard">
+		DELETE FROM own_board WHERE id = #{id}
+	</delete>
+</mapper>

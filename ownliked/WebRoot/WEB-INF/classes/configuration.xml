@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="lazyLoadingEnabled" value="false"/>
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.ownliked.pojo.OwnUser" alias="ownUser"/>
+		<typeAlias type="com.ownliked.pojo.OwnUserFollow" alias="ownUserFollow"/>
+		<typeAlias type="com.ownliked.pojo.OwnComment" alias="ownComment"/>
+		<typeAlias type="com.ownliked.pojo.OwnClip" alias="ownClip"/>
+		<typeAlias type="com.ownliked.pojo.OwnBoard" alias="ownBoard"/>
+		<typeAlias type="com.ownliked.pojo.OwnActivityHistory" alias="ownActivityHistory"/>
+		<typeAlias type="com.ownliked.pojo.OwnLiked" alias="ownLiked"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/ownliked/mapper/OwnUser.xml"/>
+		<mapper resource="com/ownliked/mapper/OwnClip.xml"/>
+		<mapper resource="com/ownliked/mapper/OwnBoard.xml"/>
+		<mapper resource="com/ownliked/mapper/OwnUserFollow.xml"/>
+		<mapper resource="com/ownliked/mapper/OwnComment.xml"/>
+		<mapper resource="com/ownliked/mapper/OwnLiked.xml"/>
+		<mapper resource="com/ownliked/mapper/OwnActivityHistory.xml"/>
+	</mappers>
+</configuration>

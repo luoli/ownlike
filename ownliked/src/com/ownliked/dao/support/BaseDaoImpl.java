@@ -33,7 +33,8 @@ public abstract class BaseDaoImpl<Entity extends Serializable, Query extends Obj
 	}
 	
 	protected int countEntity(String sqlMap, Query query){
-		return this.getSqlSessiontemplate().selectOne(sqlMap, query);
+		//return this.getSqlSessiontemplate().selectOne(sqlMap, query);
+      return 0;
 	}
 	
 	protected Entity findEntity(String sqlMap, Query query) {

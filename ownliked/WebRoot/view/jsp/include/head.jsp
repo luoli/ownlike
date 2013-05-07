@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript">window.myBoards = '${myOwnBoards}';</script>
 <div class="headContainer" style="width:1170px;">
-	<a id="ownliked" href="/ownliked">Ownliked</a>
+	<a id="ownliked" href="/">Ownliked</a>
 	<ul id="navigation">
 		<li>
 			<c:choose>

@@ -37,7 +37,7 @@
 					<h2>Upload a Clip</h2>
 				</div>
 				<div class="pinTop">
-					<form action="ownClip/uploadClip.h" type="post">
+					<form action="ownClip/uploadClip.h" method="post">
 						<input type="hidden" id="boardId" name="boardId" value="1"/>
 						<input type="hidden" id="boardName" name="boardName" value=""/>
 						<input type="hidden" id="upImage" name="image"/>

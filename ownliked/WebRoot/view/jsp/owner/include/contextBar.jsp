@@ -64,7 +64,7 @@
                 fixed = false;
             };
         });
-
+		/**
         $('#rearrangeButton').tipsy({
             title: 'tooltip',
             gravity: 'n',
@@ -78,7 +78,7 @@
             fade: true,
             html: true
         });
-
+		**/
         noDescription.click(function() {
             var form = $('#editDescription'),
                 textarea = $('textarea', form),

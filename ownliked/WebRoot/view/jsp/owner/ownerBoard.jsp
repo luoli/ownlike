@@ -167,14 +167,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </script>
   <script type="text/javascript" charset="utf-8">
     BoardLayout.setup();
+    /**
     $.pageless.settings.complete = function(){
         BoardLayout.newPins();
     };
+    **/
     $(document).ready(function() {
         if (50 > 0) {
             $('#LoadingPins').hide();
         }
-        var coverSelector = new BoardCoverSelector();
+        /**var coverSelector = new BoardCoverSelector();**/
         var fancySuccess = function(board, data) {
             var bg = $('#CropImage').find(".bg");
             var frame = $('#CropImage').find(".frame");

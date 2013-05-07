@@ -88,8 +88,8 @@ var CreateBoardModel = function(){
 					url : "ownBoard/insertOwnBoardByUser.h",
 					type : "POST",
 					data : {"boardName":data, "parentId":cn},
+					dataType : "json",
 					success : function(result){
-						var result = eval("("+result+")");
 						if(result.status == "seccess"){
 							console.log("seccess");
 							//window.location.href="";

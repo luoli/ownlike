@@ -61,8 +61,10 @@ public class OwnClipController extends BaseController {
 		ownClipParam.setUserId(userId);
 		if(null != filter && filter.equals("likes")){
 			ownClips = ownClipService.queryOwnClipByUserAndLiked(ownClipParam);
+			map.put("selBar", "like");
 		}else{
 			ownClips = ownClipService.queryOwnClipByUser(ownClipParam);
+			map.put("selBar", "pin");
 		}
 		map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
 		map.put("ownClips", ownClips);

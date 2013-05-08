@@ -1,35 +1,36 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="FixedContainer">
    <ul class="links">
 	  <li>
-	    <a href="ownBoard/searchBoardByOwnUser.h?userId=${ownUser.id}" class="selected">
+	    <a href="ownBoard/searchBoardByOwnUser.h?userId=${ownUser.id}" <c:if test="${selBar == 'board'}">class="selected"</c:if>>
 	      <strong>${ownUser.boardNum}</strong> Boards
 	    </a>
 	  </li>
 	  <li>
-	    <a href="ownClip/searchClipByCurrentUser.h?userId=${ownUser.id}">
+	    <a href="ownClip/searchClipByCurrentUser.h?userId=${ownUser.id}" <c:if test="${selBar == 'pin'}">class="selected"</c:if>>
 	      <strong>${ownUser.clipNum}</strong> Pins
 	    </a>
 	  </li>
 	  <li>
-	    <a href="ownClip/searchClipByCurrentUser.h?userId=${ownUser.id}&filter=likes">
+	    <a href="ownClip/searchClipByCurrentUser.h?userId=${ownUser.id}&filter=likes" <c:if test="${selBar == 'like'}">class="selected"</c:if>>
 	      <strong>${ownUser.likeNum}</strong> Likes
 	    </a>
 	  </li>
 	  <li>
-	    <a href="ownActivateHistory/getCurrentUserActive.h?userId=${ownUser.id}">
+	    <a href="ownActivateHistory/getCurrentUserActive.h?userId=${ownUser.id}" <c:if test="${selBar == 'active'}">class="selected"</c:if>>
 	      Activity
 	    </a>
 	  </li>
    </ul>
    <ul class="follow">
 	  <li>
-	    <a href="/fallcru6/followers/">
+	    <a href="/fallcru6/followers/" <c:if test="${selBar == 'follow'}">class="selected"</c:if>>
 	      <strong>${ownUser.followerNum}</strong> Followers
 	    </a>
 	  </li>
 	  <li>
-	    <a href="/fallcru6/following/">
+	    <a href="/fallcru6/following/" <c:if test="${selBar == 'following'}">class="selected"</c:if>>
 	      <strong>${ownUser.followingNum}</strong> Following
 	    </a>
 	  </li>

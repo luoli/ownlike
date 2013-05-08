@@ -53,6 +53,7 @@ public class OwnActivityHistoryController extends BaseController {
 		map.put("ownActivityHistorys", ownActivityHistorys);
 		map.put("ownUser", ouParam);
 		map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
+		map.put("selBar", "active");
 		return "/owner/ownerActivity";
 	}
 

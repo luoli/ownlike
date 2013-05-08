@@ -49,6 +49,7 @@ public class OwnBoardController extends BaseController {
 		map.put("ownBoards", ownBoards);
 		map.put("ownUser", ownUser);
 		map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
+		map.put("selBar", "board");
 		return "/owner/ownerBoard";
 	}
 	

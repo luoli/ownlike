@@ -216,6 +216,12 @@ background-position: -21px -30px;
 .pin .pinImage {
 	background-color: #F2F0F0;
 }
+.pin .pinImage:HOVER{
+	cursor: pointer;
+	cursor: -webkit-zoom-in;
+	cursor: -moz-zoom-in;
+	cursor: zoom-in;
+}
 .pin .imgLink {
 	position: relative;
 }

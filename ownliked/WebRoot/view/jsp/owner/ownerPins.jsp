@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</c:choose>
 							<a href="javascript:;" data-id="${v.id}" data-userId="${v.userId}" class="button button11 whiteButton contrastButton comment"><em></em>Comment</a>
 						</div>
-						<a href="javascript:void(0);" onclick="ZoomHolder.openHolder(this);" class="pinImage imgLink"><img src="${v.image}" style="width:190px; height:290px;" alt="${v.description}"/></a>
+						<a href="javascript:void(0);" onclick="ZoomHolder.openHolder(this);" class="pinImage imgLink"><img src="${v.image}" alt="${v.description}"/></a>
 					</div>
 					<p class="description">${v.description }</p>
 					<p class="stats colorless">

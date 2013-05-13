@@ -47,5 +47,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jackson-core-asl-1.8.9.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jackson-mapper-asl-1.8.9.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/Sdk4J.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/weibo4j-oauth2.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

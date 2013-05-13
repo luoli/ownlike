@@ -25,6 +25,7 @@
 		<result property="lastName" column="ulastName" />
 		<result property="image" column="uimage" />
 	</resultMap>
+	
 	<sql id="sqlOwnUser">
 		SELECT * FROM own_user t
 	</sql>

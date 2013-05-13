@@ -35,4 +35,8 @@ form.registerForm li{
 	font-weight: 300;
 	color:red; !important
 }
-  
+
+
+.otherLogin{
+	margin: 0 auto; width: 360px; position: relative;
+}

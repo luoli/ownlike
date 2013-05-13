@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ownUserOtherSqlMap">
+	<resultMap type="com.ownliked.pojo.OwnUserOther" id="ownUserOtherMap">
+		<id property="id" column="ID" />
+		<result property="userId" column="USERID" />
+		<result property="lastName" column="USERNAME" />
+		<result property="fromType" column="FROMTYPE" />
+		<result property="figureurlSm" column="FIGUREURLSM" />
+		<result property="figureurlBig" column="FIGUREURLBIG" />
+		<result property="gender" column="GENDER" />
+		<result property="accessToken" column="ACCESSTOKEN" />
+		<result property="tokenExpireIn" column="TOKENEXPIREIN" />
+		<result property="openId" column="OPENID" />
+		<association property="ownUser" resultMap="ownUserSqlMap.ownUserMap"></association>
+	</resultMap>
+	<select id="findOwnUserOtherAndOwnUser" parameterType="ownUserOther" resultType="ownUserOther">
+		SELECT o.accessToken, o.fromType, o.id, o.openId, o.tokenExpireIn 
+				u.email, u.firstName, u.lastName. u.about, u.activate, u.boardNum, u.clipNum
+				u.createTime, u.deactivate, u.follow, u.followerNum, u.followingNum, u.gender,
+				u.hideProfile, u.image, u.language, u.likeNum, u.location, u.password, u.reCode, u.website
+		FROM own_userother o 
+		LEFT JOIN own_user u ON o.userId = u.id
+		<where>
+			<if test="accessToken != null and accessToken != ''">
+				o.accessToken = #{accessToken}
+			</if>
+			<if test="fromType != null and fromType != ''">
+				o.fromType = #{fromType}
+			</if>
+		</where>
+	</select>
+	<insert id="insertOwnUserOther" parameterType="ownUserOther" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO own_userOther(userId, userName, fromType, figureurlSm, figureurlBig, gender, accessToken, tokenExpireIn, openId) VALUES
+			(#{userId}, #{userName}, #{fromType}, #{figureurlSm}, #{figureurlBig}, #{gender}, #{accessToken}, #{tokenExpireIn}, #{openId})
+	</insert>
+	<update id="updateOwnUser" parameterType="ownUser">
+		UPDATE own_user t 
+		<set>
+			<if test="email != null and email != ''">
+				t.email = #{email},
+			</if>
+			<if test="password != null and password != ''">
+				t.password = #{password},
+			</if>
+			<if test="firstName != null and firstName != ''">
+				t.firstName = #{firstName},
+			</if>
+			<if test="lastName != null and lastName != ''">
+				t.lastName = #{lastName},
+			</if>
+			<if test="gender != 0">
+				t.gender = #{gender},
+			</if>
+			<if test="about != null and about != ''">
+				t.about = #{about},
+			</if>
+			<if test="location != null and location != ''">
+				t.location = #{location},
+			</if>
+			<if test="webSite != null and webSite != ''">
+				t.webSite = #{webSite},
+			</if>
+			<if test="image != null and image != ''">
+				t.image = #{image},
+			</if>
+			<if test="language != 0">
+				t.language = #{language},
+			</if>
+			<if test="activate != 0">
+				t.activate = #{activate},
+			</if>
+			<if test="hideProfile != 0">
+				t.hideProfile = #{hideProfile},
+			</if>
+			<if test="deactivate != 0">
+				t.deactivate = #{deactivate},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				t.createTime = #{createTime},
+			</if>
+			<if test="follow != 0">
+				t.follow = #{follow},
+			</if>
+			<if test="boardNum != 0">
+				t.boardNum = t.boardNum + #{boardNum},
+			</if>
+			<if test="clipNum != 0">
+				t.clipNum = t.clipNum + #{clipNum},
+			</if>
+			<if test="likeNum != 0">
+				t.likeNum = t.likeNum + #{likeNum},
+			</if>
+			<if test="followerNum != 0">
+				t.followerNum = t.followerNum + #{followerNum},
+			</if>
+			<if test="followingNum != 0">
+				t.followingNum = t.followingNum + #{followingNum}
+			</if>
+		</set>
+		WHERE t.id = #{id}
+	</update>
+	<delete id="deleteOwnUser" parameterType="ownUser">
+		DELETE FROM own_user WHERE id = #{id}
+	</delete>
+</mapper>

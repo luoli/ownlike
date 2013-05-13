@@ -10,6 +10,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.ownliked.pojo.OwnUser" alias="ownUser"/>
+		<typeAlias type="com.ownliked.pojo.OwnUserOther" alias="ownUserOther"/>
 		<typeAlias type="com.ownliked.pojo.OwnUserFollow" alias="ownUserFollow"/>
 		<typeAlias type="com.ownliked.pojo.OwnComment" alias="ownComment"/>
 		<typeAlias type="com.ownliked.pojo.OwnClip" alias="ownClip"/>
@@ -19,6 +20,7 @@
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/ownliked/mapper/OwnUser.xml"/>
+		<mapper resource="com/ownliked/mapper/OwnUserOther.xml"/>
 		<mapper resource="com/ownliked/mapper/OwnClip.xml"/>
 		<mapper resource="com/ownliked/mapper/OwnBoard.xml"/>
 		<mapper resource="com/ownliked/mapper/OwnUserFollow.xml"/>

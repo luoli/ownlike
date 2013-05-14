@@ -32,7 +32,7 @@ import com.ownliked.util.system.web.JsonStringBuilder;
 import com.ownliked.util.system.web.NcgUtil;
 
 @Controller
-//@RequestMapping(value="/ownClip")
+@RequestMapping(value="/ownClip")
 public class OwnClipController extends BaseController {
 
 	@Resource(name="ownClipService")
@@ -50,7 +50,7 @@ public class OwnClipController extends BaseController {
 	 * @param filter	是否过滤为喜欢的clip数据
 	 * @return
 	 */
-//	@RequestMapping(value="/searchClipByCurrentUser.h")
+	@RequestMapping(value="/searchClipByCurrentUser.h")
 	public String searchClipByCurrentUser(HttpServletRequest request, ModelMap map, int userId, String filter){
 		OwnUser ownUserSession = getSessionUser(request);
 		if(null == ownUserSession){

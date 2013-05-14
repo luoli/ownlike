@@ -4,7 +4,7 @@
 	<resultMap type="com.ownliked.pojo.OwnUserOther" id="ownUserOtherMap">
 		<id property="id" column="ID" />
 		<result property="userId" column="USERID" />
-		<result property="lastName" column="USERNAME" />
+		<result property="username" column="USERNAME" />
 		<result property="fromType" column="FROMTYPE" />
 		<result property="figureurlSm" column="FIGUREURLSM" />
 		<result property="figureurlBig" column="FIGUREURLBIG" />
@@ -15,8 +15,8 @@
 		<association property="ownUser" resultMap="ownUserSqlMap.ownUserMap"></association>
 	</resultMap>
 	<select id="findOwnUserOtherAndOwnUser" parameterType="ownUserOther" resultType="ownUserOther">
-		SELECT o.accessToken, o.fromType, o.id, o.openId, o.tokenExpireIn 
-				u.email, u.firstName, u.lastName. u.about, u.activate, u.boardNum, u.clipNum
+		SELECT o.accessToken, o.fromType, o.id, o.openId, o.tokenExpireIn, 
+				u.email, u.firstName, u.lastName, u.about, u.activate, u.boardNum, u.clipNum,
 				u.createTime, u.deactivate, u.follow, u.followerNum, u.followingNum, u.gender,
 				u.hideProfile, u.image, u.language, u.likeNum, u.location, u.password, u.reCode, u.website
 		FROM own_userother o 
@@ -26,13 +26,13 @@
 				o.accessToken = #{accessToken}
 			</if>
 			<if test="fromType != null and fromType != ''">
-				o.fromType = #{fromType}
+				AND o.fromType = #{fromType}
 			</if>
 		</where>
 	</select>
 	<insert id="insertOwnUserOther" parameterType="ownUserOther" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO own_userOther(userId, userName, fromType, figureurlSm, figureurlBig, gender, accessToken, tokenExpireIn, openId) VALUES
-			(#{userId}, #{userName}, #{fromType}, #{figureurlSm}, #{figureurlBig}, #{gender}, #{accessToken}, #{tokenExpireIn}, #{openId})
+		INSERT INTO own_userOther(userId, username, fromType, figureurlSm, figureurlBig, gender, accessToken, tokenExpireIn, openId) VALUES
+			(#{userId}, #{username}, #{fromType}, #{figureurlSm}, #{figureurlBig}, #{gender}, #{accessToken}, #{tokenExpireIn}, #{openId})
 	</insert>
 	<update id="updateOwnUser" parameterType="ownUser">
 		UPDATE own_user t 

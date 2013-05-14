@@ -48,13 +48,12 @@ public class OauthServlet extends BaseController {
 	}
 
 	@RequestMapping(value="/redirect.h")
-	public String redirect(HttpServletRequest req, HttpServletResponse resp, ModelMap map, String oauthType) throws Exception{
-		analyToken("", oauthType, req, resp);
-		req.getRequestDispatcher("view/member/oauthSuccess.jsp").forward(req, resp);
-		return "redirect:/ownBoard/queryOwnBoardByUser.h";
+	public String redirect(HttpServletRequest req, HttpServletResponse resp, ModelMap map, String oauthType, String code) throws Exception{
+		analyToken("", oauthType, req, resp, code);
+		return "/user/oauthSuccess";
 	}
 	
-	public void analyToken(String token, String red, HttpServletRequest req, HttpServletResponse resp)throws Exception{
+	public void analyToken(String token, String red, HttpServletRequest req, HttpServletResponse resp, String code)throws Exception{
 		String accessToken   = token,
 				openID        = null,
 				tokenExpireIn = null,
@@ -83,7 +82,6 @@ public class OauthServlet extends BaseController {
 	        }
 		}else if(red.equals("weibo")){
 			if(null == accessToken || accessToken.equals("")){
-				String code = req.getParameter("code");
 				weibo4j.Oauth oauth = new weibo4j.Oauth();
 				weibo4j.http.AccessToken accessTokenObj = oauth.getAccessTokenByCode(code);
 				if (accessTokenObj.getAccessToken().equals("")) {

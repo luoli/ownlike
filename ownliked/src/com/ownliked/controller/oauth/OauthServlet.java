@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +29,13 @@ import com.qq.connect.oauth.Oauth;
 @Controller
 @RequestMapping(value="/oauth")
 public class OauthServlet extends BaseController {
+
+	private static Logger log = Logger.getLogger(OauthServlet.class);
 	
 	@Resource(name="ownUserOtherService")
 	private OwnUserOtherService ownUserOtherService;
 	@Resource(name="ownUserService")
 	private OwnUserService ownUserService;
-
 	
 	@RequestMapping(value="/oauth.h")
 	public String oauth(HttpServletRequest req, ModelMap map, String oauthType) throws Exception {
@@ -54,80 +56,92 @@ public class OauthServlet extends BaseController {
 	}
 	
 	public void analyToken(String token, String red, HttpServletRequest req, HttpServletResponse resp, String code)throws Exception{
-		String accessToken   = token,
-				openID        = null,
-				tokenExpireIn = null,
-				name = null;
-		int fromType = 0;
-		if(null == red || red.equals("qzone") || red.equals("")){
-//				String queryString = req.getQueryString();
-//	            String state = (String)req.getSession().getAttribute("qq_connect_state");
-//		        AccessToken accessTokenObj = (new Oauth()).getAccessTokenByQueryString(queryString,state);
-			if(null == accessToken || accessToken.equals("")){
-	            AccessToken accessTokenObj = (new Oauth()).getAccessTokenByRequest(req);
-		        if (accessTokenObj.getAccessToken().equals("")) {
-	              System.out.println("Qzone website login : 没有获取到响应参数");
-		        } else {
-	        		accessToken = accessTokenObj.getAccessToken();
-	        		tokenExpireIn = accessTokenObj.getExpireIn()+"";
-	        	}
-	        }
-	        if(null != accessToken && !accessToken.equals("")){
-	        	OpenID openIDObj =  new OpenID(accessToken);
-	        	openID = openIDObj.getUserOpenID();
-	        	UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
-	        	UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
-	        	name = userInfoBean.getNickname();
-	        	fromType = 1;
-	        }
-		}else if(red.equals("weibo")){
-			if(null == accessToken || accessToken.equals("")){
-				weibo4j.Oauth oauth = new weibo4j.Oauth();
-				weibo4j.http.AccessToken accessTokenObj = oauth.getAccessTokenByCode(code);
-				if (accessTokenObj.getAccessToken().equals("")) {
-	              System.out.println("Weibo website login : 没有获取到响应参数");
-		        } else {
-		        	accessToken = accessTokenObj.getAccessToken();
-		        	tokenExpireIn = accessTokenObj.getExpireIn();
-	        	}
-	        }
-			if(null != accessToken && !accessToken.equals("")){
-	        	Account account = new Account();
-	        	account.setToken(accessToken);
-	        	JSONObject uidJob = account.getUid();
-	        	openID = uidJob.getString("uid");
-	        	Users users = new Users();
-	        	users.setToken(accessToken);
-	        	User user = users.showUserById(openID);
-	        	name = user.getName();
-	        	fromType = 2;
+		try {
+			String accessToken   = token,
+					openID        = null,
+					tokenExpireIn = null,
+					name = null;
+			int fromType = 0;
+			if(null == red || red.equals("qzone") || red.equals("")){
+				if(null == accessToken || accessToken.equals("")){
+			        AccessToken accessTokenObj = (new Oauth()).getAccessTokenByRequest(req);
+			        if (accessTokenObj.getAccessToken().equals("")) {
+			          log.info("Qzone website login : 没有获取到响应参数");
+			        } else {
+			    		accessToken = accessTokenObj.getAccessToken();
+			    		tokenExpireIn = accessTokenObj.getExpireIn()+"";
+			    	}
+			    }
+			    if(null != accessToken && !accessToken.equals("")){
+			    	OpenID openIDObj =  new OpenID(accessToken);
+			    	openID = openIDObj.getUserOpenID();
+			    	UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
+			    	UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
+			    	name = userInfoBean.getNickname();
+			    	fromType = 1;
+			    }
+			}else if(red.equals("weibo")){
+				if(null == accessToken || accessToken.equals("")){
+					weibo4j.Oauth oauth = new weibo4j.Oauth();
+					weibo4j.http.AccessToken accessTokenObj = oauth.getAccessTokenByCode(code);
+					if (accessTokenObj.getAccessToken().equals("")) {
+			          log.info("Weibo website login : 没有获取到响应参数");
+			        } else {
+			        	accessToken = accessTokenObj.getAccessToken();
+			        	tokenExpireIn = accessTokenObj.getExpireIn();
+			    	}
+			    }
+				if(null != accessToken && !accessToken.equals("")){
+			    	Account account = new Account();
+			    	account.setToken(accessToken);
+			    	JSONObject uidJob = account.getUid();
+			    	openID = uidJob.getString("uid");
+			    	Users users = new Users();
+			    	users.setToken(accessToken);
+			    	User user = users.showUserById(openID);
+			    	name = user.getName();
+			    	fromType = 2;
+				}
 			}
+			setValue(accessToken, name, fromType, openID, tokenExpireIn, req, resp);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			throw new Exception(e);
 		}
-		setValue(accessToken, name, fromType, openID, tokenExpireIn, req, resp);
 	}
 	
 	public void setValue(String accessToken, String name, int fromType, String openId, String tokenExpireIn, HttpServletRequest req, HttpServletResponse resp) throws Exception{
-		if(NcgUtil.blankObject(accessToken)){
-			OwnUserOther ownUserOther = new OwnUserOther();
-			ownUserOther.setAccessToken(accessToken);
-			ownUserOther.setFromType(fromType);
-			ownUserOther.setOpenId(openId);
-			ownUserOther.setTokenExpireIn(tokenExpireIn);
-			OwnUserOther result = ownUserOtherService.findOwnUserOtherAndOwnUser(ownUserOther);
-			if(null != result){
-				req.getSession().setAttribute("OWNUSERLOGIN", result.getOwnUser());
-				req.getSession().setAttribute("OWNUSEROTHERLOGIN", result);
-			}else{
-				OwnUser ownUser = new OwnUser();
-				ownUser.setEmail("email");
-				ownUser.setLastName(name);
-				ownUser.setPassword(accessToken);
-				int oId = ownUserService.insertOwnUser(ownUser);
-				if(NcgUtil.blankNumber(oId)){
-					ownUserOther.setUserId(oId);
+		try {
+			if(NcgUtil.blankObject(accessToken)){
+				OwnUserOther ownUserOther = new OwnUserOther();
+				ownUserOther.setAccessToken(accessToken);
+				ownUserOther.setFromType(fromType);
+				ownUserOther.setOpenId(openId);
+				ownUserOther.setTokenExpireIn(tokenExpireIn);
+				OwnUserOther result = ownUserOtherService.findOwnUserOtherAndOwnUser(ownUserOther);
+				if(null != result){
+					req.getSession().setAttribute("OWNUSERLOGIN", result.getOwnUser());
+					req.getSession().setAttribute("OWNUSEROTHERLOGIN", result);
+				}else{
+					OwnUser ownUser = new OwnUser();
+					ownUser.setEmail("email");
+					ownUser.setLastName(name);
+					ownUser.setPassword(accessToken);
+					int oId = ownUserService.insertOwnUser(ownUser);
+					if(NcgUtil.blankNumber(oId)){
+						ownUserOther.setUserId(oId);
+						req.getSession().setAttribute("OWNUSEROTHERLOGIN", ownUserOther);
+					}
+					ownUserOtherService.insertOwnUserOther(ownUserOther);
+					OwnUser resultOwnUser = this.getOwnUserService().findOwnUser(ownUser);
+					if(resultOwnUser != null){
+						req.getSession().setAttribute("OWNUSERLOGIN", resultOwnUser);
+					}
 				}
-				ownUserOtherService.insertOwnUserOther(ownUserOther);
 			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			throw new Exception(e);
 		}
 	}
 

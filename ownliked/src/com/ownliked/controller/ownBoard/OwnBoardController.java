@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.ownliked.util.system.web.JsonStringBuilder;
 @Controller
 @RequestMapping("/ownBoard")
 public class OwnBoardController extends BaseController {
+	private static Logger log = Logger.getLogger(OwnBoardController.class);
 
 	@Resource(name="ownUserService")
 	private OwnUserService ownUserService;
@@ -87,7 +89,12 @@ public class OwnBoardController extends BaseController {
 			ownBoard.setParentId(1);
 		}
 		ownBoard.setUserId(ownUser.getId());
+		log.debug("ownBoard data print.");
+		log.debug("ownBoard.getParentId():"+ownBoard.getParentId());
+		log.debug("ownBoard.getUserId():"+ownBoard.getUserId());
+		log.debug("ownBoard.getBoardName():"+ownBoard.getBoardName());
 		int result = ownBoardService.insertOwnBoard(ownBoard);
+		log.debug("result:"+result);
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(result > 0){
 			map.put("id", ownBoard.getId());

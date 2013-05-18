@@ -201,7 +201,8 @@ public class OwnClipController extends BaseController {
 	public String reClip(HttpServletResponse response, HttpServletRequest request, OwnClip ownClip) throws Exception{
 		OwnUser sessionUser = (OwnUser)request.getSession().getAttribute("OWNUSERLOGIN");
 		ownClip.setUserId(sessionUser.getId());
-		ownClip.setUserName(sessionUser.getFirstName() +" "+ sessionUser.getLastName());
+		String firstName = sessionUser.getFirstName();
+		ownClip.setUserName(firstName!=null?firstName+" ":"" + sessionUser.getLastName());
 		ownClip.setUserImage(sessionUser.getImage());
 		int result = this.getOwnClipService().insertOwnClip(ownClip);
 		if(result > 0){
@@ -230,7 +231,8 @@ public class OwnClipController extends BaseController {
 			return null;
 		}
 		ownClip.setUserId(sessionUser.getId());
-		ownClip.setUserName(sessionUser.getFirstName() +" "+ sessionUser.getLastName());
+		String firstName = sessionUser.getFirstName();
+		ownClip.setUserName(firstName!=null?firstName+" ":"" + sessionUser.getLastName());
 		ownClip.setUserImage(sessionUser.getImage());
 		int result = this.getOwnClipService().insertOwnClip(ownClip);
 		if(result > 0){

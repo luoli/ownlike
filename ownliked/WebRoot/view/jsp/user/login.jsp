@@ -24,47 +24,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="view/jsp/user/css/indexRegister.css" type="text/css"/>
 	<script type="text/javascript" src="view/js/comm/jquery-1.7.2.js"></script>
 	<script type="text/javascript" src="view/jsp/user/js/userIndex.js"></script>
-
   </head>
-  
   <body>
-    <h1 id="login_logo"><a href="/ownliked">Ownliked</a></h1>
-    <div class="otherLogin">
-    	<a href="oauth/oauth.h?oauthType=weibo" class="wbdl" id="weibologin">weibologin</a>
-		<a href="oauth/oauth.h?oauthType=qzone" class="qqdl" id="qqlogin">qqlogin</a>
-    </div>
-<%--   	<c:if test="${!empty(msg)}"><p class="error">${msg }</p></c:if>--%>
-<%--    <form id="registerForm" method="POST" action="ownUser/ownUserLogin.h" class="form fancyForm registerForm" accept-charset="utf-8">--%>
-<%--    	<ul>--%>
-<%--    		<li>--%>
-<%--    			<input type="text" name="email"/>--%>
-<%--    			<label>Email</label>--%>
-<%--    			<span></span>--%>
-<%--    		</li>--%>
-<%--    		<li>--%>
-<%--    			<input type="password" name="password"/>--%>
-<%--    			<label>Password</label>--%>
-<%--    			<span></span>--%>
-<%--    		</li>--%>
-<%--    	</ul>--%>
-<%--    	<div class="non_inputs">--%>
-<%--    		<input class="button whiteButton button18" type="submit" value="Login"/>--%>
-<%--    		<a id="forgetPassword" class="colorless" href="###">忘记了你的Password？</a>--%>
-<%--    	</div>--%>
-<%--    </form>--%>
-<%--    <form id="resetForm" class="form fancyForm registerForm" accept-charset="utf-8">--%>
-<%--    	<ul>--%>
-<%--    		<li>--%>
-<%--    			<input type="text" name="email"/>--%>
-<%--		    	<label>Email Address</label>--%>
-<%--		    	<span></span>--%>
-<%--    		</li>--%>
-<%--    	</ul>--%>
-<%--    	<div class="not_inputs">--%>
-<%--    		<input class="button whiteButton button18" type="submit" value="Reset"/>--%>
-<%--    		<a href="###" id="backToLogin" class="colorless">Back to Login?</a>--%>
-<%--    	</div>--%>
-<%--    </form>--%>
+	<div id="SignUp" class="logo_exp">
+	  <div class="education logo">
+	      <p>Welcome to</p>
+<%--	      <img width="251" height="61" src="">--%>
+			<span>Ownliked</span>
+	  </div>
+	  <div class="wrapper">
+	    <div class="shadow"></div>
+	    <div class="content">
+	      <div class="header">
+	          
+	            <div class="getStarted">
+	              Step 1 of 2
+	            </div>
+	          
+	          <h1>Create your account to explore Ownliked.</h1>
+	      </div>
+	      <div class="intermission">
+	        <h2 class="text">Connect with</h2>
+	      </div>
+	      <ul class="buttons" id="otherLogin">
+	        <li>
+	          <a href="oauth/oauth.h?oauthType=weibo" id="weibologin" class="BigButton facebook wbdl">
+	              <span class="logo"></span>
+	              新浪Weibo
+	          </a>
+	        </li>
+	        <li>
+	          <a href="oauth/oauth.h?oauthType=qzone" id="qqlogin" class="BigButton twitter qqdl">
+	              <span class="logo"></span>
+	              腾讯QQ
+	          </a>
+	        </li>
+	      </ul>
+	      <h3>
+	          <span>现在您不必注册本站，为了方便您的使用</span>
+<%--	          <a href="/join/register/">your email address.--%>
+<%--	          </a>--%>
+	      </h3>
+	      <div class="footer">
+	          <h3 class="login">
+	            <span>Already have an account? </span>
+	            <a href="/login/">Log in.(OFF)</a>
+	          </h3>
+	          <h3 class="login">
+	            <span>Are you a business? </span>
+	            <a href="mailto:930387901@qq.com">930387901@qq.com</a>
+	          </h3>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	<script type="text/javascript">
     	$(function(){
     		Register.setup();

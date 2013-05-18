@@ -116,7 +116,9 @@ public class OauthServlet extends BaseController {
 				OwnUserOther ownUserOther = new OwnUserOther();
 				ownUserOther.setAccessToken(accessToken);
 				ownUserOther.setFromType(fromType);
-				ownUserOther.setOpenId(openId);
+				if(fromType == 1){
+					ownUserOther.setOpenId(openId);
+				}
 				ownUserOther.setTokenExpireIn(tokenExpireIn);
 				OwnUserOther result = ownUserOtherService.findOwnUserOtherAndOwnUser(ownUserOther);
 				if(null != result){
@@ -129,7 +131,7 @@ public class OauthServlet extends BaseController {
 					ownUser.setPassword(accessToken);
 					int oId = ownUserService.insertOwnUser(ownUser);
 					if(NcgUtil.blankNumber(oId)){
-						ownUserOther.setUserId(oId);
+						ownUserOther.setUserId(ownUser.getId());
 						req.getSession().setAttribute("OWNUSEROTHERLOGIN", ownUserOther);
 					}
 					ownUserOtherService.insertOwnUserOther(ownUserOther);

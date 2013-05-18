@@ -8,13 +8,12 @@
 		<result property="fromType" column="FROMTYPE" />
 		<result property="figureurlSm" column="FIGUREURLSM" />
 		<result property="figureurlBig" column="FIGUREURLBIG" />
-		<result property="gender" column="GENDER" />
 		<result property="accessToken" column="ACCESSTOKEN" />
 		<result property="tokenExpireIn" column="TOKENEXPIREIN" />
 		<result property="openId" column="OPENID" />
 		<association property="ownUser" resultMap="ownUserSqlMap.ownUserMap"></association>
 	</resultMap>
-	<select id="findOwnUserOtherAndOwnUser" parameterType="ownUserOther" resultType="ownUserOther">
+	<select id="findOwnUserOtherAndOwnUser" parameterType="ownUserOther" resultMap="ownUserOtherMap">
 		SELECT o.accessToken, o.fromType, o.id, o.openId, o.tokenExpireIn, 
 				u.email, u.firstName, u.lastName, u.about, u.activate, u.boardNum, u.clipNum,
 				u.createTime, u.deactivate, u.follow, u.followerNum, u.followingNum, u.gender,
@@ -31,8 +30,8 @@
 		</where>
 	</select>
 	<insert id="insertOwnUserOther" parameterType="ownUserOther" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO own_userOther(userId, username, fromType, figureurlSm, figureurlBig, gender, accessToken, tokenExpireIn, openId) VALUES
-			(#{userId}, #{username}, #{fromType}, #{figureurlSm}, #{figureurlBig}, #{gender}, #{accessToken}, #{tokenExpireIn}, #{openId})
+		INSERT INTO own_userOther(userId, username, fromType, figureurlSm, figureurlBig, accessToken, tokenExpireIn, openId) VALUES
+			(#{userId}, #{username}, #{fromType}, #{figureurlSm}, #{figureurlBig}, #{accessToken}, #{tokenExpireIn}, #{openId})
 	</insert>
 	<update id="updateOwnUser" parameterType="ownUser">
 		UPDATE own_user t 

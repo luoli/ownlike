@@ -15,7 +15,6 @@ public class OwnUserOther extends BasePojo {
 	private int fromType;		//第三方来源
 	private int figureurlSm;	//小头像
 	private int figureurlBig;	//大头像
-	private int gender;			//性别
 	private String accessToken;
 	private String tokenExpireIn;
 	private String openId;
@@ -81,12 +80,6 @@ public class OwnUserOther extends BasePojo {
 	}
 	public void setFigureurlBig(int figureurlBig) {
 		this.figureurlBig = figureurlBig;
-	}
-	public int getGender() {
-		return gender;
-	}
-	public void setGender(int gender) {
-		this.gender = gender;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

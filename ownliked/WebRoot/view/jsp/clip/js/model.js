@@ -215,12 +215,12 @@ var PinEvent = function(){
 		showDiv : function(f){
 			console.log(myBoards);
 			/**组装转载clip显示图层*/
-			var result = {};
-			if(typeof(myBoards) != "object"){
+			var result = myBoards;
+			if(myBoards && typeof(myBoards) != "object"){
 				result = myBoards = eval("("+myBoards+")");
-				if(result.length <= 0){
-					return false;
-				}
+			}
+			if(result.length <= 0){
+				return false;
 			}
 			var currentBoard = result[0].boardName;
 			var boardList = "";

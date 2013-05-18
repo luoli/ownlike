@@ -1,5 +1,7 @@
 package com.ownliked.controller.ownBoard;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.gson.Gson;
 import com.ownliked.controller.BaseController;
 import com.ownliked.pojo.OwnBoard;
 import com.ownliked.pojo.OwnUser;
@@ -27,6 +30,30 @@ public class OwnBoardController extends BaseController {
 
 	@Resource(name="ownUserService")
 	private OwnUserService ownUserService;
+	
+	/**
+	 * 获得session用户版块数据
+	 * @param ownUserSession session用户对象
+	 * @return	session用户版块
+	 * @throws IOException 
+	 */
+	@RequestMapping(value="/searchSessionBoard.h")
+	public String searchSessionBoard(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		OwnUser ownUserSession = getSessionUser(request);
+		if(null != ownUserSession){
+			OwnBoard myOwnBoard = new OwnBoard();
+			myOwnBoard.setUserId(ownUserSession.getId());
+			List<OwnBoard> obList = ownBoardService.queryOwnUserBoard(myOwnBoard);
+			resultMap.put("obList", obList);
+			resultMap.put("status", "success");
+		}
+		PrintWriter out = response.getWriter();
+		Gson gson = new Gson();
+		String js = gson.toJson(resultMap);
+		out.print(js);
+		return null;
+	}
 	
 	/**
 	 * 查询用户信息，显示用户所有版块
@@ -50,7 +77,7 @@ public class OwnBoardController extends BaseController {
 		List<OwnBoard> ownBoards = ownBoardService.queryOwnUserBoardBy4Clip(ownBoard);
 		map.put("ownBoards", ownBoards);
 		map.put("ownUser", ownUser);
-		map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
+//		map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
 		map.put("selBar", "board");
 		return "/owner/ownerBoard";
 	}

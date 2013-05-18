@@ -6,9 +6,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import net.sf.json.JSONArray;
 
-import com.ownliked.pojo.OwnBoard;
 import com.ownliked.pojo.OwnUser;
 import com.ownliked.service.board.OwnBoardService;
 import com.ownliked.util.system.web.JsonStringBuilder;
@@ -22,17 +22,6 @@ public class BaseController {
 	}
 	public void setOwnBoardService(OwnBoardService ownBoardService) {
 		this.ownBoardService = ownBoardService;
-	}
-	
-	/**
-	 * 获得session用户版块数据
-	 * @param ownUserSession session用户对象
-	 * @return	session用户版块
-	 */
-	protected List<OwnBoard> searchSessionBoard(OwnUser ownUserSession){
-		OwnBoard myOwnBoard = new OwnBoard();
-		myOwnBoard.setUserId(ownUserSession.getId());
-		return ownBoardService.queryOwnUserBoard(myOwnBoard);
 	}
 	
 	/**

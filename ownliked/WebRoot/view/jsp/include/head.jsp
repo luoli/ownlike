@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script type="text/javascript">window.myBoards = '${myOwnBoards}';</script>
+<script type="text/javascript">
+	var url = "ownBoard/searchSessionBoard.h";
+	$.ajax({
+		url : url,
+		data : {},
+		type : "POST",
+		dataType : "json"
+	}).done(function(data){
+		window.myBoards = data.obList;
+	}).fail(function(e){console.log(e);});
+</script>
 <div class="headContainer" style="width:1170px;">
 	<a id="ownliked" href="/ownliked">Ownliked</a>
 	<ul id="navigation">

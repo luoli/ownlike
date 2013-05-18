@@ -1,5 +1,6 @@
 package com.ownliked.util.system.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +18,10 @@ public class JsonStringBuilder {
 	 * 从list对象获得字符集
 	 * @param list
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@SuppressWarnings("unchecked")
-	public static String getAjaxString(List list){
+	public static String getAjaxString(List list) throws UnsupportedEncodingException{
 		JSONArray ja = JSONArray.fromObject(list);
 		return ja.toString();
 	}

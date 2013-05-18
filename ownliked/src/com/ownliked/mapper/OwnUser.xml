@@ -19,6 +19,24 @@
 		<result property="createTime" column="CREATETIME" />
 		<result property="follow" column="FOLLOW" />
 	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnUser" id="ownUserMapOwnUserOther">
+		<id property="id" column="UID" />
+		<result property="email" column="EMAIL" />
+		<result property="password" column="PASSWORD" />
+		<result property="firstName" column="FIRSTNAME" />
+		<result property="lastName" column="LASTNAME" />
+		<result property="gender" column="GENDER" />
+		<result property="about" column="ABOUT" />
+		<result property="location" column="LOCATION" />
+		<result property="webSite" column="WEBSITE" />
+		<result property="image" column="IMAGE" />
+		<result property="language" column="LANGUAGE" />
+		<result property="activate" column="ACTIVATE" />
+		<result property="hideProfile" column="HIDEPROFILE" />
+		<result property="deactivate" column="DEACTIVATE" />
+		<result property="createTime" column="CREATETIME" />
+		<result property="follow" column="FOLLOW" />
+	</resultMap>
 	<resultMap type="com.ownliked.pojo.OwnUser" id="ownUserMapByComment">
 		<id property="id" column="uid" />
 		<result property="firstName" column="ufirstName" />

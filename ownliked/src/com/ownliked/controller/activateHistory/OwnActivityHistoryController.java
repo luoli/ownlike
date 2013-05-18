@@ -1,5 +1,6 @@
 package com.ownliked.controller.activateHistory;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,7 +17,6 @@ import com.ownliked.pojo.OwnUser;
 import com.ownliked.service.activeHistory.OwnActivityHistoryService;
 import com.ownliked.service.board.OwnBoardService;
 import com.ownliked.service.user.OwnUserService;
-import com.ownliked.util.system.web.JsonStringBuilder;
 
 @Controller
 @RequestMapping(value="/ownActivateHistory")
@@ -35,9 +35,10 @@ public class OwnActivityHistoryController extends BaseController {
 	 * @param userId
 	 * @param map
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value="getCurrentUserActive")
-	public String getCurrentUserActive(HttpServletRequest request, int userId, ModelMap map){
+	public String getCurrentUserActive(HttpServletRequest request, int userId, ModelMap map) throws UnsupportedEncodingException{
 		OwnUser ownUserSession = getSessionUser(request);
 		if(null == ownUserSession){
 			return "9999";
@@ -52,7 +53,7 @@ public class OwnActivityHistoryController extends BaseController {
 		ouParam = ownUserService.findOwnUser(ouParam);
 		map.put("ownActivityHistorys", ownActivityHistorys);
 		map.put("ownUser", ouParam);
-		map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
+//		map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
 		map.put("selBar", "active");
 		return "/owner/ownerActivity";
 	}

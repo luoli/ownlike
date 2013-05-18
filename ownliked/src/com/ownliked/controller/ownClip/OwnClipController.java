@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,9 +50,10 @@ public class OwnClipController extends BaseController {
 	 * @param userId	当前页面用户ID
 	 * @param filter	是否过滤为喜欢的clip数据
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value="/searchClipByCurrentUser.h")
-	public String searchClipByCurrentUser(HttpServletRequest request, ModelMap map, int userId, String filter){
+	public String searchClipByCurrentUser(HttpServletRequest request, ModelMap map, int userId, String filter) throws UnsupportedEncodingException{
 		OwnUser ownUserSession = getSessionUser(request);
 		if(null == ownUserSession){
 			return "/user/login";
@@ -66,7 +68,7 @@ public class OwnClipController extends BaseController {
 			ownClips = ownClipService.queryOwnClipByUser(ownClipParam);
 			map.put("selBar", "pin");
 		}
-		map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
+//		map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
 		map.put("ownClips", ownClips);
 		OwnUser ouParam = new OwnUser();
 		ouParam.setId(userId);
@@ -92,7 +94,7 @@ public class OwnClipController extends BaseController {
 		map.put("ownBoards", ownBoards);
 		OwnClip ownClip = new OwnClip();
 		if(null != ownUserSession){
-			map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
+//			map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
 //			map.put("myOwnBoards", myOwnBoards);
 			ownClip.setBoardId(boardId);
 			return queryClipByPopular(request, map, ownClip);
@@ -115,7 +117,7 @@ public class OwnClipController extends BaseController {
 		map.put("ownBoards", ownBoards);
 		OwnClip ownClip = new OwnClip();
 		if(null != ownUserSession){
-			map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
+//			map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
 			return queryClipByPopular(request, map, ownClip);
 		}else{
 			return queryClipByPopular(request, map, ownClip);

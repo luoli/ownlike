@@ -11,11 +11,11 @@
 		<result property="accessToken" column="ACCESSTOKEN" />
 		<result property="tokenExpireIn" column="TOKENEXPIREIN" />
 		<result property="openId" column="OPENID" />
-		<association property="ownUser" resultMap="ownUserSqlMap.ownUserMap"></association>
+		<association property="ownUser" resultMap="ownUserSqlMap.ownUserMapOwnUserOther"></association>
 	</resultMap>
 	<select id="findOwnUserOtherAndOwnUser" parameterType="ownUserOther" resultMap="ownUserOtherMap">
 		SELECT o.accessToken, o.fromType, o.id, o.openId, o.tokenExpireIn, 
-				u.email, u.firstName, u.lastName, u.about, u.activate, u.boardNum, u.clipNum,
+				u.id uid, u.email, u.firstName, u.lastName, u.about, u.activate, u.boardNum, u.clipNum,
 				u.createTime, u.deactivate, u.follow, u.followerNum, u.followingNum, u.gender,
 				u.hideProfile, u.image, u.language, u.likeNum, u.location, u.password, u.reCode, u.website
 		FROM own_userother o 

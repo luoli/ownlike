@@ -48,13 +48,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      </div>
 	      <ul class="buttons" id="otherLogin">
 	        <li>
-	          <a href="oauth/oauth.h?oauthType=weibo" id="weibologin" class="BigButton facebook wbdl">
+	          <a href="<%=request.getContextPath() %>/oauth/oauth.h?oauthType=weibo" id="weibologin" class="BigButton facebook wbdl">
 	              <span class="logo"></span>
 	              新浪Weibo
 	          </a>
 	        </li>
 	        <li>
-	          <a href="oauth/oauth.h?oauthType=qzone" id="qqlogin" class="BigButton twitter qqdl">
+	          <a href="<%=request.getContextPath() %>/oauth/oauth.h?oauthType=qzone" id="qqlogin" class="BigButton twitter qqdl">
 	              <span class="logo"></span>
 	              腾讯QQ
 	          </a>

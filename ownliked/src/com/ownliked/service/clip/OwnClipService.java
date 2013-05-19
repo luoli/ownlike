@@ -10,6 +10,7 @@ import com.ownliked.pojo.OwnClip;
  *
  */
 public interface OwnClipService {
+	
 	/**
 	 * ownClip表中更新用户信息
 	 * @param ownClip

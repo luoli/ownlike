@@ -327,7 +327,7 @@ var PinEvent = function(){
 				var description = $("#flipScroll .PinForm>.InputArea textarea").val();
 				var image = $("#flipScroll #image").val();
 				var reUserId = $("#flipScroll #userId").val();
-				var data = {"boardId":boardId, "boardName":boardName, "description":description, "image":image, "previousId":$(t).attr("data-userId") };
+				var data = {"boardId":boardId, "boardName":boardName, "description":description, "image":image, "previousId":$(t).attr("data-id") };
 				$.ajax({
 					url : "ownClip/reClip.h",
 					type : "POST",
@@ -411,13 +411,16 @@ var PinEvent = function(){
 			$(t).toggleClass("disabled");
 			reLayout(ts);
 			var te = $(".write", ts).toggle();
-			$(".grid_comment_button", ts).click(function(){
-				var text = $("textarea", te).val();
+			var tex = $("textarea", te);
+			tex.focus();
+			$(".grid_comment_button", ts).off("click").on("click", function(){
+				var text = tex.val();
 				$.ajax({
 					url : "ownComment/insertComment.h",
 					type : "POST",
 					data : {"commentText" : text, "clipId" : $(t).attr("data-id"), "byUserId" : $(t).attr("data-userId")},
 					success : function(result){
+						tex.val("");
 						result = eval("("+result+")");
 						if(result.status == "success"){
 							var str = '<div class="comments colormuted">' +

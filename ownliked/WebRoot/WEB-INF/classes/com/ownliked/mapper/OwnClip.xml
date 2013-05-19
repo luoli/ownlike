@@ -117,9 +117,16 @@
 		LEFT JOIN own_liked l ON c.id = l.clipId
 		LEFT JOIN own_comment t ON c.id = t.clipId 
 		LEFT JOIN own_user u ON t.userId = u.id 
+		LEFT JOIN own_user_follow f ON c.boardId = f.boardId 
 		<where>
 			<if test="boardId != 0">
 				c.boardName IN (SELECT b.boardName FROM own_board b WHERE b.parentId = #{boardId})
+			</if>
+			<if test="userId != 0">
+				AND c.userId = #{userId} OR f.a_userId = #{userId}
+			</if>
+			<if test="commentNum == 10">
+				AND c.commentNum > 3 OR c.likeNum > 5 OR c.reclipNum > 5
 			</if>
 		</where>
 		ORDER BY id DESC 

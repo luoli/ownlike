@@ -95,10 +95,11 @@ public class OwnClipController extends BaseController {
 		map.put("ownBoards", ownBoards);
 		OwnClip ownClip = new OwnClip();
 		if(null != ownUserSession){
-//			map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
-//			map.put("myOwnBoards", myOwnBoards);
 			ownClip.setBoardId(boardId);
-			return queryClipByPopular(request, map, ownClip);
+			List<OwnClip> ownClips = ownClipService.queryOwnClipByComment(ownClip);
+			map.put("ownClips", ownClips);
+			map.put("selector", "item");
+			return "/clip/popular";
 		}
 		return "/user/login";
 	}
@@ -111,18 +112,33 @@ public class OwnClipController extends BaseController {
 	 */
 	@RequestMapping(value="/checkUserLogin.h")
 	public String checkUserLogin(HttpServletRequest request, ModelMap map)throws Exception{
-		OwnBoard ownBoard = new OwnBoard();
-		ownBoard.setParentId(-1);
 		OwnUser ownUserSession = getSessionUser(request);
-		List<OwnBoard> ownBoards = ownBoardService.queryOwnUserBoard(ownBoard);
-		map.put("ownBoards", ownBoards);
 		OwnClip ownClip = new OwnClip();
 		if(null != ownUserSession){
-//			map.put("myOwnBoards", JsonStringBuilder.getAjaxString(searchSessionBoard(ownUserSession)));
-			return queryClipByPopular(request, map, ownClip);
+			ownClip.setUserId(ownUserSession.getId());
+			return queryClipByFollow(request, map, ownClip);
 		}else{
 			return queryClipByPopular(request, map, ownClip);
 		}
+	}
+	
+	/**
+	 * 获得最新的clip数据
+	 * @param request
+	 * @param map
+	 * @param ownClip
+	 * @return
+	 */
+	@RequestMapping(value="/queryClipByNews.h")
+	public String queryClipByNews(HttpServletRequest request, ModelMap map, OwnClip ownClip){
+		OwnBoard ownBoard = new OwnBoard();
+		ownBoard.setParentId(-1);
+		List<OwnBoard> ownBoards = ownBoardService.queryOwnUserBoard(ownBoard);
+		map.put("ownBoards", ownBoards);
+		List<OwnClip> ownClips = ownClipService.queryOwnClipByComment(ownClip);
+		map.put("ownClips", ownClips);
+		map.put("selector", "news");
+		return "/clip/popular";
 	}
 	
 	/**
@@ -131,8 +147,14 @@ public class OwnClipController extends BaseController {
 	 */
 	@RequestMapping(value="/queryClipByPopular.h")
 	public String queryClipByPopular(HttpServletRequest request, ModelMap map, OwnClip ownClip){
+		OwnBoard ownBoard = new OwnBoard();
+		ownBoard.setParentId(-1);
+		List<OwnBoard> ownBoards = ownBoardService.queryOwnUserBoard(ownBoard);
+		map.put("ownBoards", ownBoards);
+		ownClip.setCommentNum(10);
 		List<OwnClip> ownClips = ownClipService.queryOwnClipByComment(ownClip);
 		map.put("ownClips", ownClips);
+		map.put("selector", "popular");
 		return "/clip/popular";
 	}
 	
@@ -141,11 +163,15 @@ public class OwnClipController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value="/queryClipByFollow.h")
-	public String queryClipByFollow(ModelMap map){
-		OwnClip ownClip = new OwnClip();
+	public String queryClipByFollow(HttpServletRequest request, ModelMap map, OwnClip ownClip){
+		OwnBoard ownBoard = new OwnBoard();
+		ownBoard.setParentId(-1);
+		List<OwnBoard> ownBoards = ownBoardService.queryOwnUserBoard(ownBoard);
+		map.put("ownBoards", ownBoards);
 		List<OwnClip> ownClips = ownClipService.queryOwnClipByComment(ownClip);
 		map.put("ownClips", ownClips);
-		return "/clip/follow";
+		map.put("selector", "follow");
+		return "/clip/popular";
 	}
 	
 	/**

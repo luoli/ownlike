@@ -25,9 +25,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id=header><%@include file="/view/jsp/include/head.jsp" %></div>
 		<div id="categoriesBar">
 			<ul class="liquidContainer headContainer">
-				<c:if test="${OWNUSERLOGIN != null}"><li><a href="###" class="nav selected">关注</a>&nbsp;&middot;</li></c:if>
+				<c:if test="${OWNUSERLOGIN != null}"><li><a href="ownClip/queryClipByFollow.h" class="nav <c:if test="${selector == 'follow'}">selected</c:if>">关注</a>&nbsp;&middot;</li></c:if>
 				<li class="submenu">
-					<a href="###" class="nav">分类<span></span></a>&nbsp;&middot;
+					<a href="###" class="nav <c:if test="${selector == 'item'}">selected</c:if>">分类<span></span></a>&nbsp;&middot;
 					<ul id="categoriesDropdown">
 						<li>
 							<c:forEach items="${ownBoards}" var="v" varStatus="s">
@@ -37,10 +37,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</ul>
 				</li>
 				<li>
-					<a href="###" class="nav">最新</a>&nbsp;&middot;
+					<a href="ownClip/queryClipByNews.h" class="nav <c:if test="${selector == 'news'}">selected</c:if>">最新</a>&nbsp;&middot;
 				</li>
 				<li>
-					<a href="###" class="nav">流行</a>
+					<a href="ownClip/queryClipByPopular.h" class="nav <c:if test="${selector == 'popular'}">selected</c:if>">流行</a>
 				</li>
 			</ul>
 		</div>
@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="pin">
 						<div class="pinHolder">
 							<div class="actions">
-								<a href="javascript:;" data-id="${v.id}" class="button button11 whiteButton contrastButton repin_link"><em></em>Clip</a>
+								<a href="javascript:;" data-id="${v.id}" data-userId="${v.userId}" class="button button11 whiteButton contrastButton repin_link"><em></em>Clip</a>
 								<c:choose>
 									<c:when test="${!empty(v.ownLikeds) && OWNUSERLOGIN != null}">
 										<c:forEach items="${v.ownLikeds}" var="ol">
@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<a href="###" data-id="${v.boardId}">${v.boardName }</a>
 							</p>
 						</div>
-						<c:forEach items="${v.ownCommentList}" var="vc">
+						<c:forEach items="${v.ownCommentList}" var="vc" begin="0" end="4">
 							<div class="comments colormuted">
 								<div class="comment convo clearfix">
 									<a href="ownBoard/searchBoardByOwnUser.h?userId=${vc.ownUser.id}" class="imgLink"><img class="profile user_image" src="${vc.ownUser.image }" alt="${vc.ownUser.lastName }"/></a>

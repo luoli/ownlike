@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ownliked.dao.clip.OwnClipDao;
 import com.ownliked.dao.user.OwnUserDao;
 import com.ownliked.pojo.OwnUser;
 import com.ownliked.service.user.OwnUserService;
@@ -18,7 +19,17 @@ public class OwnUserServiceImpl implements OwnUserService {
 
 	@Resource(name="ownUserDao")
 	private OwnUserDao ownUserDao;
+	@Resource(name="ownClipDao")
+	private OwnClipDao ownClipDao;
 	
+	public OwnClipDao getOwnClipDao() {
+		return ownClipDao;
+	}
+
+	public void setOwnClipDao(OwnClipDao ownClipDao) {
+		this.ownClipDao = ownClipDao;
+	}
+
 	public OwnUserDao getOwnUserDao() {
 		return ownUserDao;
 	}
@@ -57,6 +68,7 @@ public class OwnUserServiceImpl implements OwnUserService {
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	@Override
 	public int updateOwnUser(OwnUser ownUser) {
+		
 		return this.getOwnUserDao().updateOwnUser(ownUser);
 	}
 

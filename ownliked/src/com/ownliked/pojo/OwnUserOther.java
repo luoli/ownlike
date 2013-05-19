@@ -13,8 +13,8 @@ public class OwnUserOther extends BasePojo {
 	private int userId;				
 	private String username;	//第三方昵称
 	private int fromType;		//第三方来源
-	private int figureurlSm;	//小头像
-	private int figureurlBig;	//大头像
+	private String figureurlSm;	//小头像
+	private String figureurlBig;	//大头像
 	private String accessToken;
 	private String tokenExpireIn;
 	private String openId;
@@ -69,16 +69,16 @@ public class OwnUserOther extends BasePojo {
 	public void setFromType(int fromType) {
 		this.fromType = fromType;
 	}
-	public int getFigureurlSm() {
+	public String getFigureurlSm() {
 		return figureurlSm;
 	}
-	public void setFigureurlSm(int figureurlSm) {
+	public void setFigureurlSm(String figureurlSm) {
 		this.figureurlSm = figureurlSm;
 	}
-	public int getFigureurlBig() {
+	public String getFigureurlBig() {
 		return figureurlBig;
 	}
-	public void setFigureurlBig(int figureurlBig) {
+	public void setFigureurlBig(String figureurlBig) {
 		this.figureurlBig = figureurlBig;
 	}
 	public static long getSerialversionuid() {

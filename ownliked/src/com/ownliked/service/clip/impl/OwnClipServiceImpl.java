@@ -159,4 +159,10 @@ public class OwnClipServiceImpl implements OwnClipService {
 		return this.ownClipDao.queryOwnClipByUserAndLiked(ownClip);
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	@Override
+	public int updateOwnClipUser(OwnClip ownClip) {
+		return ownClipDao.updateOwnClipUser(ownClip);
+	}
+
 }

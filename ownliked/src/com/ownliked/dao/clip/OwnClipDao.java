@@ -10,6 +10,13 @@ import com.ownliked.pojo.OwnClip;
  *
  */
 public interface OwnClipDao {
+	
+	/**
+	 * ownClip表中更新用户信息
+	 * @param ownClip
+	 * @return
+	 */
+	int updateOwnClipUser(OwnClip ownClip);
 
 	public List<OwnClip> queryOwnClipByUserAndLiked(OwnClip ownClip);
 	

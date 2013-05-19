@@ -12,6 +12,11 @@ import com.ownliked.pojo.OwnClip;
 public class OwnClipDaoImpl extends BaseDaoImpl<OwnClip, Object> implements OwnClipDao {
 
 	@Override
+	public int updateOwnClipUser(OwnClip ownClip) {
+		return this.updateEntity("ownClipSqlMap.updateOwnClipUser", ownClip);
+	}
+
+	@Override
 	public int countOwnClip(OwnClip ownClip) {
 		return this.countEntity("ownClipSqlMap.countOwnClip", ownClip);
 	}

@@ -15,8 +15,10 @@ import weibo4j.model.User;
 import weibo4j.org.json.JSONObject;
 
 import com.ownliked.controller.BaseController;
+import com.ownliked.pojo.OwnClip;
 import com.ownliked.pojo.OwnUser;
 import com.ownliked.pojo.OwnUserOther;
+import com.ownliked.service.clip.OwnClipService;
 import com.ownliked.service.user.OwnUserOtherService;
 import com.ownliked.service.user.OwnUserService;
 import com.ownliked.util.system.web.NcgUtil;
@@ -36,6 +38,8 @@ public class OauthServlet extends BaseController {
 	private OwnUserOtherService ownUserOtherService;
 	@Resource(name="ownUserService")
 	private OwnUserService ownUserService;
+	@Resource(name="ownClipService")
+	private OwnClipService ownClipService;
 	
 	@RequestMapping(value="/oauth.h")
 	public String oauth(HttpServletRequest req, ModelMap map, String oauthType) throws Exception {
@@ -60,7 +64,9 @@ public class OauthServlet extends BaseController {
 			String accessToken   = token,
 					openID        = null,
 					tokenExpireIn = null,
-					name = null;
+					name = null,
+					himg = null,
+					simg = null;;
 			int fromType = 0;
 			if(null == red || red.equals("qzone") || red.equals("")){
 				if(null == accessToken || accessToken.equals("")){
@@ -100,50 +106,62 @@ public class OauthServlet extends BaseController {
 			    	users.setToken(accessToken);
 			    	User user = users.showUserById(openID);
 			    	name = user.getName();
+			    	simg = user.getProfileImageUrl();
+			    	himg = user.getAvatarLarge();
 			    	fromType = 2;
 				}
 			}
-			setValue(accessToken, name, fromType, openID, tokenExpireIn, req, resp);
+			setValue(accessToken, name, fromType, openID, tokenExpireIn, himg, simg, req, resp);
 		} catch (Exception e) {
-			log.error(e.getMessage());
-			throw new Exception(e);
+			log.error(e);
+			e.printStackTrace();
 		}
 	}
 	
-	public void setValue(String accessToken, String name, int fromType, String openId, String tokenExpireIn, HttpServletRequest req, HttpServletResponse resp) throws Exception{
-		try {
-			if(NcgUtil.blankObject(accessToken)){
-				OwnUserOther ownUserOther = new OwnUserOther();
-				ownUserOther.setAccessToken(accessToken);
-				ownUserOther.setFromType(fromType);
-				if(fromType == 1){
-					ownUserOther.setOpenId(openId);
+	public void setValue(String accessToken, String name, int fromType, String openId, String tokenExpireIn, String himg, String simg, HttpServletRequest req, HttpServletResponse resp) throws Exception{
+		if(NcgUtil.blankObject(accessToken)){
+			OwnUserOther ownUserOther = new OwnUserOther();
+			ownUserOther.setAccessToken(accessToken);
+			ownUserOther.setFromType(fromType);
+			ownUserOther.setFigureurlSm(simg);
+			ownUserOther.setFigureurlBig(himg);
+			if(fromType == 1){
+				ownUserOther.setOpenId(openId);
+			}
+			ownUserOther.setTokenExpireIn(tokenExpireIn);
+			OwnUserOther result = ownUserOtherService.findOwnUserOtherAndOwnUser(ownUserOther);
+			if(null != result){
+				OwnUser ownUser = result.getOwnUser();
+				ownUser.setLastName(name);
+				ownUser.setPassword(accessToken);
+				ownUser.setImage(himg);
+				int rowCount = ownUserService.updateOwnUser(ownUser);
+				if(rowCount > 0){
+					OwnClip ownClip = new OwnClip();
+					ownClip.setUserId(ownUser.getId());
+					ownClip.setUserImage(himg);
+					ownClip.setUserName(name);
+					ownClipService.updateOwnClipUser(ownClip);
 				}
-				ownUserOther.setTokenExpireIn(tokenExpireIn);
-				OwnUserOther result = ownUserOtherService.findOwnUserOtherAndOwnUser(ownUserOther);
-				if(null != result){
-					req.getSession().setAttribute("OWNUSERLOGIN", result.getOwnUser());
-					req.getSession().setAttribute("OWNUSEROTHERLOGIN", result);
-				}else{
-					OwnUser ownUser = new OwnUser();
-					ownUser.setEmail("email");
-					ownUser.setLastName(name);
-					ownUser.setPassword(accessToken);
-					int oId = ownUserService.insertOwnUser(ownUser);
-					if(NcgUtil.blankNumber(oId)){
-						ownUserOther.setUserId(ownUser.getId());
-						req.getSession().setAttribute("OWNUSEROTHERLOGIN", ownUserOther);
-					}
-					ownUserOtherService.insertOwnUserOther(ownUserOther);
-					OwnUser resultOwnUser = this.getOwnUserService().findOwnUser(ownUser);
-					if(resultOwnUser != null){
-						req.getSession().setAttribute("OWNUSERLOGIN", resultOwnUser);
-					}
+				req.getSession().setAttribute("OWNUSERLOGIN", ownUser);
+				req.getSession().setAttribute("OWNUSEROTHERLOGIN", result);
+			}else{
+				OwnUser ownUser = new OwnUser();
+				ownUser.setEmail("email");
+				ownUser.setLastName(name);
+				ownUser.setPassword(accessToken);
+				ownUser.setImage(himg);
+				int oId = ownUserService.insertOwnUser(ownUser);
+				if(NcgUtil.blankNumber(oId)){
+					ownUserOther.setUserId(ownUser.getId());
+					req.getSession().setAttribute("OWNUSEROTHERLOGIN", ownUserOther);
+				}
+				ownUserOtherService.insertOwnUserOther(ownUserOther);
+				OwnUser resultOwnUser = this.getOwnUserService().findOwnUser(ownUser);
+				if(resultOwnUser != null){
+					req.getSession().setAttribute("OWNUSERLOGIN", resultOwnUser);
 				}
 			}
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			throw new Exception(e);
 		}
 	}
 
@@ -161,5 +179,13 @@ public class OauthServlet extends BaseController {
 
 	public void setOwnUserService(OwnUserService ownUserService) {
 		this.ownUserService = ownUserService;
+	}
+
+	public OwnClipService getOwnClipService() {
+		return ownClipService;
+	}
+
+	public void setOwnClipService(OwnClipService ownClipService) {
+		this.ownClipService = ownClipService;
 	}
 }

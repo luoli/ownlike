@@ -150,6 +150,10 @@
 			(#{userId}, #{description}, #{boardId}, #{image}, #{link}, #{cover}, #{commentNum}, 
 				#{likeNum}, #{reclipNum}, NOW(), #{deleted}, #{viaUrl}, #{reclipDescription}, #{boardName}, #{userName}, #{userImage}, #{uuid}, #{clipType}, #{previousId})
 	</insert>
+	<update id="updateOwnClipUser" parameterType="ownClip">
+		UPDATE own_clip c SET c.username = #{userName}, c.userimage = #{userImage}
+		WHERE c.userid = #{userId}
+	</update>
 	<update id="updateOwnClip" parameterType="ownClip">
 		UPDATE own_clip t 
 		<set>

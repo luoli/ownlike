@@ -46,7 +46,8 @@ public class OwnCommentController extends BaseController {
 		if(result > 0){
 			mapResult.put("status", "success");
 			mapResult.put("image", sessionUser.getImage());
-			mapResult.put("name", sessionUser.getFirstName() +"&nbsp;&nbsp;"+ sessionUser.getLastName());
+			String firstName = sessionUser.getFirstName();
+			mapResult.put("name", firstName!=null?firstName+"&nbsp;&nbsp;":""+ sessionUser.getLastName());
 			mapResult.put("id", sessionUser.getId());
 		}else{
 			mapResult.put("status", "error");

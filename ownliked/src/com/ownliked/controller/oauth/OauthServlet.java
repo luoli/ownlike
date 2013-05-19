@@ -1,5 +1,7 @@
 package com.ownliked.controller.oauth;
 
+import java.util.Properties;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,10 +19,12 @@ import weibo4j.org.json.JSONObject;
 import com.ownliked.controller.BaseController;
 import com.ownliked.pojo.OwnClip;
 import com.ownliked.pojo.OwnUser;
+import com.ownliked.pojo.OwnUserFollow;
 import com.ownliked.pojo.OwnUserOther;
 import com.ownliked.service.clip.OwnClipService;
 import com.ownliked.service.user.OwnUserOtherService;
 import com.ownliked.service.user.OwnUserService;
+import com.ownliked.service.userFollow.OwnUserFollowService;
 import com.ownliked.util.system.web.NcgUtil;
 import com.qq.connect.api.OpenID;
 import com.qq.connect.api.qzone.UserInfo;
@@ -40,6 +44,8 @@ public class OauthServlet extends BaseController {
 	private OwnUserService ownUserService;
 	@Resource(name="ownClipService")
 	private OwnClipService ownClipService;
+	@Resource(name="ownUserFollowService")
+	private OwnUserFollowService ownUserFollowService;
 	
 	@RequestMapping(value="/oauth.h")
 	public String oauth(HttpServletRequest req, ModelMap map, String oauthType) throws Exception {
@@ -142,6 +148,7 @@ public class OauthServlet extends BaseController {
 					ownClip.setUserImage(himg);
 					ownClip.setUserName(name);
 					ownClipService.updateOwnClipUser(ownClip);
+					insertUserDefaultFollow(ownUser.getId());
 				}
 				req.getSession().setAttribute("OWNUSERLOGIN", ownUser);
 				req.getSession().setAttribute("OWNUSEROTHERLOGIN", result);
@@ -163,6 +170,34 @@ public class OauthServlet extends BaseController {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * 添加默认关注
+	 * @param aUserId
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertUserDefaultFollow(int aUserId)throws Exception{
+		int result = 0;
+		Properties pro = new Properties();
+		pro.load(OauthServlet.class.getClassLoader().getResourceAsStream("user_follow_config.properties"));
+		String proUid = pro.getProperty("userId");
+		if(NcgUtil.blankObject(proUid)){
+			String[] userIds = proUid.split(",");
+			for(int i=0; i<userIds.length; i++){
+				OwnUserFollow ownUserFollow = new OwnUserFollow();
+				ownUserFollow.setaUserId(aUserId);
+				try {
+					ownUserFollow.setbUserId(Integer.valueOf(userIds[i]));
+					ownUserFollowService.followUserAllBoard(ownUserFollow);
+				} catch (Exception e) {
+					log.error("user default follow fail.", e);
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
 	}
 
 	public OwnUserOtherService getOwnUserOtherService() {
@@ -187,5 +222,13 @@ public class OauthServlet extends BaseController {
 
 	public void setOwnClipService(OwnClipService ownClipService) {
 		this.ownClipService = ownClipService;
+	}
+
+	public OwnUserFollowService getOwnUserFollowService() {
+		return ownUserFollowService;
+	}
+
+	public void setOwnUserFollowService(OwnUserFollowService ownUserFollowService) {
+		this.ownUserFollowService = ownUserFollowService;
 	}
 }

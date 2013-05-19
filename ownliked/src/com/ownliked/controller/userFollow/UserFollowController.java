@@ -90,26 +90,30 @@ public class UserFollowController extends BaseController {
 	 */
 	@RequestMapping("/userFollowing.h")
 	public String userFollowing(HttpServletRequest request, HttpServletResponse response, OwnUserFollow ownUserFollow) throws Exception{
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		OwnUser ownUserSession = getSessionUser(request);
 		if(null == ownUserSession){
-			return "9999";
-		}
-		ownUserFollow.setaUserId(ownUserSession.getId());
-		int result = 0;
-		if(0 == ownUserFollow.getBoardId()){	//为关注单个版块，否则为关注用户
-			result = ownUserFollowService.followUserAllBoard(ownUserFollow);
+			resultMap.put("status", "nologin");
 		}else{
-			result = ownUserFollowService.insertOwnUserFollow(ownUserFollow);
+			int aUserId = ownUserSession.getId();
+			if(aUserId != ownUserFollow.getbUserId()){
+				ownUserFollow.setaUserId(aUserId);
+				int result = 0;
+				if(0 == ownUserFollow.getBoardId()){	//为关注单个版块，否则为关注用户
+					result = ownUserFollowService.followUserAllBoard(ownUserFollow);
+				}else{
+					result = ownUserFollowService.insertOwnUserFollow(ownUserFollow);
+				}
+				if(result > 0){
+					resultMap.put("status", "success");
+				}else{
+					resultMap.put("status", "failure");
+				}
+			}else{
+				resultMap.put("status", "isOwn");
+			}
 		}
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		String resultData = "";
-		if(result > 0){
-			resultMap.put("status", "success");
-			resultData = JsonStringBuilder.getAjaxString(resultMap);
-		}else{
-			resultMap.put("status", "failure");
-			resultData = JsonStringBuilder.getAjaxString(resultMap);
-		}
+		String resultData = JsonStringBuilder.getAjaxString(resultMap);
 		response.getWriter().print(resultData);
 		return null;
 	}

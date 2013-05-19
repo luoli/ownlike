@@ -35,6 +35,7 @@ import com.ownliked.util.system.web.NcgUtil;
 @Controller
 @RequestMapping(value="/ownClip")
 public class OwnClipController extends BaseController {
+	private static final String SAVEFILEPATH = "clipImgUpload";
 
 	@Resource(name="ownClipService")
 	private OwnClipService ownClipService;
@@ -266,13 +267,13 @@ public class OwnClipController extends BaseController {
         fileTypes.add("bmp"); 
         fileTypes.add("gif");
         fileTypes.add("png");
-        String resultPath = "";
         Map<String, Object> map = new HashMap<String, Object>();
         if(!(imgFile.getOriginalFilename() == null || "".equals(imgFile.getOriginalFilename()))){
         	String path = request.getSession().getServletContext().getRealPath("/");
-        	File file = getFile(imgFile, path, "clipImgUpload", fileTypes);
+        	File file = getFile(imgFile, path, SAVEFILEPATH, fileTypes);
         	if(null != file){
-        		resultPath = file.getPath().substring(file.getPath().indexOf("ownliked") + 9);
+        		StringBuilder resultPath = new StringBuilder(SAVEFILEPATH);
+        		resultPath.append("/").append(file.getPath().substring(file.getPath().lastIndexOf("\\")+1));
             	InputStream input = imgFile.getInputStream();
             	OutputStream out = new FileOutputStream(file);
             	byte[] data = new byte[1024];

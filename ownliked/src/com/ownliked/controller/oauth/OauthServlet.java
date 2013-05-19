@@ -186,15 +186,21 @@ public class OauthServlet extends BaseController {
 		if(NcgUtil.blankObject(proUid)){
 			String[] userIds = proUid.split(",");
 			for(int i=0; i<userIds.length; i++){
-				OwnUserFollow ownUserFollow = new OwnUserFollow();
-				ownUserFollow.setaUserId(aUserId);
+				int bUserId = 0;
 				try {
-					ownUserFollow.setbUserId(Integer.valueOf(userIds[i]));
-					ownUserFollowService.followUserAllBoard(ownUserFollow);
+					bUserId = Integer.valueOf(userIds[i]);
 				} catch (Exception e) {
 					log.error("user default follow fail.", e);
 					e.printStackTrace();
+					throw new Exception(e);
 				}
+				if(aUserId == bUserId){
+					continue;
+				}
+				OwnUserFollow ownUserFollow = new OwnUserFollow();
+				ownUserFollow.setaUserId(aUserId);
+					ownUserFollow.setbUserId(bUserId);
+					ownUserFollowService.followUserAllBoard(ownUserFollow);
 			}
 		}
 		return result;

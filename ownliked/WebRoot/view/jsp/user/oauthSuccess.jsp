@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		登录成功，跳转页面...
   	</div>
     <script type="text/javascript">
-		window.opener.location.href = "ownClip/checkUserLogin.h";
+		window.opener.location.href = "<%=request.getContextPath()%>/ownClip/checkUserLogin.h";
 		window.opener=null;
 		window.open("","_self");
 		this.window.opener = null;

@@ -61,4 +61,9 @@ public class OwnClipDaoImpl extends BaseDaoImpl<OwnClip, Object> implements OwnC
 		return this.queryEntity("ownClipSqlMap.queryOwnClipByUserAndLiked", ownClip);
 	}
 
+	@Override
+	public List<OwnClip> queryClip4ByBoard(OwnClip ownClip) {
+		return this.queryEntity("ownClipSqlMap.queryClip4ByBoard", ownClip);
+	}
+
 }

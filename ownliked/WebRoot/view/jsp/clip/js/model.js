@@ -211,6 +211,41 @@ var PinEvent = function(){
 			$(".button.comment").bind("click", function(){
 				CheckSession.check(this, p.commentRePin);
 			});
+			/**添加关注事件*/
+		  	$(document).on("click", ".followbutton", function(){
+		  		console.log("click");
+		  		var t = $(this);
+		  		userFollow(t, "1");
+		  		t.html(t.attr("data-text-unfollow"));
+		  		t.removeClass("followbutton").addClass("unfollowbutton disabled clickable");
+		  	});
+		  	/**解除关注*/
+		  	$(document).on("click", ".unfollowbutton", function(){
+		  		console.log("ca click");
+		  		var t = $(this);
+		  		userFollow($(this), "0");
+		  		t.html(t.attr("data-text-follow"));
+		  		t.removeClass("unfollowbutton disabled clickable").addClass("followbutton");
+		  	});
+		  	/**执行方法*/
+		  	function userFollow(t, flag){
+		  		var url;
+		  		if(flag == "1"){
+		  			url = "userFollow/userFollowing.h";
+		  		}else if(flag == "0"){
+		  			url = "userFollow/userUnFollowing.h"
+		  		}else{
+		  			return;
+		  		}
+		  		var boardId = t.parents(".pinBoard").attr("id");
+		  		console.log("boardId: " + boardId + ",currentUserId: " + currentUserId);
+		  		$.post(url, {"boardId":boardId, "bUserId":currentUserId}, function(data){
+					console.log("data: " + data);
+		  			if(data.status == "success"){
+		  				console.log("data: " + data);
+		  			}
+		  		});
+		  	}
 		},
 		showDiv : function(f){
 			console.log(myBoards);
@@ -332,26 +367,51 @@ var PinEvent = function(){
 					url : "ownClip/reClip.h",
 					type : "POST",
 					data : data,
-					success : function(result){console.log("result: " + result);
-						var img = result[0].image;
-						var pinForm = $("#Repin2").html();
-						$("#Repin2").html($("#PostSuccess").html());
-						setTimeout(function(){
-							$("#flipScroll").hide();
-							$("#Repin2").html(pinForm);
-						}, 3000);
-						if(result){
-							var ts = $(t).parents(".pin");
-							if($(".repinsCount", ts).html()){
-								var re = $(".repinsCount >em", ts);
-								var num = re.html();
-								var v = 1 + parseInt(num);
-								re.html(v);
-							}else{
-								reLayout(ts);
-								var reText = '<span class="repinsCount"><em>'+1+'</em>&nbsp;&nbsp;转夹</span>';
-								ts.find(".stats").append(reText);
+					dataType : "json",
+					success : function(result){
+						if(result.status == "success"){
+							var rp = $("#Repin2");
+							var pinForm = rp.html();
+							var curb = $(".CurrentBoard", rp);
+							var posts = $("#PostSuccess");
+							posts.find("h2").eq(0).html('Recliped to <a href="'+curb.attr("data-id")+'">'+curb.html()+'</a>');
+							posts.find("h2").eq(1).html('Shared with your followers. <a href="">See it now</a>');
+							console.log("result: " + result);
+							$(".boardWrapper", posts).find("h3").eq(0).html('<a href="'+result.paramOwnClip.boardId+'">'+result.paramOwnClip.boardName+'</a>');
+							$(".boardWrapper", posts).find("h4").eq(0).html('<a href="ownBoard/searchBoardByOwnUser.h?userId='+result.paramOwnClip.userId+'"><img src="'+result.paramOwnClip.image+'" style="width: 15px; height:15px;"/></a><a href="ownBoard/searchBoardByOwnUser.h?userId='+result.paramOwnClip.userId+'">'+result.paramOwnClip.userName+'</a>');
+							for(var i=0; i<result.ownClips.length; i++){
+								var v = result.ownClips[i];
+								if(i == 0){
+									$(".cover", posts).html('<img src="'+v.image+'"/>');
+								}else{
+									$(".thumbs", posts).append('<img src="'+v.image+'"/>');
+								}
 							}
+							if(result.isFollow > 0){
+								$(".reFollow", posts).html('<a class="button button13 whiteButton disabled clickable unfollowbutton InlineButton" data-text-follow="Follow" data-text-unfollow="Unfollow" href="javascript:void(0);">Unfollow</a>');
+							}else{
+								$(".reFollow", posts).html('<a class="button button13 whiteButton followbutton InlineButton" data-text-follow="Follow" data-text-unfollow="Unfollow" href="javascript:void(0);">Follow</a>');
+							}
+							$("#Repin2").html(posts.html());
+							setTimeout(function(){
+								$("#flipScroll").hide();
+								rp.html(pinForm);
+							}, 3000);
+							if(result){
+								var ts = $(t).parents(".pin");
+								if($(".repinsCount", ts).html()){
+									var re = $(".repinsCount >em", ts);
+									var num = re.html();
+									var v = 1 + parseInt(num);
+									re.html(v);
+								}else{
+									reLayout(ts);
+									var reText = '<span class="repinsCount"><em>'+1+'</em>&nbsp;&nbsp;转夹</span>';
+									ts.find(".stats").append(reText);
+								}
+							}
+						}else{
+							$("#flipScroll").hide();
 						}
 					},
 					error : function(e){}

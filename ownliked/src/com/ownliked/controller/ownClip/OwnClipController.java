@@ -26,9 +26,11 @@ import com.ownliked.controller.BaseController;
 import com.ownliked.pojo.OwnBoard;
 import com.ownliked.pojo.OwnClip;
 import com.ownliked.pojo.OwnUser;
+import com.ownliked.pojo.OwnUserFollow;
 import com.ownliked.service.clip.OwnClipService;
 import com.ownliked.service.like.OwnLikedService;
 import com.ownliked.service.user.OwnUserService;
+import com.ownliked.service.userFollow.OwnUserFollowService;
 import com.ownliked.util.system.web.JsonStringBuilder;
 import com.ownliked.util.system.web.NcgUtil;
 
@@ -43,6 +45,8 @@ public class OwnClipController extends BaseController {
 	private OwnUserService ownUserService;
 	@Resource(name="ownLikedService")
 	private OwnLikedService ownLikedService;
+	@Resource(name="ownUserFollowService")
+	private OwnUserFollowService ownUserFollowService;
 	
 	/**
 	 * 获得当前页面用户关注版块的clip
@@ -228,6 +232,7 @@ public class OwnClipController extends BaseController {
 	 */
 	@RequestMapping(value="/reClip.h")
 	public String reClip(HttpServletResponse response, HttpServletRequest request, OwnClip ownClip) throws Exception{
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		OwnUser sessionUser = (OwnUser)request.getSession().getAttribute("OWNUSERLOGIN");
 		ownClip.setUserId(sessionUser.getId());
 		String firstName = sessionUser.getFirstName();
@@ -236,12 +241,28 @@ public class OwnClipController extends BaseController {
 		int result = this.getOwnClipService().insertOwnClip(ownClip);
 		if(result > 0){
 			OwnClip paramOwnClip = new OwnClip();
-			List<OwnClip> ownClips = this.getOwnClipService().queryOwnClip(paramOwnClip);
-			String jo = JsonStringBuilder.getAjaxString(ownClips);
-			response.getWriter().print(jo);
+			paramOwnClip.setId(ownClip.getPreviousId());
+			paramOwnClip = this.getOwnClipService().findOwnClip(paramOwnClip);
+			if(null != paramOwnClip){
+				OwnUserFollow ownUserFollow = new OwnUserFollow();
+				ownUserFollow.setaUserId(ownClip.getUserId());
+				ownUserFollow.setbUserId(paramOwnClip.getUserId());
+				int boardId = paramOwnClip.getBoardId();
+				ownUserFollow.setBoardId(boardId);
+				int rowCount = this.ownUserFollowService.countOwnUserFollow(ownUserFollow);
+				resultMap.put("isFollow", rowCount);
+				resultMap.put("paramOwnClip", paramOwnClip);
+				paramOwnClip = new OwnClip();
+				paramOwnClip.setBoardId(boardId);
+				List<OwnClip> ownClips = this.getOwnClipService().queryClip4ByBoard(paramOwnClip);
+				resultMap.put("ownClips", ownClips);
+				resultMap.put("status", "success");
+			}
 		}else{
-			response.getWriter().print("9999");
+			resultMap.put("status", "failure");
 		}
+		String js = JsonStringBuilder.getAjaxString(resultMap);
+		response.getWriter().print(js);
 		return null;
 	}
 
@@ -427,6 +448,14 @@ public class OwnClipController extends BaseController {
 
 	public void setOwnLikedService(OwnLikedService ownLikedService) {
 		this.ownLikedService = ownLikedService;
+	}
+
+	public OwnUserFollowService getOwnUserFollowService() {
+		return ownUserFollowService;
+	}
+
+	public void setOwnUserFollowService(OwnUserFollowService ownUserFollowService) {
+		this.ownUserFollowService = ownUserFollowService;
 	}
 	
 }

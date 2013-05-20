@@ -78,6 +78,18 @@
 	<select id="countOwnClip" resultType="int" parameterType="ownClip">
 		SELECT COUNT(t.id) FROM own_clip t
 	</select>
+	<select id="queryClip4ByBoard" parameterType="ownClip" resultMap="ownClipMap">
+		SELECT * FROM own_clip t 
+			<where>
+				<if test="boardId != 0">
+					t.boardId = #{boardId}
+				</if>
+			</where>
+		ORDER BY t.id DESC 
+		<trim prefix="LIMIT">
+			0, 5
+		</trim>
+	</select>
 	<select id="queryOwnClipByUserAndLiked" parameterType="ownClip" resultMap="ownClipMap">
 		SELECT c.id,c.userId,c.description,c.boardId,c.image,c.link,c.cover,c.commentNum,c.likeNum,c.reclipNum,c.createTime,
 		c.deleted,c.viaUrl,c.reclipDescription,c.boardName,c.userName,c.userImage,c.uuid,clipType,previousId,

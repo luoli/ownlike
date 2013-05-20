@@ -11,6 +11,8 @@ import com.ownliked.pojo.OwnClip;
  */
 public interface OwnClipDao {
 	
+	List<OwnClip> queryClip4ByBoard(OwnClip ownClip);
+	
 	/**
 	 * ownClip表中更新用户信息
 	 * @param ownClip

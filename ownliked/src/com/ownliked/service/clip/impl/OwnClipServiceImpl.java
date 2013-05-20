@@ -149,6 +149,17 @@ public class OwnClipServiceImpl implements OwnClipService {
 		return this.getOwnClipDao().updateOwnClip(ownClip);
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	@Override
+	public int updateOwnClipUser(OwnClip ownClip) {
+		return ownClipDao.updateOwnClipUser(ownClip);
+	}
+
+	@Override
+	public List<OwnClip> queryClip4ByBoard(OwnClip ownClip) {
+		return this.ownClipDao.queryClip4ByBoard(ownClip);
+	}
+
 	@Override
 	public List<OwnClip> queryOwnClipByUser(OwnClip ownClip) {
 		return this.ownClipDao.queryOwnClipByUser(ownClip);
@@ -157,12 +168,6 @@ public class OwnClipServiceImpl implements OwnClipService {
 	@Override
 	public List<OwnClip> queryOwnClipByUserAndLiked(OwnClip ownClip) {
 		return this.ownClipDao.queryOwnClipByUserAndLiked(ownClip);
-	}
-
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-	@Override
-	public int updateOwnClipUser(OwnClip ownClip) {
-		return ownClipDao.updateOwnClipUser(ownClip);
 	}
 
 }

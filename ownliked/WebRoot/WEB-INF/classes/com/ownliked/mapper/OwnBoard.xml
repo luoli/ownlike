@@ -52,7 +52,14 @@
 		FROM own_board b 
 		LEFT JOIN own_clip c ON b.id = c.boardId 
 		LEFT JOIN own_user_follow f ON b.userId = f.b_userId AND b.id = f.boardId
-		WHERE b.userId = #{userId}
+		<where>
+			<if test="userId != 0">
+				b.userId = #{userId}
+			</if>
+			<if test="id != 0">
+				b.id = #{id} 
+			</if>
+		</where>
 	</select>
 	<select id="countOwnBoard" resultType="int" parameterType="ownBoard">
 		SELECT COUNT(t.id) FROM own_board t

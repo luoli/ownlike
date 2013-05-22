@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" class="imgLink"><img src="${ v.userImage}" alt="${v.userName }" title="${v.userName }"/></a>
 							<p>
 								<a href="ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" data-id="${v.userId}">${v.userName }</a>&nbsp;onto&nbsp;
-								<a href="###" data-id="${v.boardId}">${v.boardName }</a>
+								<a href="ownBoard/findBoardInfoAndClip.h?boId=${v.boardId}" data-id="${v.boardId}">${v.boardName }</a>
 							</p>
 						</div>
 						<c:forEach items="${v.ownCommentList}" var="vc" begin="0" end="4">

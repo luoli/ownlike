@@ -29,11 +29,27 @@
 		<result property="a_userId" column="a_userId" />
 		<result property="boardId" column="boardId" />
 		<collection property="clipList" resultMap="ownClipSqlMap.boardByOwnClipMap"></collection>
-<!--		<collection property="followList" resultMap="ownUserFollowSqlMap.ownUserFollowMap"></collection>-->
+	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnBoard" id="boardInfoAndOwnClipMap">
+		<id property="id" column="ID" />
+		<result property="boardName" column="boardName" />
+		<result property="clipNum" column="clipNum" />
+		<collection property="clipList" resultMap="ownClipSqlMap.boardInfoAndOwnClipMap"></collection>
+		<collection property="ownUser" resultMap="ownUserSqlMap.ownUserMapByComment"></collection>
 	</resultMap>
 	<sql id="sqlOwnBoard">
 		SELECT * FROM own_board t
 	</sql>
+<!--  根据board信息查询板块与clip	-->
+	<select id="findBoardInfoAndClip" parameterType="ownBoard" resultMap="boardInfoAndOwnClipMap">
+		SELECT b.id, b.boardName, b.clipNum, 
+			c.id cid, c.description, c.image, c.viaUrl, c.link, 
+			u.`id` uid, u.`firstName` ufirstName, u.`lastName` ulastName, u.`image` uimage
+			FROM own_board b 
+			LEFT JOIN own_clip c ON b.id = c.boardId
+			LEFT JOIN own_user u ON b.`userId` = u.`id`
+		WHERE b.id = #{id}
+	</select>
 	<select id="queryOwnUserBoardAndIsFollow" parameterType="ownBoard" resultMap="ownBoardMap">
 		SELECT * FROM own_board b WHERE b.`id` IN 
 			(SELECT f.`boardId` FROM own_user_follow f WHERE f.`b_userId` = #{userId} AND f.`a_userId` = #{a_userId})

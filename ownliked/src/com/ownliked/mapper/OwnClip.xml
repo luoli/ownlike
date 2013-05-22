@@ -52,6 +52,14 @@
 		<id property="id" column="cid" />
 		<result property="image" column="cimage" />
 	</resultMap>
+	<resultMap type="com.ownliked.pojo.OwnClip" id="boardInfoAndOwnClipMap">
+		<id property="id" column="CID" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="image" column="IMAGE" />
+		<result property="link" column="LINK" />
+		<result property="viaUrl" column="VIAURL" />
+		<result property="reclipDescription" column="RECLIPDESCRIPTION" />
+	</resultMap>
 	<resultMap type="com.ownliked.pojo.OwnClip" id="activeByOwnClip">
 		<id property="id" column="ID" />
 		<result property="userId" column="userId" />

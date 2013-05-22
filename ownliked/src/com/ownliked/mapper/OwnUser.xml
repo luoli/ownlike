@@ -38,10 +38,10 @@
 		<result property="follow" column="FOLLOW" />
 	</resultMap>
 	<resultMap type="com.ownliked.pojo.OwnUser" id="ownUserMapByComment">
-		<id property="id" column="uid" />
-		<result property="firstName" column="ufirstName" />
-		<result property="lastName" column="ulastName" />
-		<result property="image" column="uimage" />
+		<id property="id" column="UID" />
+		<result property="firstName" column="UFIRSTNAME" />
+		<result property="lastName" column="ULASTNAME" />
+		<result property="image" column="UIMAGE" />
 	</resultMap>
 	
 	<sql id="sqlOwnUser">

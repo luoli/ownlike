@@ -29,6 +29,8 @@ public class OwnBoard extends BasePojo {
 	private int clipNum;		//Clip数量
 	private int isFollow;		//是否被关注
 	
+	private OwnUser ownUser;
+	
 //	private List<OwnUserFollow> followList;//关注类表
 	
 	//-------------/
@@ -37,6 +39,12 @@ public class OwnBoard extends BasePojo {
 	
 	private List<Clip>clipList;
 	
+	public OwnUser getOwnUser() {
+		return ownUser;
+	}
+	public void setOwnUser(OwnUser ownUser) {
+		this.ownUser = ownUser;
+	}
 	public int getId() {
 		return id;
 	}

@@ -12,6 +12,13 @@ import com.ownliked.pojo.OwnBoard;
  */
 public interface OwnBoardDao extends BaseDao {
 	
+	/**
+	 * 查询board与clip信息
+	 * @param ownBoard
+	 * @return
+	 */
+	OwnBoard findBoardInfoAndClip(OwnBoard ownBoard);
+	
 	public List<OwnBoard> queryOwnUserBoardAndNotFollow(OwnBoard ownBoard);
 	
 	public List<OwnBoard> queryOwnUserBoardAndIsFollow(OwnBoard ownBoard);

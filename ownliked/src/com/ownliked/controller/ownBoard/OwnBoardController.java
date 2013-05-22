@@ -31,6 +31,15 @@ public class OwnBoardController extends BaseController {
 	@Resource(name="ownUserService")
 	private OwnUserService ownUserService;
 	
+	@RequestMapping(value="/findBoardInfoAndClip.h")
+	public String findBoardInfoAndClip(HttpServletRequest request, HttpServletResponse response, int boId, ModelMap map)throws Exception{
+		OwnBoard ownBoard = new OwnBoard();
+		ownBoard.setId(boId);
+		OwnBoard obResult = this.ownBoardService.findBoardInfoAndClip(ownBoard);
+		map.put("ownBoard", obResult);
+		return "/board/welcomeBoard";
+	}
+	
 	/**
 	 * 获得session用户版块数据
 	 * @param ownUserSession session用户对象

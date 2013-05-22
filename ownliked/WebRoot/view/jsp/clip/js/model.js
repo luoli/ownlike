@@ -1152,12 +1152,17 @@ var BoardLayout = function () {
             var b = $(this.pinsContainer + " .pin"),
                 c = this.getContentArea();
             this.columnWidthOuter = this.columnWidthInner + this.columnMargin + this.columnPadding;
+            if($(".padItems").length > 0){
+            	this.columnWidthOuter += 15;
+            }
             this.columns = Math.max(this.columnCount, parseInt(c / this.columnWidthOuter));
+            $("body").addClass("columns-"+this.columns-1);
             if (b.length < this.columns) this.columns = Math.max(this.columnCount, b.length);
             c = this.columnWidthOuter * this.columns - this.columnMargin;
             var e = document.getElementById("wrapper");
             if (e) e.style.width = c + "px";
             $(".liquidContainer").css("width", c + "px");
+            $(".BoardInfoBar").css("width", c + "px");
             for (c = 0; c < this.columns; c++) this.pinArray[c] = 0;
             document.getElementById("SortableButtons") ? this.showPins() : this.flowPins(b, true);
             if ($("#columnContainer .pin").length === 0 && window.location.pathname === "/") {

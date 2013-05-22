@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -21,10 +22,18 @@
 		<!--
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		-->
-
+		<link rel="stylesheet" href="view/css/public.css" type="text/css"/>
+		<link rel="stylesheet" href="view/css/head/head.css" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/view/jsp/board/css/new_myboard.css">
+		
+		<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN != null};</script>
+		<script type="text/javascript" src="<%=request.getContextPath() %>/view/js/comm/jquery-1.7.2.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath() %>/view/js/head/head.js"></script>
 	</head>
 
-	<body class="columns-5">
+	<body>
+		<div id=header><%@include file="/view/jsp/include/head.jsp" %></div>
+		<%@include file="/view/jsp/include/headAdd.jsp" %>
 		<div class="App full Module">
 			<div class="appContent">
 				<div class="mainContainer">
@@ -43,22 +52,22 @@
 						</div>
 						<div class="ajax BoardHeader Module centeredWithinWrapper">
 							<h1>
-								things for my house
+								${ownBoard.boardName }
 							</h1>
 							<p class="description">
 							</p>
 							<div class="ajax centeredWithinWrapper InfoBarBase Module BoardInfoBar">
 								<div class="metaLeft">
 									<div class="thumb hasText Module ajax User small">
-										<a href="/nesspie/"> <span class="thumbImageWrapper">
-											<img src="http://media-cache-ec1.pinimg.com/avatars/nesspie-1364605262_30.jpg" alt="Profile image of Nessa Pie"> </span>
-											<span class="fullname">Nessa Pie</span>
+										<a href="ownBoard/searchBoardByOwnUser.h?userId=${ownBoard.ownUser.id }"> <span class="thumbImageWrapper">
+											<img src="${ownBoard.ownUser.image }" alt="Profile image of Nessa Pie"> </span>
+											<span class="fullname">${ownBoard.ownUser.firstName }${ownBoard.ownUser.lastName }</span>
 										</a>
 									</div>
 								</div>
 								<ul class="counts">
 									<li>
-										<a href="/nesspie/things-for-my-house/pins/" class="active">218 Pins </a>
+										<a href="/nesspie/things-for-my-house/pins/" class="active">${ownBoard.clipNum } Pins </a>
 									</li>
 									<li>
 										<a href="/nesspie/things-for-my-house/followers/">127 Followers</a>
@@ -69,10 +78,11 @@
 								</button>
 							</div>
 						</div>
-						<div class="hasFooter ajax Grid Module" style="">
+						<div id="wrapper" class="hasFooter ajax Grid Module">
 							<div class="moduleMask"></div>
-							<div class="padItems Module centeredWithinWrapper ajax GridItems variableHeightLayout" style="height: 4439px;">
-								<div class="item" style="top: 0px; left: 0px; visibility: visible;">
+							<div id="columnContainer" class="padItems Module centeredWithinWrapper ajax GridItems variableHeightLayout boardLayout" style="height: 4439px;">
+							<c:forEach items="${ownBoard.clipList}" var="v">
+								<div class="item pin" style="visibility: visible;">
 									<div class="ajax Pin Module summary">
 										<div class="pinWrapper">
 											<div class="pinHolder">
@@ -92,23 +102,24 @@
 													</h4>
 													<div class="fadeContainer loaded">
 														<div class="hoverMask"></div>
-														<img src="http://media-cache-ec3.pinimg.com/236x/ef/0c/d4/ef0cd43a6fd4702a71be634038ff579d.jpg" style="width: 236px; height: 267px;" alt="" class="image pinImg fullBleed lazy loaded">
+														<img src="${v.image }" class="image pinImg fullBleed lazy loaded">
 													</div>
 												</a>
 											</div>
 											<div class="pinMeta">
 												<p class="pinDescription">
-													Thumbprint starfish pillow tutorial on Pretty Handy Girl
+													${v.description }
 												</p>
 											</div>
 											<div class="pinUserAttribution">
-												<a href="/source/prettyhandygirl.com/" class="attributionItem firstAttribution lastAttribution ">
-													<span class="attributionTitle">Pinned from</span> <span class="attributionName">prettyhandygirl.com</span>
+												<a href="${v.link }" class="attributionItem firstAttribution lastAttribution ">
+													<span class="attributionTitle">Pinned from</span> <span class="attributionName">${v.viaUrl }</span>
 												</a>
 											</div>
 										</div>
 									</div>
 								</div>
+							</c:forEach>
 							</div>
 							<div class="ajax GridFooter Module centeredWithinWrapper showGridLoading" style="display: block;">
 								<div class="gridError" style="display: none;">
@@ -131,5 +142,10 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="<%=request.getContextPath() %>/view/js/comm/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath() %>/view/jsp/clip/js/model.js"></script>
+		<script>
+			BoardLayout.setup();
+		</script>
 	</body>
 </html>

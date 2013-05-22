@@ -12,6 +12,11 @@ import com.ownliked.pojo.OwnBoard;
 public class OwnBoardDaoImpl extends BaseDaoImpl<OwnBoard, Object> implements OwnBoardDao {
 
 	@Override
+	public OwnBoard findBoardInfoAndClip(OwnBoard ownBoard) {
+		return this.findEntity("ownBoardSqlMap.findBoardInfoAndClip", ownBoard);
+	}
+
+	@Override
 	public List<OwnBoard> queryOwnUserBoardAndIsFollow(OwnBoard ownBoard) {
 		return this.queryEntity("ownBoardSqlMap.queryOwnUserBoardAndIsFollow", ownBoard);
 	}

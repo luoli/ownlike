@@ -11,6 +11,8 @@ import com.ownliked.pojo.OwnBoard;
  */
 public interface OwnBoardService {
 	
+	OwnBoard findBoardInfoAndClip(OwnBoard ownBoard);
+	
 	public List<OwnBoard> queryOwnUserBoardBy4Clip(OwnBoard ownBoard);
 
 	/**

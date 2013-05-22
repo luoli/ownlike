@@ -40,6 +40,11 @@ public class OwnBoardServiceImpl implements OwnBoardService {
 	}
 
 	@Override
+	public OwnBoard findBoardInfoAndClip(OwnBoard ownBoard) {
+		return this.getOwnBoardDao().findBoardInfoAndClip(ownBoard);
+	}
+
+	@Override
 	public List<OwnBoard> queryOwnUserBoardBy4Clip(OwnBoard ownBoard) {
 		return this.getOwnBoardDao().queryOwnUserBoardBy4Clip(ownBoard);
 	}

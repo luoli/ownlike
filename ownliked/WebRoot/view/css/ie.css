@@ -57,7 +57,7 @@
   */
 
   /* Emulate CSS gradient */
-  .header.lg {background: url(../images/ie-modal-header-bg.png);}
+  .header.lg {background: url(images/ie-modal-header-bg.png);}
 
   /* First comment breaking */
   .comments .convo {overflow: visible;}

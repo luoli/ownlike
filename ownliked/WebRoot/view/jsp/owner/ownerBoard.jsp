@@ -21,16 +21,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" href="view/css/public.css" type="text/css"/>
-	<link rel="stylesheet" href="view/css/head/head.css" type="text/css"/>
-	<link rel="stylesheet" href="view/jsp/owner/css/owner.css" type="text/css"/>
-	<link rel="stylesheet" href="view/jsp/clip/css/indexPopular.css" type="text/css"/>
-	<!--[if (gt IE 6)&(lt IE 9)]><link rel="stylesheet" href="view/css/ie.css" type="text/css" media="all" /><![endif]-->
+	<link rel="stylesheet" href="css/public.css" type="text/css"/>
+	<link rel="stylesheet" href="css/head/head.css" type="text/css"/>
+	<link rel="stylesheet" href="css/owner.css" type="text/css"/>
+	<link rel="stylesheet" href="css/indexPopular.css" type="text/css"/>
+	<!--[if (gt IE 6)&(lt IE 9)]><link rel="stylesheet" href="css/ie.css" type="text/css" media="all" /><![endif]-->
 	<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN!=null};window.currentUserId=${ownUser.id};</script>
-	<script type="text/javascript" src="view/js/comm/jquery-1.7.2.js"></script>
-	<script type="text/javascript" src="view/js/head/head.js"></script>
-	<script type="text/javascript" src="view/js/comm/ajaxfileupload.js"></script>
-	<script type="text/javascript" src="view/jsp/clip/js/model.js"></script>
   </head>
   
   <body id="profile">
@@ -111,6 +107,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </ul>
         </div><!-- #ColumnContainer -->
 	</div><!-- #wrapper -->
+	<script type="text/javascript" src="js/comm/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="js/head/head.js"></script>
+	<script type="text/javascript" src="js/comm/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="js/model.js"></script>
   </body>
   <script type="text/javascript" charset="utf-8">
   	$("#ContextBar").on("click", ".followuserbutton", function(){
@@ -166,6 +166,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	}
   </script>
   <script type="text/javascript" charset="utf-8">
+	var url = "ownBoard/searchSessionBoard.h";
+	$.ajax({
+		url : url,
+		data : {},
+		type : "POST",
+		dataType : "json"
+	}).done(function(data){
+		window.myBoards = data.obList;
+	}).fail(function(e){console.log(e);});
     BoardLayout.setup();
     /**
     $.pageless.settings.complete = function(){

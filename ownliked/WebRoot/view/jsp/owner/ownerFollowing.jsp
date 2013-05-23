@@ -160,6 +160,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		});
   	}
     BoardLayout.setup();
+	var url = "ownBoard/searchSessionBoard.h";
+	$.ajax({
+		url : url,
+		data : {},
+		type : "POST",
+		dataType : "json"
+	}).done(function(data){
+		window.myBoards = data.obList;
+	}).fail(function(e){console.log(e);});
   </script>
     <div id="SearchAutocompleteHolder"></div>
     <button id="ScrollToTop" class="Button WhiteButton Offscreen Indicator" type="button">

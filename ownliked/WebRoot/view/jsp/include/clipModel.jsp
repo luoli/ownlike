@@ -111,7 +111,7 @@
 			</div>
 		</div>
 		<div id="loading">
-			<img src="view/images/popular/rotating_pin.png" alt="Loading Animation"/>
+			<img src="images/popular/rotating_pin.png" alt="Loading Animation"/>
 		</div>
 		<div id="pinButtom">
 			<div id="ajaxFooter">

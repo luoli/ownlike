@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script type="text/javascript">
-	var url = "ownBoard/searchSessionBoard.h";
-	$.ajax({
-		url : url,
-		data : {},
-		type : "POST",
-		dataType : "json"
-	}).done(function(data){
-		window.myBoards = data.obList;
-	}).fail(function(e){console.log(e);});
-</script>
 <div class="headContainer" style="width:1170px;">
-	<a id="ownliked" href="/ownliked">Ownliked</a>
+	<a id="ownliked" href="/">Ownliked</a>
 	<ul id="navigation">
 		<li>
 			<c:choose>
@@ -81,7 +70,7 @@
 		<form>
 			<input type="text" id="query" name="" placeholder="Search" autocomplete="off"/>
 			<a href="" class="lg">
-				<img src="view/images/head/search.gif"/>
+				<img src="images/head/search.gif"/>
 			</a>
 		</form>
 	</div>

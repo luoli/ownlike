@@ -117,6 +117,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	BoardLayout.setup();
 	PinEvent.initBind();
+	var url = "ownBoard/searchSessionBoard.h";
+	$.ajax({
+		url : url,
+		data : {},
+		type : "POST",
+		dataType : "json"
+	}).done(function(data){
+		window.myBoards = data.obList;
+	}).fail(function(e){console.log(e);});
 </script>
   <script type="text/javascript" charset="utf-8">
   	$("#ContextBar").on("click", ".followuserbutton", function(){

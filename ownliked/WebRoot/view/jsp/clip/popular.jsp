@@ -10,15 +10,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<base href="<%=basePath%>">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Ownliked / Home</title>
-		<link rel="stylesheet" href="view/css/public.css" type="text/css"/>
-		<link rel="stylesheet" href="view/css/head/head.css" type="text/css"/>
-		<link rel="stylesheet" href="view/jsp/clip/css/indexPopular.css" type="text/css"/>
-		<!--[if (gt IE 6)&(lt IE 9)]><link rel="stylesheet" href="view/css/ie.css" type="text/css" media="all" /><![endif]-->
+		<link rel="stylesheet" href="css/public.css" type="text/css"/>
+		<link rel="stylesheet" href="css/head/head.css" type="text/css"/>
+		<link rel="stylesheet" href="css/indexPopular.css" type="text/css"/>
+		<!--[if (gt IE 6)&(lt IE 9)]><link rel="stylesheet" href="css/ie.css" type="text/css" media="all" /><![endif]-->
 		<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN != null};</script>
-		<script type="text/javascript" src="view/js/comm/jquery-1.7.2.js"></script>
-		<script type="text/javascript" src="view/js/head/head.js"></script>
-		<script type="text/javascript" src="view/js/comm/ajaxfileupload.js"></script>
-		<script type="text/javascript" src="view/jsp/clip/js/model.js"></script>
 	</head>
 	<body id="categoriesBarPage">
 	<noscript><div id="noScript"><h1>You need to enable Javascript.</h1></div></noscript>
@@ -134,9 +130,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 <%--	clip	--%>
 		<%@ include file="/view/jsp/include/clipModel.jsp" %>
+		<script type="text/javascript" src="js/comm/jquery-1.7.2.js"></script>
+		<script type="text/javascript" src="js/head/head.js"></script>
+		<script type="text/javascript" src="js/comm/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="js/model.js"></script>
 		<script type="text/javascript">
 			BoardLayout.setup();
 			PinEvent.initBind();
+			var url = "ownBoard/searchSessionBoard.h";
+			$.ajax({
+				url : url,
+				data : {},
+				type : "POST",
+				dataType : "json"
+			}).done(function(data){
+				window.myBoards = data.obList;
+			}).fail(function(e){console.log(e);});
 		</script>
 	</body>
 </html>

@@ -22,13 +22,11 @@
 		<!--
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		-->
-		<link rel="stylesheet" href="view/css/public.css" type="text/css"/>
-		<link rel="stylesheet" href="view/css/head/head.css" type="text/css"/>
-		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/view/jsp/board/css/new_myboard.css">
+		<link rel="stylesheet" href="css/public.css" type="text/css"/>
+		<link rel="stylesheet" href="css/head/head.css" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="css/new_myboard.css">
 		
 		<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN != null};</script>
-		<script type="text/javascript" src="<%=request.getContextPath() %>/view/js/comm/jquery-1.7.2.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath() %>/view/js/head/head.js"></script>
 	</head>
 
 	<body>
@@ -142,10 +140,21 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="<%=request.getContextPath() %>/view/js/comm/ajaxfileupload.js"></script>
-		<script type="text/javascript" src="<%=request.getContextPath() %>/view/jsp/clip/js/model.js"></script>
+		<script type="text/javascript" src="js/comm/jquery-1.7.2.js"></script>
+		<script type="text/javascript" src="js/head/head.js"></script>
+		<script type="text/javascript" src="js/comm/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="js/model.js"></script>
 		<script>
 			BoardLayout.setup();
+			var url = "ownBoard/searchSessionBoard.h";
+			$.ajax({
+				url : url,
+				data : {},
+				type : "POST",
+				dataType : "json"
+			}).done(function(data){
+				window.myBoards = data.obList;
+			}).fail(function(e){console.log(e);});
 		</script>
 	</body>
 </html>

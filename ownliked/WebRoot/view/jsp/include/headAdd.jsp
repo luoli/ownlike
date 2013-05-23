@@ -51,7 +51,7 @@
 						<div class="images pin" style="margin-bottom: -179.5px; ">
 							<div class="price"></div>
 							<ul>
-								<li><img src="view/images/popular/gif.gif" alt=""/></li>
+								<li><img src="images/popular/gif.gif" alt=""/></li>
 							</ul>
 						</div>
 					</div>

@@ -19,6 +19,21 @@
 	</listener>
 	+-->
 	
+	<servlet>
+	    <servlet-name>sysInit</servlet-name>
+	    <servlet-class>com.ownliked.util.system.web.SysInitServlet</servlet-class>
+	    <init-param>
+	        <param-name>clip_upload_path</param-name>
+	        <param-value>D:/Apache/Apache24_/htdocs</param-value>
+<!-- 	        <param-value>C:/Server/Apache24/htdocs</param-value> -->
+	    </init-param>
+	    <init-param>
+	        <param-name>clip_upload_path_folder</param-name>
+	        <param-value>/clipImgUpload</param-value>
+	    </init-param>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+	
 <!--  spring servlet	-->
 	<servlet>
 		<servlet-name>springServlet</servlet-name>

@@ -33,13 +33,11 @@ import com.ownliked.service.user.OwnUserService;
 import com.ownliked.service.userFollow.OwnUserFollowService;
 import com.ownliked.util.system.web.JsonStringBuilder;
 import com.ownliked.util.system.web.NcgUtil;
+import com.ownliked.util.system.web.SysInitServlet;
 
 @Controller
 @RequestMapping(value="/ownClip")
 public class OwnClipController extends BaseController {
-	private static final String SAVEFILEPATH = "/clipImgUpload";
-//	private static final String PATH = "C:\\Server\\Apache24\\htdocs";
-	private static final String PATH = "D:\\Apache\\Apache24_\\htdocs";
 
 	@Resource(name="ownClipService")
 	private OwnClipService ownClipService;
@@ -319,9 +317,9 @@ public class OwnClipController extends BaseController {
         Map<String, Object> map = new HashMap<String, Object>();
         if(!(imgFile.getOriginalFilename() == null || "".equals(imgFile.getOriginalFilename()))){
 //        	String path = request.getSession().getServletContext().getRealPath("/");
-        	File file = getFile(imgFile, PATH, SAVEFILEPATH, fileTypes);
+        	File file = getFile(imgFile, SysInitServlet.clip_upload_path, SysInitServlet.clip_upload_path_folder, fileTypes);
         	if(null != file){
-        		StringBuilder resultPath = new StringBuilder(SAVEFILEPATH);
+        		StringBuilder resultPath = new StringBuilder(SysInitServlet.clip_upload_path_folder);
         		resultPath.append("/").append(file.getPath().substring(file.getPath().lastIndexOf("\\")+1));
             	InputStream input = imgFile.getInputStream();
             	OutputStream out = new FileOutputStream(file);

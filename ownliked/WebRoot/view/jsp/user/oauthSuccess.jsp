@@ -1,16 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
 <!DOCTYPE HTML>
 <html lang="zh" class="en js csstransforms3d">
   <head>
-    <base href="<%=basePath%>">
-    
     <title>Ownliked / Register</title>
-    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    

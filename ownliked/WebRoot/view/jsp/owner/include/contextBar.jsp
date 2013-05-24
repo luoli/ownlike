@@ -3,22 +3,22 @@
 <div class="FixedContainer">
    <ul class="links">
 	  <li>
-	    <a href="ownBoard/searchBoardByOwnUser.h?userId=${ownUser.id}" <c:if test="${selBar == 'board'}">class="selected"</c:if>>
+	    <a href="/ownBoard/searchBoardByOwnUser.h?userId=${ownUser.id}" <c:if test="${selBar == 'board'}">class="selected"</c:if>>
 	      <strong>${ownUser.boardNum}</strong> Boards
 	    </a>
 	  </li>
 	  <li>
-	    <a href="ownClip/searchClipByCurrentUser.h?userId=${ownUser.id}" <c:if test="${selBar == 'pin'}">class="selected"</c:if>>
+	    <a href="/ownClip/searchClipByCurrentUser.h?userId=${ownUser.id}" <c:if test="${selBar == 'pin'}">class="selected"</c:if>>
 	      <strong>${ownUser.clipNum}</strong> Pins
 	    </a>
 	  </li>
 	  <li>
-	    <a href="ownClip/searchClipByCurrentUser.h?userId=${ownUser.id}&filter=likes" <c:if test="${selBar == 'like'}">class="selected"</c:if>>
+	    <a href="/ownClip/searchClipByCurrentUser.h?userId=${ownUser.id}&filter=likes" <c:if test="${selBar == 'like'}">class="selected"</c:if>>
 	      <strong>${ownUser.likeNum}</strong> Likes
 	    </a>
 	  </li>
 	  <li>
-	    <a href="ownActivateHistory/getCurrentUserActive.h?userId=${ownUser.id}" <c:if test="${selBar == 'active'}">class="selected"</c:if>>
+	    <a href="/ownActivateHistory/getCurrentUserActive.h?userId=${ownUser.id}" <c:if test="${selBar == 'active'}">class="selected"</c:if>>
 	      Activity
 	    </a>
 	  </li>

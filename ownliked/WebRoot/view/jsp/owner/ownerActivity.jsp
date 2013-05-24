@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="/css/owner.css" type="text/css"/>
 	<link rel="stylesheet" href="/css/indexPopular.css" type="text/css"/>
 	<!--[if (gt IE 6)&(lt IE 9)]><link rel="stylesheet" href="css/ie.css" type="text/css" media="all" /><![endif]-->
-	<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN!=null};window.currentUserId=${ownUser.id};</script>
+	<script type="text/javascript">window.currentUserId=${ownUser.id};</script>
   </head>
   
   <body id="profile">
@@ -103,15 +103,6 @@
 <script type="text/javascript">
 	BoardLayout.setup();
 	PinEvent.initBind();
-	var url = "ownBoard/searchSessionBoard.h";
-	$.ajax({
-		url : url,
-		data : {},
-		type : "POST",
-		dataType : "json"
-	}).done(function(data){
-		window.myBoards = data.obList;
-	}).fail(function(e){console.log(e);});
 </script>
   <script type="text/javascript" charset="utf-8">
   	$("#ContextBar").on("click", ".followuserbutton", function(){

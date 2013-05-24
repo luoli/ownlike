@@ -9,29 +9,28 @@
 		<link rel="stylesheet" href="/css/head/head.css" type="text/css"/>
 		<link rel="stylesheet" href="/css/indexPopular.css" type="text/css"/>
 		<!--[if (gt IE 6)&(lt IE 9)]><link rel="stylesheet" href="css/ie.css" type="text/css" media="all" /><![endif]-->
-		<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN != null};</script>
 	</head>
 	<body id="categoriesBarPage">
 	<noscript><div id="noScript"><h1>You need to enable Javascript.</h1></div></noscript>
 		<div id=header><%@include file="/view/jsp/include/head.jsp" %></div>
 		<div id="categoriesBar">
 			<ul class="liquidContainer headContainer">
-				<c:if test="${OWNUSERLOGIN != null}"><li><a href="ownClip/queryClipByFollow.h" class="nav <c:if test="${selector == 'follow'}">selected</c:if>">关注</a>&nbsp;&middot;</li></c:if>
+				<c:if test="${OWNUSERLOGIN != null}"><li><a href="/ownClip/queryClipByFollow.h" class="nav <c:if test="${selector == 'follow'}">selected</c:if>">关注</a>&nbsp;&middot;</li></c:if>
 				<li class="submenu">
 					<a href="###" class="nav <c:if test="${selector == 'item'}">selected</c:if>">分类<span></span></a>&nbsp;&middot;
 					<ul id="categoriesDropdown">
 						<li>
 							<c:forEach items="${ownBoards}" var="v" varStatus="s">
-								<span class="submenuColumn"><a href="ownClip/searchClipByCommBoardType.h?boardId=${v.id}">${v.boardName }</a></span>
+								<span class="submenuColumn"><a href="/ownClip/searchClipByCommBoardType.h?boardId=${v.id}">${v.boardName }</a></span>
 							</c:forEach>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<a href="ownClip/queryClipByNews.h" class="nav <c:if test="${selector == 'news'}">selected</c:if>">最新</a>&nbsp;&middot;
+					<a href="/ownClip/queryClipByNews.h" class="nav <c:if test="${selector == 'news'}">selected</c:if>">最新</a>&nbsp;&middot;
 				</li>
 				<li>
-					<a href="ownClip/queryClipByPopular.h" class="nav <c:if test="${selector == 'popular'}">selected</c:if>">流行</a>
+					<a href="/ownClip/queryClipByPopular.h" class="nav <c:if test="${selector == 'popular'}">selected</c:if>">流行</a>
 				</li>
 			</ul>
 		</div>
@@ -40,8 +39,8 @@
 			<div class="nag">
 				<div class="sheet1 sheet">
 					<div>
-						<a href="view/jsp/user/register.jsp" class="button redButton button18">注册 &raquo;</a>
-						<a href="view/jsp/user/login.jsp" class="button whiteButton button18">登录</a>
+						<a href="/view/jsp/user/register.jsp" class="button redButton button18">注册 &raquo;</a>
+						<a href="/view/jsp/user/login.jsp" class="button whiteButton button18">登录</a>
 					</div>
 					<p>
 						<strong>Pinterest is an online pinboard.</strong><br/>Organize and share things you love.
@@ -89,17 +88,17 @@
 							<c:if test="${v.commentNum != 0}"><span class="commentsCount"><em>${v.commentNum}</em>&nbsp;&nbsp;评论</span></c:if>
 						</p>
 						<div class="convo attribution clearfix">
-							<a href="ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" class="imgLink"><img src="${ v.userImage}" alt="${v.userName }" title="${v.userName }"/></a>
+							<a href="/ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" class="imgLink"><img src="${ v.userImage}" alt="${v.userName }" title="${v.userName }"/></a>
 							<p>
-								<a href="ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" data-id="${v.userId}">${v.userName }</a>&nbsp;onto&nbsp;
-								<a href="ownBoard/findBoardInfoAndClip.h?boId=${v.boardId}" data-id="${v.boardId}">${v.boardName }</a>
+								<a href="/ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" data-id="${v.userId}">${v.userName }</a>&nbsp;onto&nbsp;
+								<a href="/ownBoard/findBoardInfoAndClip.h?boId=${v.boardId}" data-id="${v.boardId}">${v.boardName }</a>
 							</p>
 						</div>
 						<c:forEach items="${v.ownCommentList}" var="vc" begin="0" end="4">
 							<div class="comments colormuted">
 								<div class="comment convo clearfix">
-									<a href="ownBoard/searchBoardByOwnUser.h?userId=${vc.ownUser.id}" class="imgLink"><img class="profile user_image" src="${vc.ownUser.image }" alt="${vc.ownUser.lastName }"/></a>
-									<p><a href="ownBoard/searchBoardByOwnUser.h?userId=${vc.ownUser.id}">${vc.ownUser.firstName }&nbsp;&nbsp;${vc.ownUser.lastName}</a>&nbsp;${vc.commentText }</p>
+									<a href="/ownBoard/searchBoardByOwnUser.h?userId=${vc.ownUser.id}" class="imgLink"><img class="profile user_image" src="${vc.ownUser.image }" alt="${vc.ownUser.lastName }"/></a>
+									<p><a href="/ownBoard/searchBoardByOwnUser.h?userId=${vc.ownUser.id}">${vc.ownUser.firstName }&nbsp;&nbsp;${vc.ownUser.lastName}</a>&nbsp;${vc.commentText }</p>
 								</div>
 							</div>
 						</c:forEach>
@@ -111,7 +110,7 @@
 							</div>
 						</c:if>
 						<div class="write convo clearfix" style="display: none;">
-							<a href="ownBoard/searchBoardByOwnUser.h?userId=${OWNUSERLOGIN.id}" class="imgLink">
+							<a href="/ownBoard/searchBoardByOwnUser.h?userId=${OWNUSERLOGIN.id}" class="imgLink">
 								<img src="${OWNUSERLOGIN.image}" alt="${OWNUSERLOGIN.lastName}"/>
 							</a>
 							<form action="" method="POST">
@@ -132,15 +131,6 @@
 		<script type="text/javascript">
 			BoardLayout.setup();
 			PinEvent.initBind();
-			var url = "ownBoard/searchSessionBoard.h";
-			$.ajax({
-				url : url,
-				data : {},
-				type : "POST",
-				dataType : "json"
-			}).done(function(data){
-				window.myBoards = data.obList;
-			}).fail(function(e){console.log(e);});
 		</script>
 	</body>
 </html>

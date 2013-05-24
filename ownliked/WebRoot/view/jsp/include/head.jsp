@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN != null}; window.contextPath="${request.getContextPath()}";</script>
 <div class="headContainer" style="width:1170px;">
 	<a id="ownliked" href="/">Ownliked</a>
 	<ul id="navigation">
@@ -49,7 +50,7 @@
 		<li id="userNav">
 			<c:choose>
 				<c:when test="${OWNUSERLOGIN != null}">
-					<a href="ownBoard/searchBoardByOwnUser.h?userId=${OWNUSERLOGIN.id}" class="nav"><img alt="${OWNUSERLOGIN.lastName }" src="${OWNUSERLOGIN.image }"/>${OWNUSERLOGIN.lastName }<span></span></a>
+					<a href="/ownBoard/searchBoardByOwnUser.h?userId=${OWNUSERLOGIN.id}" class="nav"><img alt="${OWNUSERLOGIN.lastName }" src="${OWNUSERLOGIN.image }"/>${OWNUSERLOGIN.lastName }<span></span></a>
 					<ul>
 						<li><a href="####">邀请好友</a></li>
 						<li class="beforeDivider"><a href="####">查找好友</a></li>
@@ -57,11 +58,11 @@
 						<li><a href="####">Clips</a></li>
 						<li class="beforeDivider"><a href="####">Likes</a></li>
 						<li class="divider"><a href="####">设置</a></li>
-						<li><a href="ownUser/ownUserLogout.h">Logout</a></li>
+						<li><a href="/ownUser/ownUserLogout.h">Logout</a></li>
 					</ul>
 				</c:when>
 				<c:otherwise>
-					<a href="###" class="nav2">Login</a>
+					<a href="/view/jsp/user/login.jsp" class="nav2">Login</a>
 				</c:otherwise>
 			</c:choose>
 		</li>
@@ -70,7 +71,7 @@
 		<form>
 			<input type="text" id="query" name="" placeholder="Search" autocomplete="off"/>
 			<a href="" class="lg">
-				<img src="images/head/search.gif"/>
+				<img src="/images/head/search.gif"/>
 			</a>
 		</form>
 	</div>

@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="/css/owner.css" type="text/css"/>
 	<link rel="stylesheet" href="/css/indexPopular.css" type="text/css"/>
 	<!--[if (gt IE 6)&(lt IE 9)]><link rel="stylesheet" href="/css/ie.css" type="text/css" media="all" /><![endif]-->
-	<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN!=null};window.currentUserId=${ownUser.id};</script>
+	<script type="text/javascript">window.currentUserId=${ownUser.id};</script>
 	<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
 	<script type="text/javascript" src="/js/head/head.js"></script>
 	<script type="text/javascript" src="/js/model.js"></script>
@@ -136,9 +136,9 @@
   	function userFollow(t, flag){
   		var url;
   		if(flag == "1"){
-  			url = "userFollow/userFollowing.h";
+  			url = "/userFollow/userFollowing.h";
   		}else if(flag == "0"){
-  			url = "userFollow/userUnFollowing.h"
+  			url = "/userFollow/userUnFollowing.h"
   		}else{
   			return;
   		}
@@ -152,15 +152,6 @@
   		});
   	}
     BoardLayout.setup();
-	var url = "ownBoard/searchSessionBoard.h";
-	$.ajax({
-		url : url,
-		data : {},
-		type : "POST",
-		dataType : "json"
-	}).done(function(data){
-		window.myBoards = data.obList;
-	}).fail(function(e){console.log(e);});
   </script>
     <div id="SearchAutocompleteHolder"></div>
     <button id="ScrollToTop" class="Button WhiteButton Offscreen Indicator" type="button">

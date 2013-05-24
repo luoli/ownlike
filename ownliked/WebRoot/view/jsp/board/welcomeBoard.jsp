@@ -14,16 +14,10 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-		<link rel="stylesheet" type="text/css" href="styles.css">
-		-->
 		<link rel="stylesheet" href="/css/public.css" type="text/css"/>
 		<link rel="stylesheet" href="/css/head/head.css" type="text/css"/>
 		<link rel="stylesheet" href="/css/new_myboard.css" type="text/css">
-		
-		<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN != null};</script>
 	</head>
-
 	<body>
 		<div id=header><%@include file="/view/jsp/include/head.jsp" %></div>
 		<%@include file="/view/jsp/include/headAdd.jsp" %>
@@ -52,7 +46,7 @@
 							<div class="ajax centeredWithinWrapper InfoBarBase Module BoardInfoBar">
 								<div class="metaLeft">
 									<div class="thumb hasText Module ajax User small">
-										<a href="ownBoard/searchBoardByOwnUser.h?userId=${ownBoard.ownUser.id }"> <span class="thumbImageWrapper">
+										<a href="/ownBoard/searchBoardByOwnUser.h?userId=${ownBoard.ownUser.id }"> <span class="thumbImageWrapper">
 											<img src="${ownBoard.ownUser.image }" alt="Profile image of Nessa Pie"> </span>
 											<span class="fullname">${ownBoard.ownUser.firstName }${ownBoard.ownUser.lastName }</span>
 										</a>
@@ -141,15 +135,6 @@
 		<script type="text/javascript" src="/js/model.js"></script>
 		<script>
 			BoardLayout.setup();
-			var url = "ownBoard/searchSessionBoard.h";
-			$.ajax({
-				url : url,
-				data : {},
-				type : "POST",
-				dataType : "json"
-			}).done(function(data){
-				window.myBoards = data.obList;
-			}).fail(function(e){console.log(e);});
 		</script>
 	</body>
 </html>

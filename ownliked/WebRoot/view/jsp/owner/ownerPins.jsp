@@ -18,11 +18,7 @@
 	<link rel="stylesheet" href="/css/owner.css" type="text/css"/>
 	<link rel="stylesheet" href="/css/indexPopular.css" type="text/css"/>
 	<!--[if (gt IE 6)&(lt IE 9)]><link rel="stylesheet" href="/css/ie.css" type="text/css" media="all" /><![endif]-->
-	<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN!=null};window.currentUserId="${ownUser.id}";</script>
-	<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
-	<script type="text/javascript" src="/js/head/head.js"></script>
-	<script type="text/javascript" src="/js/comm/ajaxfileupload.js"></script>
-	<script type="text/javascript" src="/js/model.js"></script>
+	<script type="text/javascript">window.currentUserId="${ownUser.id}";</script>
   </head>
   
   <body id="profile">
@@ -70,17 +66,17 @@
 						<c:if test="${v.commentNum != 0}"><span class="commentsCount"><em>${v.commentNum}</em>&nbsp;&nbsp;评论</span></c:if>
 					</p>
 					<div class="convo attribution clearfix">
-						<a href="ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" class="imgLink"><img src="${ v.userImage}" alt="${v.userName }" title="${v.userName }"/></a>
+						<a href="/ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" class="imgLink"><img src="${ v.userImage}" alt="${v.userName }" title="${v.userName }"/></a>
 						<p>
-							<a href="ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" data-id="${v.userId}">${v.userName }</a>&nbsp;onto&nbsp;
+							<a href="/ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" data-id="${v.userId}">${v.userName }</a>&nbsp;onto&nbsp;
 							<a href="###" data-id="${v.boardId}">${v.boardName }</a>
 						</p>
 					</div>
 					<c:forEach items="${v.ownCommentList}" var="vc">
 						<div class="comments colormuted">
 							<div class="comment convo clearfix">
-								<a href="ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" class="imgLink"><img class="profile user_image" src="${vc.ownUser.image }" alt="${vc.ownUser.lastName }"/></a>
-								<p><a href="ownBoard/searchBoardByOwnUser.h?userId=${v.userId}">${vc.ownUser.firstName }&nbsp;&nbsp;${vc.ownUser.lastName}</a>&nbsp;${vc.commentText }</p>
+								<a href="/ownBoard/searchBoardByOwnUser.h?userId=${v.userId}" class="imgLink"><img class="profile user_image" src="${vc.ownUser.image }" alt="${vc.ownUser.lastName }"/></a>
+								<p><a href="/ownBoard/searchBoardByOwnUser.h?userId=${v.userId}">${vc.ownUser.firstName }&nbsp;&nbsp;${vc.ownUser.lastName}</a>&nbsp;${vc.commentText }</p>
 							</div>
 						</div>
 					</c:forEach>
@@ -105,6 +101,10 @@
         </div><!-- #ColumnContainer -->
 	</div><!-- #wrapper -->
 	<%@ include file="/view/jsp/include/clipModel.jsp" %>
+	<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="/js/head/head.js"></script>
+	<script type="text/javascript" src="/js/comm/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="/js/model.js"></script>
   </body>
 <script type="text/javascript">
 	BoardLayout.setup();

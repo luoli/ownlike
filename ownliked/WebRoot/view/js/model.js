@@ -15,6 +15,15 @@ $(function(){
 			$(".actions", this).hide();
 		}
 	);
+	var url = contextPath+"/ownBoard/searchSessionBoard.h";
+	$.ajax({
+		url : url,
+		data : {},
+		type : "POST",
+		dataType : "json"
+	}).done(function(data){
+		window.myBoards = data.obList;
+	}).fail(function(e){console.log(e);});
 });
 var ZoomHolder = function(){
 	return {

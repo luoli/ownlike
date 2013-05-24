@@ -14,8 +14,6 @@
 	-->
 	<link rel="stylesheet" href="/css/public.css" type="text/css"/>
 	<link rel="stylesheet" href="/css/indexRegister.css" type="text/css"/>
-	<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
-	<script type="text/javascript" src="/js/userIndex.js"></script>
   </head>
   <body>
 	<div id="SignUp" class="logo_exp">
@@ -70,6 +68,8 @@
 	    </div>
 	  </div>
 	</div>
+	<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="/js/userIndex.js"></script>
 	<script type="text/javascript">
     	$(function(){
     		Register.setup();

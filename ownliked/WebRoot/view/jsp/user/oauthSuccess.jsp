@@ -13,8 +13,6 @@
 	-->
 	<link rel="stylesheet" href="/css/public.css" type="text/css"/>
 	<link rel="stylesheet" href="/css/indexRegister.css" type="text/css"/>
-	<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
-	<script type="text/javascript" src="/js/userIndex.js"></script>
   </head>
   
   <body>
@@ -22,6 +20,8 @@
   	<div>
   		登录成功，跳转页面...
   	</div>
+	<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="/js/userIndex.js"></script>
     <script type="text/javascript">
 		window.opener.location.href = "<%=request.getContextPath()%>/ownClip/checkUserLogin.h";
 		window.opener=null;

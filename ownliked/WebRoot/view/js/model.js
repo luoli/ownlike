@@ -94,7 +94,7 @@ var CreateBoardModel = function(){
 				$(u).addClass("disabled");
 				var data = vn;
 				$.ajax({
-					url : "ownBoard/insertOwnBoardByUser.h",
+					url : contextPath+"/ownBoard/insertOwnBoardByUser.h",
 					type : "POST",
 					data : {"boardName":data, "parentId":cn},
 					dataType : "json",
@@ -127,7 +127,7 @@ var UploadClip = function(){
 		upalod : function(){
 			var u = this;
 			$.ajaxFileUpload({
-				url : "ownClip/uploadImg.h",
+				url : contextPath+"/ownClip/uploadImg.h",
 				secureuri : false,
 				fileElementId : "upimg",
 				dataType : "JSON",
@@ -164,7 +164,7 @@ var CheckSession = function(){
 			if(window.userIdLogin){
 				o(t);
 			}else{
-				window.location.href="view/jsp/user/register.jsp";
+				window.location.href=contextPath+"/view/jsp/user/register.jsp";
 			}
 		},
 		disable : function(t){
@@ -240,9 +240,9 @@ var PinEvent = function(){
 		  	function userFollow(t, flag){
 		  		var url;
 		  		if(flag == "1"){
-		  			url = "userFollow/userFollowing.h";
+		  			url = contextPath+"/userFollow/userFollowing.h";
 		  		}else if(flag == "0"){
-		  			url = "userFollow/userUnFollowing.h"
+		  			url = contextPath+"/userFollow/userUnFollowing.h"
 		  		}else{
 		  			return;
 		  		}
@@ -304,7 +304,7 @@ var PinEvent = function(){
 			$("#image", f).val($(t).parents(".pinHolder").find("img").attr("src"));
 			$("#userId", f).val($(t).parents(".pin").find(".convo").find("a").eq(1).attr("data-id"));
 			$("#userName", f).val($(t).parents(".pin").find(".convo").find("a").eq(1).html());
-			$.getJSON("ownClip/findClipByReClip.h", {"id" : did}, function(e){
+			$.getJSON(contextPath+"/ownClip/findClipByReClip.h", {"id" : did}, function(e){
 				PinEvent.showDiv(f);
 				var img = e["ownClip"].image;
 				var description = e["ownClip"].description;
@@ -339,7 +339,7 @@ var PinEvent = function(){
 				$(t).addClass("disabled");
 				var data = $(this).siblings("input").val();
 				$.ajax({
-					url : "ownBoard/insertOwnBoardByUser.h",
+					url : contextPath+"/ownBoard/insertOwnBoardByUser.h",
 					type : "POST",
 					data : {"boardName":data},
 					success : function(result){
@@ -373,7 +373,7 @@ var PinEvent = function(){
 				var reUserId = $("#flipScroll #userId").val();
 				var data = {"boardId":boardId, "boardName":boardName, "description":description, "image":image, "previousId":$(t).attr("data-id") };
 				$.ajax({
-					url : "ownClip/reClip.h",
+					url : contextPath+"/ownClip/reClip.h",
 					type : "POST",
 					data : data,
 					dataType : "json",
@@ -386,8 +386,8 @@ var PinEvent = function(){
 							posts.find("h2").eq(0).html('Recliped to <a href="'+curb.attr("data-id")+'">'+curb.html()+'</a>');
 							posts.find("h2").eq(1).html('Shared with your followers. <a href="">See it now</a>');
 							console.log("result: " + result);
-							$(".boardWrapper", posts).find("h3").eq(0).html('<a href="'+result.paramOwnClip.boardId+'">'+result.paramOwnClip.boardName+'</a>');
-							$(".boardWrapper", posts).find("h4").eq(0).html('<a href="ownBoard/searchBoardByOwnUser.h?userId='+result.paramOwnClip.userId+'"><img src="'+result.paramOwnClip.image+'" style="width: 15px; height:15px;"/></a><a href="ownBoard/searchBoardByOwnUser.h?userId='+result.paramOwnClip.userId+'">'+result.paramOwnClip.userName+'</a>');
+							$(".boardWrapper", posts).find("h3").eq(0).html('<a href="'+contextPath+'/ownBoard/findBoardInfoAndClip.h?boId='+result.paramOwnClip.boardId+'">'+result.paramOwnClip.boardName+'</a>');
+							$(".boardWrapper", posts).find("h4").eq(0).html('<a href='+contextPath+'"/ownBoard/searchBoardByOwnUser.h?userId='+result.paramOwnClip.userId+'"><img src="'+result.paramOwnClip.image+'" style="width: 15px; height:15px;"/></a><a href="'+contextPath+'/ownBoard/searchBoardByOwnUser.h?userId='+result.paramOwnClip.userId+'">'+result.paramOwnClip.userName+'</a>');
 							for(var i=0; i<result.ownClips.length; i++){
 								var v = result.ownClips[i];
 								if(i == 0){
@@ -430,7 +430,7 @@ var PinEvent = function(){
 		likeRePin : function(t){	/**like clip 操作方法*/
 			console.log("likeRePin data-userId: "+$(t).attr("data-userId"));
 			$.ajax({
-				url : "ownClip/likeClip.h",
+				url : contextPath+"/ownClip/likeClip.h",
 				type : "POST",
 				data : {"id":$(t).attr("data-id"),"userId":$(t).attr("data-userId"), "like" : 1},
 				success : function(result){
@@ -456,7 +456,7 @@ var PinEvent = function(){
 		},
 		unLike : function(t){console.log("data-userId: "+$(t).attr("data-userId"));
 			$.ajax({
-				url : "ownClip/likeClip.h",
+				url : contextPath+"/ownClip/likeClip.h",
 				type : "POST",
 				data : {"id":$(t).attr("data-id"), "userId":$(t).attr("data-userId"), "like" : -1},
 				success : function(result){
@@ -485,7 +485,7 @@ var PinEvent = function(){
 			$(".grid_comment_button", ts).off("click").on("click", function(){
 				var text = tex.val();
 				$.ajax({
-					url : "ownComment/insertComment.h",
+					url : contextPath+"/ownComment/insertComment.h",
 					type : "POST",
 					data : {"commentText" : text, "clipId" : $(t).attr("data-id"), "byUserId" : $(t).attr("data-userId")},
 					success : function(result){

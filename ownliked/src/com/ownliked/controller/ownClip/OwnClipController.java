@@ -37,8 +37,9 @@ import com.ownliked.util.system.web.NcgUtil;
 @Controller
 @RequestMapping(value="/ownClip")
 public class OwnClipController extends BaseController {
-	private static final String SAVEFILEPATH = "clipImgUpload";
-	private static final String PATH = "C:\\Server\\Apache24\\htdocs";
+	private static final String SAVEFILEPATH = "/clipImgUpload";
+//	private static final String PATH = "C:\\Server\\Apache24\\htdocs";
+	private static final String PATH = "D:\\Apache\\Apache24_\\htdocs";
 
 	@Resource(name="ownClipService")
 	private OwnClipService ownClipService;

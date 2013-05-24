@@ -11,10 +11,10 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" href="view/css/public.css" type="text/css"/>
-	<link rel="stylesheet" href="view/jsp/user/css/indexRegister.css" type="text/css"/>
-	<script type="text/javascript" src="view/js/comm/jquery-1.7.2.js"></script>
-	<script type="text/javascript" src="view/jsp/user/js/userIndex.js"></script>
+	<link rel="stylesheet" href="/css/public.css" type="text/css"/>
+	<link rel="stylesheet" href="/css/indexRegister.css" type="text/css"/>
+	<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="/js/userIndex.js"></script>
   </head>
   
   <body>

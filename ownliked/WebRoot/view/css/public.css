@@ -1,6 +1,6 @@
 @charset "utf-8";
 html {
-	background: #F7F5F5 url(images/paper.jpg) repeat;
+	background: #F7F5F5 url(../images/paper.jpg) repeat;
 }
 body{
 	font-family: "helvetica neue",arial,sans-serif;
@@ -27,7 +27,7 @@ a:hover{
 a.ui-state-active {color: #fff; background-color: #cb2027;}
 /* RESET
 --------------------------------------------------------------------------------------- */
-html{background: #f7f5f5 url(images/paper.jpg) repeat;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin: 0;padding: 0;}table{border-collapse:collapse;border-spacing: 0;}fieldset,img{border: 0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border: 0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;overflow:hidden;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit; resize: none;outline:none;}legend{color:#000;}
+html{background: #f7f5f5 url(../images/paper.jpg) repeat;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin: 0;padding: 0;}table{border-collapse:collapse;border-spacing: 0;}fieldset,img{border: 0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border: 0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;overflow:hidden;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit; resize: none;outline:none;}legend{color:#000;}
 body {font-family:"helvetica neue",arial,sans-serif;font-size:10px;color:#211922;}table{font-size:inherit;}pre,code,kbd,samp,tt{font-family:monospace;line-height:100%;}em{font-style:italic;}strong{font-weight:bold;}
 
 /* FOUNDATION
@@ -105,7 +105,7 @@ textarea:focus, input:focus {background-color: #fff; box-shadow: inset 0 1px 1px
 
 
 #columnContainer {position: relative; min-height: 500px; margin: 60px auto 0;}
-#columnContainer.empty { background: url(images/building.gif) no-repeat center; }
+#columnContainer.empty { background: url(../images/building.gif) no-repeat center; }
 #ContextBar + #columnContainer {margin-top: 15px;}
 
 .WhiteContainer {position: relative; margin: 76px auto 32px; padding: 0 18px 10px; background-color: #fff; box-shadow: 0 1px 3px rgba(34,25,25,0.4); -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4); -webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);}
@@ -137,7 +137,7 @@ textarea:focus, input:focus {background-color: #fff; box-shadow: inset 0 1px 1px
     .pinBoard .holder .thumbs img, .pinBoard .holder .thumbs .empty {float: left; width: 55px; height: 55px; margin: 0 1px 0 0;}
     .pin.domainPins { padding: 0; width: 222px; }
     .pin.domainPins h3 { padding: 10px 15px 0; font-size: 13px; font-weight: 300; }
-    .pin.domainPins .link {background: url(images/BoardBackground_forDomainPins.png) 15px 9px no-repeat; height: auto; padding: 10px 0 15px 15px; display: block; overflow: hidden;}
+    .pin.domainPins .link {background: url(../images/BoardBackground_forDomainPins.png) 15px 9px no-repeat; height: auto; padding: 10px 0 15px 15px; display: block; overflow: hidden;}
     .pin.domainPins .link img { width: 61px; height: 61px; }
   .pinBoard .likesComments {margin: 0; padding: 0 15px 10px; background-color: #fff;}
   .pinBoard .followBoard { padding: 0; text-align: center; border-top:1px #ccc solid; }
@@ -497,7 +497,7 @@ border-radius: 8px;
 #PinActionButtons ul {float: left; margin-right: 12px;}
 #PinActionButtons li {display: inline;}
 #PinActionButtons li a {float: left; margin-right: 6px;}
-#PinActionButtons em {position: relative; top: 1px; display: inline-block; width: 12px; height: 13px; margin-right: 4px; background: url(images/ActionIcons.png) 0 0 no-repeat;}
+#PinActionButtons em {position: relative; top: 1px; display: inline-block; width: 12px; height: 13px; margin-right: 4px; background: url(../images/ActionIcons.png) 0 0 no-repeat;}
 #PinActionButtons .like-button em,
 #PinActionButtons .unlike-button em {background-position: -24px 0;}
 #PinActionButtons .like-button:hover em,

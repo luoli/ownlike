@@ -144,14 +144,14 @@
 	right: 13px;
 	width: 6px;
 	height: 8px;
-	background-image: url(images/head/PlusIconSimple.png);
+	background-image: url(../../images/head/PlusIconSimple.png);
 }
 #navigation .nav span {
 	top: 20px;
 	right: 14px;
 	width: 7px;
 	height: 6px;
-	background-image: url(images/head/DownArrowGray7.png);
+	background-image: url(../../images/head/DownArrowGray7.png);
 }
 .headContainer .nav span {
 	position: absolute;

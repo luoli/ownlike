@@ -17,9 +17,9 @@
 		<!--
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		-->
-		<link rel="stylesheet" href="css/public.css" type="text/css"/>
-		<link rel="stylesheet" href="css/head/head.css" type="text/css"/>
-		<link rel="stylesheet" type="text/css" href="css/new_myboard.css">
+		<link rel="stylesheet" href="/css/public.css" type="text/css"/>
+		<link rel="stylesheet" href="/css/head/head.css" type="text/css"/>
+		<link rel="stylesheet" href="/css/new_myboard.css" type="text/css">
 		
 		<script type="text/javascript">window.userIdLogin=${OWNUSERLOGIN != null};</script>
 	</head>
@@ -135,10 +135,10 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="js/comm/jquery-1.7.2.js"></script>
-		<script type="text/javascript" src="js/head/head.js"></script>
-		<script type="text/javascript" src="js/comm/ajaxfileupload.js"></script>
-		<script type="text/javascript" src="js/model.js"></script>
+		<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
+		<script type="text/javascript" src="/js/head/head.js"></script>
+		<script type="text/javascript" src="/js/comm/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="/js/model.js"></script>
 		<script>
 			BoardLayout.setup();
 			var url = "ownBoard/searchSessionBoard.h";

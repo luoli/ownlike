@@ -30,7 +30,7 @@
 	right: 0;
 	width: 5px;
 	height: 3px;
-	background-image: url(images/popular/DownArrowGray.png);
+	background-image: url(../../../images/popular/DownArrowGray.png);
 }
 .headContainer .nav span {
 	position: absolute;
@@ -198,7 +198,7 @@
 	display: inline-block;
 	width: 10px;
 	height: 10px;
-	background-image: url(images/ActionIcons10.png);
+	background-image: url(../../images/ActionIcons10.png);
 }
 .actions .repin_link em {
 	background-position: 0 0;
@@ -460,7 +460,7 @@ top: 14px;
 right: 14px;
 width: 11px;
 height: 9px;
-background: url(images/popular/downArrow.png) center top no-repeat;
+background: url(../images/popular/downArrow.png) center top no-repeat;
 }
 #Repin2 .BoardList {
 width: 368px;
@@ -738,7 +738,7 @@ box-shadow: inset 0 1px #fcfafa;
   }
   .modal .close:active {background-color: #c21f24; background: -moz-linear-gradient(#d62228, #c21f24); background: -o-linear-gradient(#d62228, #c21f24); background: -webkit-linear-gradient(#d62228, #c21f24); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d62228', endColorstr='#c21f24'); box-shadow: inset 0 1px 1px rgba(34,25,25,0.5), 0 1px #b22d00; -moz-box-shadow: inset 0 1px 1px rgba(34,25,25,0.5), 0 1px #b22d00; -webkit-box-shadow: inset 0 1px 1px rgba(34,25,25,0.5), 0 1px #b22d00;}
   .modal .close strong {display: none;}
-  .modal .close span {position: absolute; top: 50%; left: 50%; margin-top: -16px; margin-left: -16px; height: 32px; width: 32px; background: url(images/popular/Close.png) -10px -12px no-repeat;}
+  .modal .close span {position: absolute; top: 50%; left: 50%; margin-top: -16px; margin-left: -16px; height: 32px; width: 32px; background: url(../images/popular/Close.png) -10px -12px no-repeat;}
   .modal .close:hover span {background-position: -10px -67px;}
   .modal .close:active span {background-position: -10px -122px;}
   .modal .Form p {margin-bottom: 0;}
@@ -763,7 +763,7 @@ box-shadow: inset 0 1px #fcfafa;
 	border-left: 2px solid #e1dfdf;
 }
 #openLinks.ipad .cell {width: 234px;}
-#openLinks .cell .icon {width: 66px; height: 81px; margin: 15px auto 30px; background: url('images/popular/AddIcons.png');}
+#openLinks .cell .icon {width: 66px; height: 81px; margin: 15px auto 30px; background: url('../images/popular/AddIcons.png');}
 
 #openLinks .cell:hover {color: #221919; text-decoration: none; cursor: pointer;}
 #openLinks .cell:active {color: #cb2027;}
@@ -806,7 +806,7 @@ box-shadow: inset 0 1px #fcfafa;
 .imagePicker .images {position: relative; float: left; width: 170px; max-height: 170px; min-height: 85px; padding: 0; overflow: hidden;}
 .imagePicker .video {position: absolute; z-index: 1; top: 50%; left: 50%; width: 50px; height: 50px; margin: -25px 0 0 -25px;}
 .imagePicker .load {position: absolute; z-index: 10; top: 50%; left: 50%; display: none; margin: -8px 0 0 -8px;}
-.imagePicker .loading {background: url(images/ajaxload2.gif) no-repeat; background-position: center center;}
+.imagePicker .loading {background: url(../images/ajaxload2.gif) no-repeat; background-position: center center;}
 .imagePicker .price {z-index: 3; top: -70px; left: -117px; -moz-transition: all 0.5s ease-in-out; -webkit-transition: all 0.5s ease-in-out;}
 .imagePicker .price.visible {top: 19px; left: -28px;}
 .imagePicker .Arrows {display: none;}
@@ -894,7 +894,7 @@ left: 0;
 #zoom #pinImageHolder:hover #pinActionButtons {display: inline !important;}
 #zoom #pinImageHolder .button {float: left; margin-left: 8px;}
 /* Button Icons */
-#zoom #pinImageHolder .button em {display: inline-block; width: 12px; height: 13px; margin-right: ; background-image: url(images/popular/ActionIcons.png); background-repeat: no-repeat;}
+#zoom #pinImageHolder .button em {display: inline-block; width: 12px; height: 13px; margin-right: ; background-image: url(../images/popular/ActionIcons.png); background-repeat: no-repeat;}
 #zoom #pinImageHolder .repinButton em {margin-right: 4px; background-position: -12px 0;}
 #zoom #pinImageHolder .repinButton:hover em {background-position: -12px -13px;}
 #zoom #pinImageHolder .repinButton:active em {background-position: -12px -26px;}

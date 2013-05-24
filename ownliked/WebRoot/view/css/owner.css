@@ -53,9 +53,9 @@
 #profile #ContextBar .action .Tab.Left { border-radius: 4px 0 0 4px; -moz-border-radius: 4px 0 0 4px; -webkit-border-radius: 4px 0 0 4px; }
 #profile #ContextBar .action .Tab.Right { border-radius: 0 4px 4px 0; -moz-border-radius: 0 4px 4px 0; -webkit-border-radius: 0 4px 4px 0; }
 #profile #ContextBar .action #RearrangeButton { padding: 0 5px; }
-#profile #ContextBar .action #RearrangeButton em { background: url(images/RearrangeIcon.png) no-repeat center; display: block; height: 24px; width: 25px; }
-#profile #ContextBar .action #RearrangeButton.redButton em { background-image: url(images/Rearrange-Confirm.png) }
-#profile #ContextBar .action #RearrangeCancel { background: url(images/Rearrange-Cancel.png) no-repeat center center; width: 25px; margin-right: -25px; text-indent:-999px; overflow: hidden; }
+#profile #ContextBar .action #RearrangeButton em { background: url(../images/RearrangeIcon.png) no-repeat center; display: block; height: 24px; width: 25px; }
+#profile #ContextBar .action #RearrangeButton.redButton em { background-image: url(../images/Rearrange-Confirm.png) }
+#profile #ContextBar .action #RearrangeCancel { background: url(../images/Rearrange-Cancel.png) no-repeat center center; width: 25px; margin-right: -25px; text-indent:-999px; overflow: hidden; }
 #profile #ContextBar .follow { float: right; }
 #profile #ContextBar .button { font-weight: bold; }
 #profile #columnContainer {margin-top: 15px; }

@@ -68,12 +68,12 @@
 		</li>
 	</ul>
 	<div id="search">
-		<form>
-			<input type="text" id="query" name="" placeholder="Search" autocomplete="off"/>
+		<form action="/ownClip/searchKeywordClip.h?p=" method="post">
+			<input type="text" id="query" name="description" placeholder="Search" autocomplete="off"/>
 			<a href="" class="lg">
 				<img src="/images/head/search.gif"/>
 			</a>
 		</form>
 	</div>
 </div>
-<input type="hidden" id="OWNUSERLOGIN" name="OWNUSERLOGIN" value="${OWNUSERLOGIN}"/>
+<%-- <input type="hidden" id="OWNUSERLOGIN" name="OWNUSERLOGIN" value="${OWNUSERLOGIN}"/> --%>

@@ -68,7 +68,7 @@
 								
 							</ul>
 							<div class="CreateBoard">
-								<input type="text" value="Create New Board"/>
+								<input type="text" placeholder="Create New Board"/>
 								<button class="button whiteButton button18 noFloat" type="button">Create</button>
 								<div class="CreateBoardStatus"></div>
 							</div>

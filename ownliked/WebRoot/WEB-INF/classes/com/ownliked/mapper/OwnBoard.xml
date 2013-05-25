@@ -43,10 +43,12 @@
 <!--  根据board信息查询板块与clip	-->
 	<select id="findBoardInfoAndClip" parameterType="ownBoard" resultMap="boardInfoAndOwnClipMap">
 		SELECT b.id, b.boardName, b.clipNum, 
-			c.id cid, c.description, c.image, c.viaUrl, c.link, 
-			u.`id` uid, u.`firstName` ufirstName, u.`lastName` ulastName, u.`image` uimage
+			c.id cid, c.description, c.image, c.viaUrl, c.link, c.likeNum, c.reclipNum,  
+			u.`id` uid, u.`firstName` ufirstName, u.`lastName` ulastName, u.`image` uimage,
+			l.id lid, l.clipId lclipId, l.userId luserId, l.byUserId lByUserId 
 			FROM own_board b 
-			LEFT JOIN own_clip c ON b.id = c.boardId
+			LEFT JOIN own_clip c ON b.id = c.boardId 
+			LEFT JOIN own_liked l ON c.id = l.clipId
 			LEFT JOIN own_user u ON b.`userId` = u.`id`
 		WHERE b.id = #{id}
 	</select>

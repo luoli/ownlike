@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="/css/public.css" type="text/css"/>
 		<link rel="stylesheet" href="/css/head/head.css" type="text/css"/>
 		<link rel="stylesheet" href="/css/new_myboard.css" type="text/css">
+		<link rel="stylesheet" href="/css/flip.css" type="text/css">
 	</head>
 	<body>
 		<div id=header><%@include file="/view/jsp/include/head.jsp" %></div>
@@ -73,15 +74,26 @@
 									<div class="ajax Pin Module summary">
 										<div class="pinWrapper">
 											<div class="pinHolder">
-												<div class="repinLikeWrapper">
-													<button type="button" class="rounded ShowModalButton Button repinSmall pinIt primary Module ajax primaryOnHover btn">
-														<em></em>
-														<span class="accessibilityText">Pin it</span>
-													</button>
-													<button data-text-unlike="Unlike" data-text-like="Like" type="button" class="rounded PinLikeButton Button hasText Module likeSmall ajax btn">
-														<em></em>
-														<span class="buttonText">Like</span>
-													</button>
+												<div class="actions">
+													<a href="javascript:;" data-id="${v.id}" data-userId="${ownBoard.ownUser.id}" class="button button11 whiteButton contrastButton repin_link"><em></em>Clip</a>
+													<c:choose>
+														<c:when test="${!empty(v.ownLikeds) && OWNUSERLOGIN != null}">
+															<c:forEach items="${v.ownLikeds}" var="ol">
+																<c:choose>
+																	<c:when test="${ol.userId == OWNUSERLOGIN.id }">
+																		<a href="javascript:;" data-id="${v.id}" data-userId="${ownBoard.ownUser.id}" class="button whiteButton contrastButton button11 disabled unlikebutton">UnLike</a>
+																	</c:when>
+																	<c:otherwise>
+																		<a href="javascript:;" data-id="${v.id}" data-userId="${ownBoard.ownUser.id}" class="button whiteButton contrastButton button11 likebutton"><em></em>Like</a>
+																	</c:otherwise>
+																</c:choose>
+															</c:forEach>
+														</c:when>
+														<c:otherwise>
+															<a href="javascript:;" data-id="${v.id}" data-userId="${ownBoard.ownUser.id}" class="button whiteButton contrastButton button11 likebutton"><em></em>Like</a>
+														</c:otherwise>
+													</c:choose>
+<%-- 													<a href="javascript:;" data-id="${v.id}" data-userId="${v.userId}" class="button button11 whiteButton contrastButton comment"><em></em>Comment</a> --%>
 												</div>
 												<a href="/pin/252834966552963750/" class="pinImageWrapper " style="background: #c9b4a3;">
 													<h4 class="pinDomain">
@@ -94,9 +106,11 @@
 												</a>
 											</div>
 											<div class="pinMeta">
-												<p class="pinDescription">
-													${v.description }
-												</p>
+												<p class="pinDescription">${v.description }</p>
+												<div class="pinSocialMeta">
+						                            <a class="socialItem" href="#">${v.reclipNum } repins</a>
+						                            <a class="socialItem likes" href="/ownClip/searchClipByCurrentUser.h?userId=${ownBoard.ownUser.id}&filter=likes">${v.likeNum } likes</a>
+						                    	</div>
 											</div>
 											<div class="pinUserAttribution">
 												<a href="${v.link }" class="attributionItem firstAttribution lastAttribution ">
@@ -129,12 +143,14 @@
 				</div>
 			</div>
 		</div>
+		<%@ include file="/view/jsp/include/clipModel.jsp" %>
 		<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
 		<script type="text/javascript" src="/js/head/head.js"></script>
 		<script type="text/javascript" src="/js/comm/ajaxfileupload.js"></script>
 		<script type="text/javascript" src="/js/model.js"></script>
 		<script>
 			BoardLayout.setup();
+			PinEvent.initBind();
 		</script>
 	</body>
 </html>

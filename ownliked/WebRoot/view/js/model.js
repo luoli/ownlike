@@ -220,22 +220,13 @@ var PinEvent = function(){
 			$(".button.comment").bind("click", function(){
 				CheckSession.check(this, p.commentRePin);
 			});
-			/**添加关注事件*/
-		  	$(document).on("click", ".followbutton", function(){
-		  		console.log("click");
-		  		var t = $(this);
-		  		userFollow(t, "1");
-		  		t.html(t.attr("data-text-unfollow"));
-		  		t.removeClass("followbutton").addClass("unfollowbutton disabled clickable");
-		  	});
-		  	/**解除关注*/
-		  	$(document).on("click", ".unfollowbutton", function(){
-		  		console.log("ca click");
-		  		var t = $(this);
-		  		userFollow($(this), "0");
-		  		t.html(t.attr("data-text-follow"));
-		  		t.removeClass("unfollowbutton disabled clickable").addClass("followbutton");
-		  	});
+			$("#search .lg").on("click", function(){p.searchKeyword();console.log("click");return !1;});
+			$("#search input").on("keydown", function(e){
+				if(e.keyCode == 13){
+					p.searchKeyword();
+				}
+				return !1;
+			});
 		  	/**执行方法*/
 		  	function userFollow(t, flag){
 		  		var url;
@@ -255,6 +246,22 @@ var PinEvent = function(){
 		  			}
 		  		});
 		  	}
+			/**添加关注事件*/
+		  	$(document).on("click", ".followbutton", function(){
+		  		console.log("click");
+		  		var t = $(this);
+		  		userFollow(t, "1");
+		  		t.html(t.attr("data-text-unfollow"));
+		  		t.removeClass("followbutton").addClass("unfollowbutton disabled clickable");
+		  	});
+		  	/**解除关注*/
+		  	$(document).on("click", ".unfollowbutton", function(){
+		  		console.log("ca click");
+		  		var t = $(this);
+		  		userFollow($(this), "0");
+		  		t.html(t.attr("data-text-follow"));
+		  		t.removeClass("unfollowbutton disabled clickable").addClass("followbutton");
+		  	});
 		},
 		showDiv : function(f){
 			console.log(myBoards);
@@ -514,8 +521,11 @@ var PinEvent = function(){
 					error : function(e){}
 				});
 			});
+		},
+		searchKeyword : function(){
+			$("#search form").submit();
 		}
-	}
+	};
 }();
 /**------------------------------------------------------------------------------------------*/
 /**判断用户登录终端*/
@@ -1176,9 +1186,9 @@ var BoardLayout = function () {
             document.getElementById("SortableButtons") ? this.showPins() : this.flowPins(b, true);
             if ($("#columnContainer .pin").length === 0 && window.location.pathname === "/") {
                 $("#columnContainer").addClass("empty");
-                setTimeout(function () {
+                /*setTimeout(function () {
                     window.location.reload()
-                }, 5E3)
+                }, 5E3)*/
             }
         },
         newPins: function () {

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +50,19 @@ public class OwnClipController extends BaseController {
 	private OwnLikedService ownLikedService;
 	@Resource(name="ownUserFollowService")
 	private OwnUserFollowService ownUserFollowService;
+	
+	@RequestMapping(value="/searchKeywordClip.h")
+	public String searchKeywordClip(HttpServletRequest request, ModelMap map, OwnClip ownClip, String p) throws Exception{
+		OwnBoard ownBoard = new OwnBoard();
+		ownBoard.setParentId(-1);
+		if(StringUtils.isNotEmpty(p)){
+			ownClip.setDescription(new String(p.getBytes("iso-8859-1"), "utf-8"));
+		}
+		List<OwnClip> ownClips = ownClipService.queryOwnClipByComment(ownClip);
+		map.put("ownClips", ownClips);
+		map.put("selector", "news");
+		return "/search/search";
+	}
 	
 	/**
 	 * 获得当前页面用户关注版块的clip

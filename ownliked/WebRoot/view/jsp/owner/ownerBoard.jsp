@@ -41,12 +41,12 @@
             	<c:forEach items="${ownBoards}" var="v">
 	                <li>
 					    <div class="pin pinBoard" id="${v.id}">
-					        <h3 class="serif"><a href="">${v.boardName}</a></h3>
+					        <h3 class="serif"><a href="/ownBoard/findBoardInfoAndClip.h?boId=${v.id }">${v.boardName}</a></h3>
 					            <h4>
 					                ${v.clipNum} pins
 					            </h4>
 					        <div class="board">
-					            <a href="" class="link">&nbsp;</a>
+					            <a href="/ownBoard/findBoardInfoAndClip.h?boId=${v.id }" class="link">&nbsp;</a>
 					            <div class="holder">
 					            	<c:choose>
 					            		<c:when test="${fn:length(v.clipList) <= 0}">

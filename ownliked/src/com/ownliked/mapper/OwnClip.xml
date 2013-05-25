@@ -54,11 +54,16 @@
 	</resultMap>
 	<resultMap type="com.ownliked.pojo.OwnClip" id="boardInfoAndOwnClipMap">
 		<id property="id" column="CID" />
+		<result property="userId" column="USERID" />
 		<result property="description" column="DESCRIPTION" />
 		<result property="image" column="IMAGE" />
 		<result property="link" column="LINK" />
 		<result property="viaUrl" column="VIAURL" />
+		<result property="commentNum" column="COMMENTNUM" />
+		<result property="likeNum" column="LIKENUM" />
+		<result property="reclipNum" column="RECLIPNUM" />
 		<result property="reclipDescription" column="RECLIPDESCRIPTION" />
+		<collection property="ownLikeds" resultMap="ownLikedSqlMap.byClipOwnLikedMap"></collection>
 	</resultMap>
 	<resultMap type="com.ownliked.pojo.OwnClip" id="activeByOwnClip">
 		<id property="id" column="ID" />
@@ -147,6 +152,9 @@
 			</if>
 			<if test="commentNum == 10">
 				AND c.commentNum > 3 OR c.likeNum > 5 OR c.reclipNum > 5
+			</if>
+			<if test="description != ''">
+			    AND c.description like CONCAT('%', #{description}, '%')
 			</if>
 		</where>
 		ORDER BY id DESC 

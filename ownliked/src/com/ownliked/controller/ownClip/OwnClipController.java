@@ -52,16 +52,25 @@ public class OwnClipController extends BaseController {
 	private OwnUserFollowService ownUserFollowService;
 	
 	@RequestMapping(value="/searchKeywordClip.h")
-	public String searchKeywordClip(HttpServletRequest request, ModelMap map, OwnClip ownClip, String p) throws Exception{
+	public String searchKeywordClip(HttpServletRequest request, ModelMap map, OwnClip ownClip, String p, String flag) throws Exception{
 		OwnBoard ownBoard = new OwnBoard();
 		ownBoard.setParentId(-1);
 		if(StringUtils.isNotEmpty(p)){
 			p = new String(p.getBytes("iso-8859-1"), "utf-8");
+		}
+		if(StringUtils.isNotEmpty(flag)){
+			if(flag.equals("bname")){
+				ownClip.setBoardName(p);
+			}else{
+				ownClip.setDescription(p);
+			}
+		}else{
 			ownClip.setDescription(p);
 		}
 		List<OwnClip> ownClips = ownClipService.queryOwnClipByComment(ownClip);
 		map.put("ownClips", ownClips);
 		map.put("p", p);
+		map.put("flag", flag);
 		map.put("selector", "news");
 		return "/search/search";
 	}

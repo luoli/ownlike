@@ -7,7 +7,7 @@
 		<li>
 			<c:choose>
 				<c:when test="${OWNUSERLOGIN != null}">
-					<a href="#" class="nav" onclick="Modal.show('add'); return false">Add<span class="plusIcon"></span></a>
+					<a href="#" class="nav" onclick="Modal.show('add'); return false;">Add<span class="plusIcon"></span></a>
 				</c:when>
 				<c:otherwise>
 					<a href="###" class="nav">中文<span></span></a>

@@ -153,8 +153,11 @@
 			<if test="commentNum == 10">
 				AND c.commentNum > 3 OR c.likeNum > 5 OR c.reclipNum > 5
 			</if>
-			<if test="description != ''">
+			<if test="description != '' and description != null">
 			    AND c.description like CONCAT('%', #{description}, '%')
+			</if>
+			<if test="boardName != '' and boardName != null">
+			    AND c.boardName like CONCAT('%', #{boardName}, '%')
 			</if>
 		</where>
 		ORDER BY id DESC 

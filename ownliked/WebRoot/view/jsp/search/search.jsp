@@ -42,13 +42,13 @@
 							<div class="ajax centeredWithinWrapper InfoBarBase Module BoardInfoBar">
 								<ul class="searchScope">
 							        <li>
-							    		<a href="/search/pins/?q=le" class="active">Pins</a>,
+							    		<a href="/ownClip/searchKeywordClip.h?p=${p }" class="<c:if test="${flag == null }">active</c:if>">Pins</a>,
 							        </li>
 							        <li>
-							    		<a href="/search/boards/?q=le">Boards</a>,
+							    		<a href="/ownClip/searchKeywordClip.h?p=${p }&flag=bname" class="<c:if test="${flag == 'bname' }">active</c:if>">Boards</a>,
 							        </li>
 							        <li>
-							    		<a href="/search/people/?q=le">Pinners</a>
+<!-- 							    		<a href="/search/people/?q=le">Pinners</a> -->
 							        </li>
 								</ul>
 								<h3 class="headerText">

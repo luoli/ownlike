@@ -95,7 +95,7 @@
 													</c:choose>
 <%-- 													<a href="javascript:;" data-id="${v.id}" data-userId="${v.userId}" class="button button11 whiteButton contrastButton comment"><em></em>Comment</a> --%>
 												</div>
-												<a href="/pin/252834966552963750/" class="pinImageWrapper " style="background: #c9b4a3;">
+												<a href="/ownClip/findOnlyClipInfo.h?id=${v.id}" class="pinImageWrapper " style="background: #c9b4a3;">
 													<h4 class="pinDomain">
 														prettyhandygirl.com
 													</h4>
@@ -155,6 +155,7 @@
 		<script>
 			BoardLayout.setup();
 			PinEvent.initBind();
+			WelcomeBoard.init();
 		</script>
 	</body>
 </html>

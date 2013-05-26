@@ -51,6 +51,23 @@ public class OwnClipController extends BaseController {
 	@Resource(name="ownUserFollowService")
 	private OwnUserFollowService ownUserFollowService;
 	
+	@RequestMapping(value="findOnlyClipInfo")
+	public String findOnlyClipInfo(HttpServletRequest request, ModelMap map, OwnClip ownClip){
+		OwnClip oc = ownClipService.findOwnClip(ownClip);
+		map.put("oc", oc);
+		return "/include/clipInfo";
+	}
+	
+	/**
+	 * 关键字查询clipp or board 数据
+	 * @param request
+	 * @param map
+	 * @param ownClip
+	 * @param p
+	 * @param flag
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/searchKeywordClip.h")
 	public String searchKeywordClip(HttpServletRequest request, ModelMap map, OwnClip ownClip, String p, String flag) throws Exception{
 		OwnBoard ownBoard = new OwnBoard();

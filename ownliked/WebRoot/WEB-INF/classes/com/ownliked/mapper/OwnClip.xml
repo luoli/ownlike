@@ -177,8 +177,10 @@
 			0, 100
 		</trim>
 	</select>
-	<select id="findOwnClip" parameterType="ownClip" resultType="ownClip">
-		SELECT * FROM own_clip t WHERE t.id = #{id}
+	<select id="findOwnClip" parameterType="ownClip" resultType="commentByOwnClipMap">
+		SELECT * FROM own_clip t
+		LEFT JOIN own_liked l ON t.id = l.clipId 
+		WHERE t.id = #{id}
 	</select>
 	
 	<insert id="insertOwnClip" parameterType="ownClip" useGeneratedKeys="true" keyProperty="id">

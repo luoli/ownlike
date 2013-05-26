@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="Module Closeup canClose" style="min-height: 333px;">
 	<button class="Button borderless close visible" style="right: 31px;">
 		<em></em>&nbsp;
@@ -7,35 +8,50 @@
 		<div class="PinActionBar ajax Module" style="display: block;">
 			<div class="moduleMask"></div>
 			<div class="repinLike">
-				<button type="button"
-					class="medium rounded ShowModalButton Button primary Module repin leftRounded pinIt ajax primaryOnHover btn">
+				<button type="button" class="medium rounded ShowModalButton Button primary Module primaryOnHover btn repin">
 					<em></em>
-					<span class="accessibilityText">Pin it</span>
+					<span class="accessibilityText">Clip it</span>
 				</button>
-				<button type="button"
-					class="hasText medium rounded NavigateButton Button primary IncrementingNavigateButton ajax repinLikeNavigateButton Module btn">
-					<span class="buttonText">1</span>
+				<button type="button" class="hasText medium rounded NavigateButton Button primary IncrementingNavigateButton ajax repinLikeNavigateButton Module <c:if test="${oc.reclipNum <= 0 }">hidden</c:if> btn">
+					<span class="buttonText">${oc.reclipNum }</span>
 				</button>
-				<button data-text-unlike="Unlike" data-text-like="Like"
-					type="button"
-					class="medium rounded PinLikeButton Button hasText Module ajax btn like">
-					<em></em>
-					<span class="buttonText">Like</span>
-				</button>
-				<button type="button"
-					class="medium rounded NavigateButton Button IncrementingNavigateButton ajax Module repinLikeNavigateButton like hidden btn">
+				<c:choose>
+					<c:when test="${!empty(oc.ownLikeds) && OWNUSERLOGIN != null}">
+						<c:forEach items="${oc.ownLikeds}" var="ol">
+							<c:choose>
+								<c:when test="${ol.userId == OWNUSERLOGIN.id }">
+									<button data-text-unlike="Unlike" data-text-like="Like" data-id="${oc.id}" data-userId="${oc.userId}" type="button" class="medium rounded PinLikeButton Button hasText Module ajax btn like unlikebutton">
+										<em></em>
+										<span class="buttonText">Unlike</span>
+									</button>
+								</c:when>
+								<c:otherwise>
+									<button data-text-unlike="Unlike" data-text-like="Like" data-id="${oc.id}" data-userId="${oc.userId}" type="button" class="medium rounded PinLikeButton Button hasText Module ajax btn like likebutton">
+										<em></em>
+										<span class="buttonText">Like</span>
+									</button>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<button data-text-unlike="Unlike" data-text-like="Like" data-id="${oc.id}" data-userId="${oc.userId}" type="button" class="medium rounded PinLikeButton Button hasText Module ajax btn like likebutton">
+							<em></em>
+							<span class="buttonText">Like</span>
+						</button>
+					</c:otherwise>
+				</c:choose>
+				<button type="button" class="medium rounded NavigateButton Button IncrementingNavigateButton ajax Module repinLikeNavigateButton like <c:if test="${oc.likeNum <= 0 }">hidden</c:if> btn">
 					&nbsp;
 				</button>
-				<a
-					href="http://www.bhg.com/rooms/home-office/accessories/affordable-home-office-decorating/#page=6"
-					type="button"
-					class="website medium rounded NavigateButton Button hasText Module ajax btn">
-					<em></em> <span class="buttonText">Website</span> </a>
+				<a href="${oc.image }" type="button" class="website medium rounded NavigateButton Button hasText Module ajax btn">
+					<em></em>
+					<span class="buttonText">Website</span>
+				</a>
 			</div>
 			<div class="shareGear">
 				<div class="ajax HoverButton Module" data-is-hovering="">
-					<button type="button"
-						class="medium rounded Button share hasText Module ajax btn">
+					<button type="button" class="medium rounded Button share hasText Module ajax btn">
 						<em></em>
 						<span class="buttonText">Share</span>
 					</button>
@@ -51,16 +67,16 @@
 					<div class="boardHeader">
 						<div class="thumb hasText Module ajax boardRepTitle User">
 							<a href="/nesspie/things-for-my-house/"> <span
-								class="thumbImageWrapper"> <img
-										src="http://media-cache-ec2.pinimg.com/avatars/nesspie-1364605262_75.jpg"
-										alt="Profile image of Nessa Pie"> </span>
+								class="thumbImageWrapper"> <img src="${oc.image }" alt="Profile image of Nessa Pie"> </span>
 								<div class="title">
-									things for my house
-								</div> <span class="fullname">Nessa Pie</span> </a>
+									${oc.boardName }
+								</div>
+								<span class="fullname">${oc.userName }</span>
+							</a>
 						</div>
 					</div>
 					<div class="pinGridWrapper">
-						<div class="ajax Grid Module" style="">
+						<div class="ajax Grid Module">
 							<div class="moduleMask"></div>
 							<div class="trackActiveItem padItems Module ajax GridItems variableHeightLayout" style="width: 216px; height: 1496px;">
 								<div class="item" tabindex="1" style="top: 0px; left: 0px; visibility: visible;">

@@ -55,7 +55,7 @@
 								</div>
 								<ul class="counts">
 									<li>
-										<a href="/nesspie/things-for-my-house/pins/" class="active">${ownBoard.clipNum } Pins </a>
+										<a href="/nesspie/things-for-my-house/pins/" class="active">${clipNum } Pins </a>
 									</li>
 									<li>
 										<a href="/nesspie/things-for-my-house/followers/">127 Followers</a>
@@ -68,7 +68,7 @@
 						</div>
 						<div id="wrapper" class="hasFooter ajax Grid Module">
 							<div class="moduleMask"></div>
-							<div id="columnContainer" class="padItems Module centeredWithinWrapper ajax GridItems variableHeightLayout boardLayout" style="height: 4439px;">
+							<div id="columnContainer" class="padItems Module centeredWithinWrapper ajax GridItems variableHeightLayout boardLayout" style="height: 4439px; margin: 0px auto;">
 							<c:forEach items="${ownBoard.clipList}" var="v">
 								<div class="item pin" style="visibility: visible;">
 									<div class="ajax Pin Module summary">
@@ -108,8 +108,12 @@
 											<div class="pinMeta">
 												<p class="pinDescription">${v.description }</p>
 												<div class="pinSocialMeta">
+													<c:if test="${v.reclipNum != 0 }">
 						                            <a class="socialItem" href="#">${v.reclipNum } repins</a>
+						                            </c:if>
+						                            <c:if test="${v.likeNum != 0 }">
 						                            <a class="socialItem likes" href="/ownClip/searchClipByCurrentUser.h?userId=${ownBoard.ownUser.id}&filter=likes">${v.likeNum } likes</a>
+						                            </c:if>
 						                    	</div>
 											</div>
 											<div class="pinUserAttribution">

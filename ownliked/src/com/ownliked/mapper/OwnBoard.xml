@@ -43,7 +43,7 @@
 <!--  根据board信息查询板块与clip	-->
 	<select id="findBoardInfoAndClip" parameterType="ownBoard" resultMap="boardInfoAndOwnClipMap">
 		SELECT b.id, b.boardName, b.clipNum, 
-			c.id cid, c.description, c.image, c.viaUrl, c.link, c.likeNum, c.reclipNum, c.commentNum 
+			c.id cid, c.description, c.image, c.viaUrl, c.link, c.likeNum, c.reclipNum, c.commentNum,
 			u.`id` uid, u.`firstName` ufirstName, u.`lastName` ulastName, u.`image` uimage,
 			l.id lid, l.clipId lclipId, l.userId luserId, l.byUserId lByUserId 
 			FROM own_board b 

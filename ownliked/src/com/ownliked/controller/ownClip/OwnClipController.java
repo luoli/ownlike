@@ -56,10 +56,12 @@ public class OwnClipController extends BaseController {
 		OwnBoard ownBoard = new OwnBoard();
 		ownBoard.setParentId(-1);
 		if(StringUtils.isNotEmpty(p)){
-			ownClip.setDescription(new String(p.getBytes("iso-8859-1"), "utf-8"));
+			p = new String(p.getBytes("iso-8859-1"), "utf-8");
+			ownClip.setDescription(p);
 		}
 		List<OwnClip> ownClips = ownClipService.queryOwnClipByComment(ownClip);
 		map.put("ownClips", ownClips);
+		map.put("p", p);
 		map.put("selector", "news");
 		return "/search/search";
 	}

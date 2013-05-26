@@ -37,6 +37,9 @@ public class OwnBoardController extends BaseController {
 		ownBoard.setId(boId);
 		OwnBoard obResult = this.ownBoardService.findBoardInfoAndClip(ownBoard);
 		map.put("ownBoard", obResult);
+		if(null != obResult){
+			map.put("clipNum", obResult.getClipList().size());
+		}
 		return "/board/welcomeBoard";
 	}
 	

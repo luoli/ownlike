@@ -177,10 +177,16 @@
 			0, 100
 		</trim>
 	</select>
-	<select id="findOwnClip" parameterType="ownClip" resultType="commentByOwnClipMap">
-		SELECT * FROM own_clip t
-		LEFT JOIN own_liked l ON t.id = l.clipId 
-		WHERE t.id = #{id}
+	<select id="findOwnClip" parameterType="ownClip" resultMap="commentByOwnClipMap">
+		SELECT c.id,c.userId,c.description,c.boardId,c.image,c.link,c.cover,c.commentNum,c.likeNum,c.reclipNum,c.createTime,
+		c.deleted,c.viaUrl,c.reclipDescription,c.boardName,c.userName,c.userImage,c.uuid,clipType,previousId,
+		l.id lid, l.clipId lclipId, l.userId luserId, l.byUserId lByUserId,
+		t.id tid,t.clipId tclipId,t.userId tuserId,t.commentText tcommentText,
+		u.id uid,u.image uimage,u.firstName ufirstName,u.lastName ulastName FROM own_clip c 
+		LEFT JOIN own_liked l ON c.id = l.clipId
+		LEFT JOIN own_comment t ON c.id = t.clipId 
+		LEFT JOIN own_user u ON t.userId = u.id  
+		WHERE c.id = #{id} ORDER BY t.createTime DESC
 	</select>
 	
 	<insert id="insertOwnClip" parameterType="ownClip" useGeneratedKeys="true" keyProperty="id">

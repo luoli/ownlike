@@ -31,6 +31,18 @@ public class OwnBoardController extends BaseController {
 	@Resource(name="ownUserService")
 	private OwnUserService ownUserService;
 	
+	@RequestMapping(value="/searchBoardModule.h")
+	public String searchBoardModule(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		OwnUser ownUserSession = getSessionUser(request);
+		if(null != ownUserSession){
+			OwnBoard myOwnBoard = new OwnBoard();
+			myOwnBoard.setUserId(ownUserSession.getId());
+			List<OwnBoard> obList = ownBoardService.queryOwnUserBoard(myOwnBoard);
+			request.setAttribute("obList", obList);
+		}
+		return "/include/reClipModule";
+	}
+	
 	@RequestMapping(value="/findBoardInfoAndClip.h")
 	public String findBoardInfoAndClip(HttpServletRequest request, HttpServletResponse response, int boId, ModelMap map)throws Exception{
 		OwnBoard ownBoard = new OwnBoard();

@@ -17,7 +17,7 @@
 		<link rel="stylesheet" href="/css/public.css" type="text/css"/>
 		<link rel="stylesheet" href="/css/head/head.css" type="text/css"/>
 		<link rel="stylesheet" href="/css/new_myboard.css" type="text/css">
-		<link rel="stylesheet" href="/css/flip.css" type="text/css">
+<!-- 		<link rel="stylesheet" href="/css/flip.css" type="text/css"> -->
 	</head>
 	<body>
 		<div id=header><%@include file="/view/jsp/include/head.jsp" %></div>
@@ -148,6 +148,7 @@
 			</div>
 		</div>
 		<%@ include file="/view/jsp/include/clipModel.jsp" %>
+		<%@ include file="/view/jsp/include/reClipModule.jsp" %>
 		<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
 		<script type="text/javascript" src="/js/head/head.js"></script>
 		<script type="text/javascript" src="/js/comm/ajaxfileupload.js"></script>

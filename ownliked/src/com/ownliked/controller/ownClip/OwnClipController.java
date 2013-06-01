@@ -51,10 +51,21 @@ public class OwnClipController extends BaseController {
 	@Resource(name="ownUserFollowService")
 	private OwnUserFollowService ownUserFollowService;
 	
+	/**
+	 * 显示clipinfo详细信息
+	 * @param request
+	 * @param map
+	 * @param ownClip
+	 * @return
+	 */
 	@RequestMapping(value="findOnlyClipInfo")
 	public String findOnlyClipInfo(HttpServletRequest request, ModelMap map, OwnClip ownClip){
 		OwnClip oc = ownClipService.findOwnClip(ownClip);
 		map.put("oc", oc);
+		OwnBoard ownBoard = new OwnBoard();
+		ownBoard.setId(oc.getBoardId());
+		OwnBoard obResult = this.ownBoardService.findBoardInfoAndClip(ownBoard);
+		map.put("ownBoard", obResult);
 		return "/include/clipInfo";
 	}
 	
@@ -282,6 +293,10 @@ public class OwnClipController extends BaseController {
 		String firstName = sessionUser.getFirstName();
 		ownClip.setUserName(firstName!=null?firstName+" ":"" + sessionUser.getLastName());
 		ownClip.setUserImage(sessionUser.getImage());
+		if(null == ownClip.getLink() || ownClip.getLink().equals("")){
+			ownClip.setLink(ownClip.getImage());
+			ownClip.setViaUrl("User upload.");
+		}
 		int result = this.getOwnClipService().insertOwnClip(ownClip);
 		if(result > 0){
 			OwnClip paramOwnClip = new OwnClip();
@@ -328,6 +343,10 @@ public class OwnClipController extends BaseController {
 		String firstName = sessionUser.getFirstName();
 		ownClip.setUserName(firstName!=null?firstName+" ":"" + sessionUser.getLastName());
 		ownClip.setUserImage(sessionUser.getImage());
+		if(null == ownClip.getLink() || ownClip.getLink().equals("")){
+			ownClip.setLink(ownClip.getImage());
+			ownClip.setViaUrl("User upload.");
+		}
 		int result = this.getOwnClipService().insertOwnClip(ownClip);
 		if(result > 0){
 			OwnClip paramOwnClip = new OwnClip();

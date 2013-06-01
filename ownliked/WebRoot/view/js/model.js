@@ -25,6 +25,87 @@ $(function(){
 		window.myBoards = data.obList;
 	}).fail(function(e){console.log(e);});
 });
+var WelcomeBoard = function(){
+	return {
+		init : function(){
+			var t = this;
+			$(".item .pinImageWrapper").on("click", function(){
+				var url = $(this).attr("href");
+				var params = {};
+				$.ajax({
+					url : url,
+					data : params,
+					dataType : "html",
+					type : "POST"
+				}).done(function(data){
+					document.body.style.overflow = 'hidden';
+					$(".appendedContainer").html(data);
+				}).fail(function(e){console.log(e);});
+				return !1;
+			});
+			t.commentBtnDis();
+			$(document).on("click", ".close", function(){
+				document.body.style.overflow = 'scroll';
+				$(".appendedContainer").html("");
+			});
+			$(document).on("click", ".PinActionBar .repin_link", function(){
+				var url = contextPath+"";
+				params = {};
+				$.ajax({
+					url : url,
+					data : params,
+					dataType : "json",
+					type : "POST"
+				}).done(function(data){
+					$(".Module .modalModule").html(data);
+				}).fail(function(e){console.log(e);});
+			});
+		},
+		commentBtnDis : function(){
+			var t = this;
+			$(document).on("focus", ".addCommentForm textarea", function(){
+				var btn = $(this).parents("form").find("button");
+				btn.show();
+				btn.off("click").on("click", function(){
+					btn.hide();
+					var curTex = $(".addCommentForm textarea");
+					var te = $(".addCommentForm");
+					if(curTex.val() == ""){
+						return;
+					}
+					t.submitComment(curTex, $("#id_clipId").val(), $("#id_byUserId").val());
+				});
+			});
+		},
+		submitComment : function(tex, clipId, byUserId){
+			var te = $(".pinUserCommentBox");
+			$.ajax({
+				url : contextPath+"/ownComment/insertComment.h",
+				type : "POST",
+				data : {"commentText" : tex.val(), "clipId" : clipId, "byUserId" : byUserId},
+				dataType : "json",
+				success : function(result){
+					if(result.status == "error"){
+						console.log("error");
+					}else if(result.status == "success"){
+						var str = '<div class="pinDescriptionComment detailed">' +
+										'<a class="userThumbContainer" href="ownBoard/searchBoardByOwnUser.h?userId='+result.id+'" class="imgLink"><img class="userThumb" src="'+result.image+'" alt="'+result.name+'"/></a>'+
+										'<div class="commenterNameCommentText">'+
+											'<div class="commenterWrapper">'+
+												'<a class="commentDescriptionCreator" href="ownBoard/searchBoardByOwnUser.h?userId='+result.id+'">'+result.name+'</a>'+
+											'</div>'+
+											'<p class="commentDescriptionContent">'+tex.val()+'</p>'+
+										'</div>' +
+									'</div>';
+						$(te).before(str);
+						tex.val("");
+					}
+				},
+				error : function(e){}
+			});
+		}
+	};
+}();
 var ZoomHolder = function(){
 	return {
 		openHolder : function(t){
@@ -224,8 +305,8 @@ var PinEvent = function(){
 			$("#search input").on("keydown", function(e){
 				if(e.keyCode == 13){
 					p.searchKeyword();
+					return !1;
 				}
-				return !1;
 			});
 		  	/**执行方法*/
 		  	function userFollow(t, flag){
@@ -523,7 +604,11 @@ var PinEvent = function(){
 			});
 		},
 		searchKeyword : function(){
-			$("#search form").submit();
+			//$("#search form").submit();
+			console.log($("#search input").val());
+			var url = $("#search form").attr("action")+encodeURIComponent($("#search input").val());
+			console.log(url);
+			window.location.href=url;
 		}
 	};
 }();

@@ -148,7 +148,7 @@
 			</div>
 		</div>
 		<%@ include file="/view/jsp/include/clipModel.jsp" %>
-		<%@ include file="/view/jsp/include/reClipModule.jsp" %>
+		<%@ include file="/view/jsp/include/Module.jsp" %>
 		<script type="text/javascript" src="/js/comm/jquery-1.7.2.js"></script>
 		<script type="text/javascript" src="/js/head/head.js"></script>
 		<script type="text/javascript" src="/js/comm/ajaxfileupload.js"></script>

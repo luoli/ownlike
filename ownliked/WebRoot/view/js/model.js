@@ -49,17 +49,90 @@ var WelcomeBoard = function(){
 				$(".appendedContainer").html("");
 			});
 			$(document).on("click", ".PinActionBar .repin_link", function(){
-				var url = contextPath+"";
+				var cur = this;
+				var url = contextPath+"/ownBoard/searchBoardModule.h";
 				params = {};
 				$.ajax({
 					url : url,
 					data : params,
-					dataType : "json",
+					dataType : "html",
 					type : "POST"
 				}).done(function(data){
-					$(".Module .modalModule").html(data);
+					$(".Module .modalModule").html(data).parents(".Module").show();
+					$(".boardPickerOuter .currentBoard").attr("data-id", $(cur).attr("data-boardId"));
+					$(".boardPickerOuter .currentBoardName").html($(cur).attr("data-boardName"));
+					$("#pinFormDescription").val($(".modalContainer .pinDescription .commentDescriptionContent").html());
+					$(".boardPickerOuter").on("click", function(){
+						$(".boardPickerInnerWrapper").addClass("visible");
+						$(".BoardPicker").append('<div class="boardPickerMask"></div>');
+						$(".BoardPicker .boardPickerMask").on("click", function(){
+							console.log("BoardPicker click");
+							t.closeBoardPicker();
+						});
+					});
+					$(".closeModal").on("click", function(){
+						t.closePinForm();
+					});
+					var pinForm = $(".PinForm");
+					pinForm.on("click", function(e){
+						console.log("click");
+						e.stopPropagation();
+						return !1;
+					});
+					$("#id_PinCreate").on("click", function(e){
+						console.log(e);
+						if(e.currentTarget.id == "id_PinCreate"){
+							t.closePinForm();
+						}
+					});
+					$(".boardPickerItem", pinForm).on("click", function(){
+						var boardName = $(this).text();
+						var boardId = $(this).attr("data-id");
+						$(".boardPickerOuter .currentBoardName", pinForm).html(boardName);
+						$(".boardPickerOuter .currentBoard", pinForm).attr("data-id", boardId);
+						t.closeBoardPicker();
+					});
+					$(".createBoardButton", pinForm).on("click", function(){
+						var vn = $(".createBoardNameContainer input.createBoardName", pinForm).val();
+						console.log(vn);
+						if(vn == null || vn == ""){
+							
+							return;
+						}
+						var u = this;
+						$(u).addClass("disabled");
+						var data = vn;
+						$.ajax({
+							url : contextPath+"/ownBoard/insertOwnBoardByUser.h",
+							type : "POST",
+							data : {"boardName":data},
+							dataType : "json",
+							success : function(result){
+								if(result.status == "seccess"){
+									$(".boardPickerOuter .currentBoardName", pinForm).html(vn);
+									$(".boardPickerOuter .currentBoard", pinForm).attr("data-id", result.id);
+									t.closeBoardPicker();
+								}
+							},
+							error : function(e){}
+						});
+					});
+					$(".formFooter .cancelButton", pinForm).on("click", function(){
+						console.log("cancel");
+						t.closePinForm();
+					});
 				}).fail(function(e){console.log(e);});
 			});
+		},
+		closePinForm : function(){
+			$(".PinCreate").remove();
+			$(".Module#id_PinCreate").hide();
+			$(".boardPickerInnerWrapper").removeClass("visible");
+			$(".BoardPicker .boardPickerMask").remove();
+		},
+		closeBoardPicker : function(){
+			$(".boardPickerInnerWrapper").removeClass("visible");
+			$(".BoardPicker .boardPickerMask").remove();
 		},
 		commentBtnDis : function(){
 			var t = this;

@@ -8,7 +8,7 @@
 		<div class="PinActionBar ajax Module" style="display: block;">
 			<div class="moduleMask"></div>
 			<div class="repinLike">
-				<button type="button" data-id="${oc.id}" data-userId="${oc.userId}" class="medium rounded ShowModalButton Button primary Module primaryOnHover btn repin repin_link">
+				<button type="button" data-id="${oc.id}" data-boardName="${oc.boardName }" data-boardId="${oc.boardId }" data-userId="${oc.userId}" class="medium rounded ShowModalButton Button primary Module primaryOnHover btn repin repin_link">
 					<em></em>
 					<span class="accessibilityText">Clip it</span>
 				</button>

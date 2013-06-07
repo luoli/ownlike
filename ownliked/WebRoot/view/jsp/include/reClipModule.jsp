@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="ajax PinCreate Module inModal" style="display: block;">
 	<div class="moduleMask"></div>
@@ -15,7 +15,7 @@
 					</h3>
 					<div>
 						<div class="ajax medium BoardPicker Module">
-							<div class="boardPickerInnerWrapper visible">
+							<div class="boardPickerInnerWrapper">
 								<div class="createBoard">
 									<button type="button"
 										class="rounded createBoardButton Button hasText Module ajax btn">
@@ -39,16 +39,15 @@
 								</div>
 							</div>
 							<div class="boardPickerOuter">
-								<div class="currentBoard" data-id="57772876408870729" data-privacy="public" data-collaborative="">
+								<div class="currentBoard" data-id="${oc.boardId }" data-privacy="public" data-collaborative="">
 									<div class="iconWrapper">
 										<span class="secretIcon hidden"></span> 
 										<span class="collaborativeIcon hidden"></span> 
 										<span class="downArrow"></span>
 									</div>
-									<span class="currentBoardName">wife of</span>
+									<span class="currentBoardName"></span>
 								</div>
 							</div>
-							<div class="boardPickerMask"></div>
 						</div>
 					</div>
 				</li>
